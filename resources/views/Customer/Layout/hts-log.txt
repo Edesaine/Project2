@@ -1,0 +1,71 @@
+HTTrack3.49-2+htsswf+htsjava launched on Fri, 15 Mar 2024 15:26:25 at https://templatekit.jegtheme.com/docbook/ +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://templatekit.jegtheme.com/docbook/ -O1 "C:\xampp\htdocs\Project2\resources\views\Customer\Layout" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+15:27:47	Error: 	"Forbidden" (403) at link https://templatekit.jegtheme.com/docbook/xmlrpc.php (from https://templatekit.jegtheme.com/docbook/)
+15:28:35	Error: 	"Forbidden" (403) at link https://templatekit.jegtheme.com/docbook/xmlrpc.php?rsd (from https://templatekit.jegtheme.com/docbook/)
+15:33:39	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=1062
+15:33:39	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=1062 to https://templatekit.jegtheme.com/docbook/shop-page/
+15:33:59	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=1472
+15:33:59	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=1472 to https://templatekit.jegtheme.com/docbook/book-details/
+15:34:18	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=910
+15:34:18	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=910 to https://templatekit.jegtheme.com/docbook/about/
+15:34:18	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=1156
+15:34:18	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=1156 to https://templatekit.jegtheme.com/docbook/faq/
+15:34:18	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=1145
+15:34:18	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=1145 to https://templatekit.jegtheme.com/docbook/authors/
+15:34:18	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=1186
+15:34:18	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=1186 to https://templatekit.jegtheme.com/docbook/blog/
+15:34:41	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=724
+15:34:41	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=724 to https://templatekit.jegtheme.com/docbook/2022/05/20/how-to-become-a-beginner-book-writer/
+15:34:44	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=1198
+15:34:44	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=1198 to https://templatekit.jegtheme.com/docbook/contact/
+15:34:44	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=7
+15:34:44	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=7 to https://templatekit.jegtheme.com/docbook/cart/
+15:35:02	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=42
+15:35:02	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=42 to https://templatekit.jegtheme.com/docbook/product/aenean-art-design/
+15:35:03	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=44
+15:35:03	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=44 to https://templatekit.jegtheme.com/docbook/product/aenean-typography/
+15:35:04	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=37
+15:35:04	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=37 to https://templatekit.jegtheme.com/docbook/product/art-of-life-vol-16/
+15:35:05	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=35
+15:35:05	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=35 to https://templatekit.jegtheme.com/docbook/product/book-of-psalms/
+15:35:05	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=31
+15:35:05	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=31 to https://templatekit.jegtheme.com/docbook/product/cereal-vol-14-2019/
+15:35:05	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=33
+15:35:05	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=33 to https://templatekit.jegtheme.com/docbook/product/design-anthology/
+15:35:05	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=43
+15:35:05	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=43 to https://templatekit.jegtheme.com/docbook/product/fluid-color-design/
+15:35:05	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=39
+15:35:05	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=39 to https://templatekit.jegtheme.com/docbook/product/geometric-vol-01/
+15:35:06	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=40
+15:35:06	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=40 to https://templatekit.jegtheme.com/docbook/product/geometric-vol-02/
+15:35:09	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=38
+15:35:09	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=38 to https://templatekit.jegtheme.com/docbook/product/pilus-journey/
+15:35:10	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=30
+15:35:10	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=30 to https://templatekit.jegtheme.com/docbook/product/psychology-of-money/
+15:35:10	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=725
+15:35:10	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=725 to https://templatekit.jegtheme.com/docbook/2022/05/20/7-books-to-fight-laziness-boredom/
+15:35:15	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=726
+15:35:15	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=726 to https://templatekit.jegtheme.com/docbook/2022/05/20/jenny-oprahs-latest-book-club-pick/
+15:35:18	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=41
+15:35:18	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=41 to https://templatekit.jegtheme.com/docbook/product/geometric-vol-03/
+15:35:18	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=32
+15:35:18	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=32 to https://templatekit.jegtheme.com/docbook/product/how-innovation-works/
+15:35:18	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=36
+15:35:18	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=36 to https://templatekit.jegtheme.com/docbook/product/modern-life-hacks/
+15:35:19	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=34
+15:35:19	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=34 to https://templatekit.jegtheme.com/docbook/product/rucksack-vol-02/
+15:35:20	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=727
+15:35:20	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=727 to https://templatekit.jegtheme.com/docbook/2022/05/20/behind-the-scenes-with-special-author/
+15:35:23	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=728
+15:35:23	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=728 to https://templatekit.jegtheme.com/docbook/2022/05/20/top-10-books-to-make-your-better/
+15:35:23	Warning: 	Moved Permanently for https://templatekit.jegtheme.com/docbook/?p=720
+15:35:23	Warning: 	File has moved from https://templatekit.jegtheme.com/docbook/?p=720 to https://templatekit.jegtheme.com/docbook/2022/05/20/author-special-q-a-with-jessica-grey/
+
+HTTrack Website Copier/3.49-2 mirror complete in 9 minutes 5 seconds : 567 links scanned, 535 files written (55790287 bytes overall) [22744311 bytes received at 41732 bytes/sec], 55135283 bytes transferred using HTTP compression in 531 files, ratio 39%, 28.3 requests per connection
+(2 errors, 58 warnings, 0 messages)

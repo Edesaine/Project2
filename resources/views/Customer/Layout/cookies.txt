@@ -1,0 +1,6 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+templatekit.jegtheme.com	TRUE	/	FALSE	1999999999	woocommerce_items_in_cart	1
+templatekit.jegtheme.com	TRUE	/	FALSE	1999999999	wp_woocommerce_session_c2f45bb9bc33fe365fa4993ead6f753e	t_ed289cd02999e95c519e405ecdf144%7C%7C1710663882%7C%7C1710660282%7C%7C03b31968b7ab600a70dbb7ad7552632b
+templatekit.jegtheme.com	TRUE	/	FALSE	1999999999	woocommerce_cart_hash	18953d4861070b81d2bdb214e6c9a615
+
