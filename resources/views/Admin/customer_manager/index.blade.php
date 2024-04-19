@@ -6,18 +6,28 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-</head>
-<body>
-@if(session('status'))
-    <div class="alert alert-success">{{session('status')}}</div>
-@endif
-<button type="button" class="btn btn-secondary " style="height:40px" data-toggle="modal" data-target="#myModal">
-    ADD A CUSTOMER
-</button>
+    <link href="{{asset('css/font-face.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/font-awesome-4.7/css/font-awesome.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/font-awesome-5/css/fontawesome-all.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/mdi-font/css/material-design-iconic-font.min.css')}}" rel="stylesheet" media="all">
 
+    <!-- Bootstrap CSS-->
+    <link href="{{asset('vendor/bootstrap-4.1/bootstrap.min.css')}}" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="{{asset('vendor/animsition/animsition.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/wow/animate.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/css-hamburgers/hamburgers.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/slick/slick.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/select2/select2.min.css')}}" rel="stylesheet" media="all">
+    <link href="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.css')}}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{{asset('css/theme.css')}}" rel="stylesheet" media="all">
+
+</head>
+<body class="animsition">
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -27,7 +37,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form  enctype='multipart/form-data' action="{{url('customer')}}" method="POST">
+                <form  enctype='multipart/form-data' action="{{url('customer/index')}}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="name">Customer Name:</label>
@@ -65,11 +75,32 @@
         </div>
     </div>
 </div>
+<div class="page-wrapper">
+
+    <!-- MENU SIDEBAR-->
+
+
+    @include('admin.layouts.sidebar')
+    <!-- END MENU SIDEBAR-->
+
+    <!-- PAGE CONTAINER-->
+    <div class="page-container">
+        <!-- HEADER DESKTOP-->
+        @include('admin.layouts.header')
+        <!-- MAIN CONTENT-->
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+<button type="button" class="btn btn-secondary " style="height:40px" data-toggle="modal" data-target="#myModal">
+    ADD A CUSTOMER
+</button>
+
     <table cellpadding="2px" style="" class="table table-bordered table-striped">
         <tr style="height: 10px">
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Password</th>
             <th>Phone</th>
             <th>Gender</th>
             <th>Address</th>
@@ -82,6 +113,9 @@
                 <td>{{$customer->id}}</td>
                 <td>{{$customer->name}}</td>
                 <td>{{$customer->email}}</td>
+                <td>
+                    <div style="width:100px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap; ">{{$customer->password}}</div>
+                </td>
                 <td>{{$customer->phone}}</td>
                 <td>
                     @if($customer->gender==1)
@@ -92,16 +126,48 @@
                     @endif
                    </td>
                 <td>{{$customer->address}}</td>
-                
+                <td>
+                    @if($customer->account_status==1)
+                        <span style="color: #00b26f;font-weight: bold">Active</span>
+                    @endif
+                    @if($customer->account_status==0)
+                       <span style="color: #dc3545;font-weight: bold"> Blocked</span>
+                    @endif
+                </td>
 
                 <td></td>
             </tr>
         @endforeach
     </table>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Jquery JS-->
+<script src="{{asset('vendor/jquery-3.2.1.min.js')}}"></script>
+<!-- Bootstrap JS-->
+<script src="{{asset('vendor/bootstrap-4.1/popper.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
+<!-- Vendor JS       -->
+<script src="{{asset('vendor/slick/slick.min.js')}}">
+</script>
+<script src="{{asset('vendor/wow/wow.min.js')}}"></script>
+<script src="{{asset('vendor/animsition/animsition.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}">
+</script>
+<script src="{{asset('vendor/counter-up/jquery.waypoints.min.js')}}"></script>
+<script src="{{asset('vendor/counter-up/jquery.counterup.min.js')}}">
+</script>
+<script src="{{asset('vendor/circle-progress/circle-progress.min.js')}}"></script>
+<script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+<script src="{{asset('vendor/chartjs/Chart.bundle.min.js')}}"></script>
+<script src="{{asset('vendor/select2/select2.min.js')}}">
+</script>
+
+<!-- Main JS-->
+<script src="{{asset('js/main.js')}}"></script>
+
 </body>
 </html>

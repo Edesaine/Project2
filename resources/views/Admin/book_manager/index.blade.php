@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Author</title>
+    <title>Book</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,29 +49,51 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-<h1 style="text-align: center">Author</h1>
-<a href="{{url('author/create')}}" class="btn btn-outline-dark">Add Author</a>
-<table class="table">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Country</th>
-        <td></td>
-    </tr>
-    @foreach($authors as $author)
-    <tr>
+                    <h1 style="text-align: center">Book</h1>
+                    <a href="{{url('book/create')}}" class="btn btn-outline-dark">Add Book</a>
+                    <table class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Description</th>
+                            <th>Print Length</th>
+                            <th>Status</th>
+                            <th>Publisher</th>
+                            <td></td>
+                        </tr>
+                        @foreach($books as $book)
+                            <tr>
 
-            <td>{{$author->id}}</td>
-            <td>{{$author->name}}</td>
-            <td>{{$author->country}}</td>
-            <td>
-                <a href="{{url('author/'.$author->id.'/edit')}}" class="btn btn-primary">Edit</a>
-                <a href="{{url('author/'.$author->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
-            </td>
+                                <td>{{$book->id}}</td>
+                                <td>{{$book->name}}</td>
+                                <td>
+                                    <div style="width: 100px"><img  src="{{ asset($book->image) }}" style="width: 100px;height:150px" alt=""></div>
+                                </td>
+                                <td>{{$book->price}}$</td>
+                                <td>{{$book->quantity}}</td>
+                                <td >
+                                    <div style="width:100px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap">{{$book->description}}</div></td>
+                                <td>{{$book->NumberOfPages}}</td>
+                                <td>
+                                    @if($book->status == 0)
+                                        On Stock
+                                    @endif
+                                    @if($book->status == 1)
+                                            Unavailable
+                                    @endif
+                                </td>
+                                <td>{{$book->publisher}}</td>
+                                <td>
+                                    <a href="{{url('book/'.$book->id.'/edit')}}" class="btn btn-primary">Edit</a>
+                                    <a href="{{url('book/'.$book->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                </td>
 
-    </tr>
-    @endforeach
-</table>
+                            </tr>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>
