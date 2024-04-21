@@ -1,15 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Required meta tags-->
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Author</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Title Pagg-->
+    <title>Category</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
     <!-- Fontfaces CSS-->
     <link href="{{asset('css/font-face.css')}}" rel="stylesheet" media="all">
     <link href="{{asset('vendor/font-awesome-4.7/css/font-awesome.min.css')}}" rel="stylesheet" media="all">
@@ -49,38 +53,34 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-@if(session('status'))
-<div class="alert alert-success">{{session('status')}}</div>
-@endif
-<div class="row">
-<h3 class="col-2 offset-5" style="text-align:center ">ADD AUTHOR</h3>
-<a href="/author" class="col-1 offset-4 btn btn-primary">Back</a>
-</div>
-<form action="{{ url('author/create') }}" method="POST">
-    @csrf
-    <label>Name</label>
-    <input type="text" name="name" class="form-control">
-    @error('name')
-    <span class="text-danger">{{$message}}</span>
-    @enderror
-    <br>
-    <label>Country</label>
-    <input type="text" name="country" class="form-control">
-    @error('country')
-    <span class="text-danger">{{$message}}</span>
-    @enderror
-    <br>
-    <div style="justify-content: center" class="row">
-    <button style="width: 100px"  class="btn btn-dark" type="submit">Save</button>
-    </div>
-</form>
+                    <h1 style="text-align: center">Category</h1>
+                    <a href="{{url('category/create')}}" class="btn btn-outline-dark">Add Category</a>
+                    <table  class="table table-light ">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                        @foreach($categories as $category)
+                            <tr>
 
+                                <td>{{$category->id}}</td>
+                                <td>{{$category->name}}</td>
+                                <td>
+                                    <a href="{{url('category/'.$category->id.'/edit')}}" class="btn btn-primary">Edit</a>
+                                    <a href="{{url('category/'.$category->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                </td>
+
+                            </tr>
+                        @endforeach
+
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+</div>
 <!-- Jquery JS-->
 <script src="{{asset('vendor/jquery-3.2.1.min.js')}}"></script>
 <!-- Bootstrap JS-->
@@ -107,3 +107,4 @@
 
 </body>
 </html>
+
