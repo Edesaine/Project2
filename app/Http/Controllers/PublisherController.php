@@ -9,11 +9,11 @@ class PublisherController extends Controller
     public function index()
     {
         $publishers = publisher::get();
-        return view('publisher.index',compact('publishers'));
+        return view('admin.publisher_manager.index',compact('publishers'));
     }
     public function create()
     {
-        return view('publisher.create');
+        return view('admin.publisher_manager.create');
     }
     public function store(Request $request)
     {
@@ -28,7 +28,7 @@ class PublisherController extends Controller
     public function edit(int $id)
     {
         $publishers = Publisher::findorFail($id);
-        return view('publisher.edit',compact('publishers'));
+        return view('admin.publisher_manager.edit',compact('publishers'));
     }
     public function update(Request $request,int $id)
     {

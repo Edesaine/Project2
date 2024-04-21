@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Requests\CustomerStoreRequest;
-use App\Requests\CustomerUpdateRequest;
+use App\Requests\UpdateCustomerRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Models\Customer;
@@ -29,16 +29,15 @@ class CustomerController extends Controller
             $array = Arr::add($array, 'email', $request->email);
             $array = Arr::add($array, 'password', Hash::make($request->password));
             $array = Arr::add($array, 'phone', $request->phone);
-            $array = Arr::add($array, 'gender', $request->gender);
             $array = Arr::add($array, 'address', $request->address);
-            $array = Arr::add($array, 'account_status', 1);
+            $array = Arr::add($array, 'status', 1);
             //Lấy dữ liệu từ form và lưu lên db
             Customer::create($array);
 
             return Redirect::route('Customer.account.login');
         } else {
             //cho quay về trang login
-            return Redirect::back('profile');
+            return Redirect::back();
         }
     }
 
@@ -66,47 +65,21 @@ class CustomerController extends Controller
         }
     }
 
-    public function logout()
-    {
-        Auth::guard('customer')->logout();
-        session()->forget('customer');
-        return view('Customer.account.logoutConfirm');
-    }
-
     public function editProfile()
     {
         //id cua customers dang dang nhap
-        $id = Auth::guard('customer')->user()->id;
+        $id = Auth::guard('customers')->user()->id;
         //lay ban ghi
         $customer = Customer::find($id);
-        return view('Customer.profiles.profile', [
-            'customer' => $customer
+        return view('Customer.account.login', [
+            'customers' => $customer
         ]);
-    }
-
-    public function updateProfile(Customer $request)
-    {
-        //Lấy dữ liệu trong form và update lên db
-        $array = [];
-        $array = Arr::add($array, 'name', $request->name);
-        $array = Arr::add($array, 'email', $request->email);
-        $array = Arr::add($array, 'phone', $request->phone);
-        $array = Arr::add($array, 'gender', $request->gender);
-        $array = Arr::add($array, 'address', $request->address);
-
-        //id cua customer dang dang nhap
-        $id = Auth::guard('customer')->user()->id;
-        //lay ban ghi
-        $customer = Customer::find($id);
-        $customer->update($array);
-        //Quay về danh sách
-        return Redirect::route('Customer.profiles.profile');
     }
 
     public function index()
     {
         $customers = Customer::get();
-        return view('customer.index', compact('customers'));
+        return view('admin.customer_manager.index', compact('customers'));
     }
     public function store(Request $request)
     {
@@ -123,12 +96,12 @@ class CustomerController extends Controller
             'name'=>$request->name,
             'email'=>$request->email,
             'phone'=>$request->phone,
-            'password'=>$request->password,
+            'password'=>Hash::make($request->password),
             'gender'=>$request->gender,
             'address'=>$request->address,
             'account_status' => $request->account_status == true ? 1:0,
         ]);
-        return redirect('customer')->with('status','Customer Added');
+        return redirect('customer/index')->with('status','Customer Added');
     }
     public function edit(int $id)
     {
@@ -144,7 +117,6 @@ class CustomerController extends Controller
             'password'=>'required|max:20|string',
             'gender'=>'required|max:1|int',
             'address'=>'required|max:255|string',
-            'account_status' => 'sometimes',
         ]);
         Customer::findorFail($id)->update([
             'name'=>$request->name,
@@ -153,7 +125,6 @@ class CustomerController extends Controller
             'password'=>$request->password,
             'gender'=>$request->gender,
             'address'=>$request->address,
-            'account_status' => $request->account_status == true ? 1:0,
         ]);
         return redirect()->back()->with('status','Customer Updated');
     }

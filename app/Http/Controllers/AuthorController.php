@@ -9,7 +9,7 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::get();
-        return view('author.index',compact('authors'));
+        return view('admin.author_manager.index',compact('authors'));
     }
     public function create()
     {
