@@ -24,22 +24,38 @@ Route::get('/layout', function () {
     return view('Customer.Layout.index');
 })->name('layout_page');
 
-Route::get('author/index',[\App\Http\Controllers\AuthorController::class,'index']);
-Route::get('author/create',[\App\Http\Controllers\AuthorController::class,'create']);
-Route::post('author/create',[\App\Http\Controllers\AuthorController::class,'store']);
-Route::get('author/{id}/edit',[\App\Http\Controllers\AuthorController::class,'edit']);
-Route::put('author/{id}/edit',[\App\Http\Controllers\AuthorController::class,'update']);
-Route::get('author/{id}/delete',[\App\Http\Controllers\AuthorController::class,'delete']);
+Route::get('author/index',[\App\Http\Controllers\AuthorController::class,'index'])->middleware('AdminLogged');
+Route::get('author/create',[\App\Http\Controllers\AuthorController::class,'create'])->middleware('AdminLogged');
+Route::post('author/create',[\App\Http\Controllers\AuthorController::class,'store'])->middleware('AdminLogged');
+Route::get('author/{id}/edit',[\App\Http\Controllers\AuthorController::class,'edit'])->middleware('AdminLogged');
+Route::put('author/{id}/edit',[\App\Http\Controllers\AuthorController::class,'update'])->middleware('AdminLogged');
+Route::get('author/{id}/delete',[\App\Http\Controllers\AuthorController::class,'delete'])->middleware('AdminLogged');
 
-Route::get('publisher/index',[\App\Http\Controllers\PublisherController::class,'index']);
-Route::get('publisher/create',[\App\Http\Controllers\PublisherController::class,'create']);
-Route::post('publisher/create',[\App\Http\Controllers\PublisherController::class,'store']);
-Route::get('publisher/{id}/edit',[\App\Http\Controllers\PublisherController::class,'edit']);
-Route::put('publisher/{id}/edit',[\App\Http\Controllers\PublisherController::class,'update']);
-Route::get('publisher/{id}/delete',[\App\Http\Controllers\PublisherController::class,'delete']);
+Route::get('publisher/index',[\App\Http\Controllers\PublisherController::class,'index'])->middleware('AdminLogged');
+Route::get('publisher/create',[\App\Http\Controllers\PublisherController::class,'create'])->middleware('AdminLogged');
+Route::post('publisher/create',[\App\Http\Controllers\PublisherController::class,'store'])->middleware('AdminLogged');
+Route::get('publisher/{id}/edit',[\App\Http\Controllers\PublisherController::class,'edit'])->middleware('AdminLogged');
+Route::put('publisher/{id}/edit',[\App\Http\Controllers\PublisherController::class,'update'])->middleware('AdminLogged');
+Route::get('publisher/{id}/delete',[\App\Http\Controllers\PublisherController::class,'delete'])->middleware('AdminLogged');
 
-Route::get('customer/index',[\App\Http\Controllers\CustomerController::class,'index']);
-Route::post('customer/index',[\App\Http\Controllers\CustomerController::class,'store']);
+Route::get('customer/index',[\App\Http\Controllers\CustomerController::class,'index'])->middleware('AdminLogged');
+Route::post('customer/index',[\App\Http\Controllers\CustomerController::class,'store'])->middleware('AdminLogged');
+
+Route::get('book/index',[\App\Http\Controllers\BookController::class,'index'])->middleware('AdminLogged');
+Route::get('book/create',[\App\Http\Controllers\BookController::class,'create'])->middleware('AdminLogged');
+Route::post('book/create',[\App\Http\Controllers\BookController::class,'store'])->middleware('AdminLogged');
+Route::get('book/{id}/edit',[\App\Http\Controllers\BookController::class,'edit'])->middleware('AdminLogged');
+Route::put('book/{id}/edit',[\App\Http\Controllers\BookController::class,'update'])->middleware('AdminLogged');
+Route::get('book/{id}/delete',[\App\Http\Controllers\BookController::class,'delete'])->middleware('AdminLogged');
+
+Route::get('/adminlogin', [App\Http\Controllers\AdminAuthController::class,'adminlogin']);
+Route::post('/adminlogin_process', [App\Http\Controllers\AdminAuthController::class,'loginprocess'])->name('loginprocess');
+Route::get('/logout', [App\Http\Controllers\AdminAuthController::class,'logout'])->middleware('AdminLogged');
+
+
+
+
+
 
 Route::middleware(LoginCheckingCustomer::class)->group(function () {
     Route::get('/profile', [CustomerController::class, 'editProfile'])->name('profile');
