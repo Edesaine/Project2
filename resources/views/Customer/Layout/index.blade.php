@@ -143,7 +143,7 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 				<div class="elementor-widget-container">
 			<style>/*! elementor - v3.17.0 - 08-11-2023 */
 .elementor-widget-image{text-align:center}.elementor-widget-image a{display:inline-block}.elementor-widget-image a img[src$=".svg"]{width:48px}.elementor-widget-image img{vertical-align:middle;display:inline-block}</style>													<a href="#">
-							<img width="800" height="164" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/logo-K5JKH6-e1653361097467.png" class="attachment-full size-full wp-image-480" alt="" decoding="async" />								</a>
+							<img width="800" height="164" src="{{asset('images/logo.png')}}" class="attachment-full size-full wp-image-480" alt="" decoding="async" />								</a>
 															</div>
 				</div>
 					</div>
@@ -190,7 +190,7 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 				<div class="elementor-widget-container">
 					<div class="elementor-icon-wrapper">
 			<a class="elementor-icon" href="templatekit.jegtheme.com/docbook/cart/index.html">
-			<i aria-hidden="true" class="jki jki-shopping-bag-1-light"></i>			</a>
+			<i aria-hidden="true" class="jki jki-shopping-bag-1-light"></i>	</a>
 		</div>
 				</div>
 				</div>
@@ -210,7 +210,7 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 			<div class="elementor-widget-wrap elementor-element-populated">
 								<div class="elementor-element elementor-element-1dd33588 elementor-widget elementor-widget-image" data-id="1dd33588" data-element_type="widget" data-widget_type="image.default">
 				<div class="elementor-widget-container">
-															<img width="800" height="164" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/logo2-K5JKH6-e1653361132924.png" class="attachment-full size-full wp-image-481" alt="" decoding="async" />															</div>
+															<img width="800" height="164" src="{{asset('images/logo.png')}}" class="attachment-full size-full wp-image-481" alt="" decoding="async" />															</div>
 				</div>
 				<div class="elementor-element elementor-element-650af28 elementor-widget elementor-widget-heading" data-id="650af28" data-element_type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
@@ -222,15 +222,15 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 			<link rel="stylesheet"
                   href="{{ asset('templatekit.jegtheme.com/docbook/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css')}}">
 <ul class="elementor-icon-list-items">
-							<li class="elementor-icon-list-item">
+						    	<li class="elementor-icon-list-item">
 											<a href="{{route('profile')}}">
 											<span class="elementor-icon-list-text">Login</span>
 											</a>
 									</li>
-								<li class="elementor-icon-list-item">
-											<a href="#">
 
-											<span class="elementor-icon-list-text">Logout</span>
+								<li class="elementor-icon-list-item">
+											<a href="{{route('Customer.account.register')}}">
+											<span class="elementor-icon-list-text">Sign Up</span>
 											</a>
 									</li>
 								<li class="elementor-icon-list-item">
@@ -466,15 +466,188 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 			<div class="elementor-widget-wrap elementor-element-populated">
 								<div class="elementor-element elementor-element-04b90c6 elementor-widget elementor-widget-heading" data-id="04b90c6" data-element_type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-			<h2 class="elementor-heading-title elementor-size-default">Top Trending Book 2022</h2>		</div>
+			<h2 class="elementor-heading-title elementor-size-default">Top Trending Book 2024</h2>		</div>
 				</div>
 				<div class="elementor-element elementor-element-30640d9 elementor-widget elementor-widget-text-editor" data-id="30640d9" data-element_type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-							Lorem ipsum dolor sit amet adipiscing elit. 						</div>
+                    We bring the books that customers choose to read the most! 						</div>
 				</div>
 				<div class="elementor-element elementor-element-86f8ae8 elementor-widget elementor-widget-jkit_product_grid" data-id="86f8ae8" data-element_type="widget" data-widget_type="jkit_product_grid.default">
 				<div class="elementor-widget-container">
-			<div  class="jeg-elementor-kit jkit-product-grid jkit-pagination-disable post-element jeg_module_135_7_65f405a0bb5fb"  data-id="jeg_module_135_7_65f405a0bb5fb" data-settings="{&quot;sg_content_column&quot;:4,&quot;sg_content_show_element&quot;:&quot;image,price,title,rating&quot;,&quot;sg_content_sorting&quot;:&quot;&quot;,&quot;sg_content_image_heading&quot;:&quot;&quot;,&quot;sg_content_image_size&quot;:&quot;&quot;,&quot;sg_content_sale&quot;:&quot;&quot;,&quot;sg_content_percentage&quot;:&quot;yes&quot;,&quot;number_post&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:9,&quot;sizes&quot;:[]},&quot;post_offset&quot;:0,&quot;wc_include_post&quot;:&quot;&quot;,&quot;wc_exclude_post&quot;:&quot;&quot;,&quot;wc_include_category&quot;:&quot;&quot;,&quot;wc_exclude_category&quot;:&quot;&quot;,&quot;wc_include_tag&quot;:&quot;&quot;,&quot;wc_exclude_tag&quot;:&quot;&quot;,&quot;sort_by&quot;:&quot;alphabet_asc&quot;,&quot;pagination_mode&quot;:&quot;disable&quot;,&quot;pagination_loadmore_text&quot;:&quot;Load More&quot;,&quot;pagination_loading_text&quot;:&quot;Loading...&quot;,&quot;pagination_number_post&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:4,&quot;sizes&quot;:[]},&quot;pagination_scroll_limit&quot;:0,&quot;pagination_icon&quot;:{&quot;value&quot;:&quot;&quot;,&quot;library&quot;:&quot;&quot;},&quot;pagination_icon_position&quot;:&quot;before&quot;,&quot;sg_content_image_size_imagesize_size&quot;:&quot;medium&quot;,&quot;post_type&quot;:&quot;product&quot;,&quot;paged&quot;:1,&quot;class&quot;:&quot;jkit_product_grid&quot;}"><div class="jkit-block-container"><div class="woocommerce"><ul class="products jkit-products jkit-align-left "><li class="product type-product post-42 status-publish first instock product_cat-dictionary product_cat-sci-fi has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block"><a href="templatekit.jegtheme.com/docbook/product/aenean-art-design/index.html" class="jkit-product"><div class="product-link"><img loading="lazy" decoding="async" width="300" height="300" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-300x300.png" class="wp-post-image product-image" alt="" srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-300x300.png 300w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-150x150.png 150w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-768x768.png 768w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-450x450.png 450w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-600x600.png 600w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-100x100.png 100w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13.png 800w" sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>42.95</bdi></span></span><h2 class="product-title">Aenean Art Design</h2></a><a href="templatekit.jegtheme.com/docbook/index4850.html?add-to-cart=42" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="42" data-product_sku="" aria-label="Add &ldquo;Aenean Art Design&rdquo; to your cart" rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li><li class="product type-product post-44 status-publish instock product_cat-dictionary product_cat-essays has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block"><a href="templatekit.jegtheme.com/docbook/product/aenean-typography/index.html" class="jkit-product"><div class="product-link"><img loading="lazy" decoding="async" width="300" height="300" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-300x300.png" class="wp-post-image product-image" alt="" srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-300x300.png 300w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-150x150.png 150w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-768x768.png 768w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-450x450.png 450w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-600x600.png 600w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-100x100.png 100w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15.png 800w" sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>36.25</bdi></span></span><h2 class="product-title">Aenean Typography</h2></a><a href="templatekit.jegtheme.com/docbook/indexdaaf.html?add-to-cart=44" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="44" data-product_sku="" aria-label="Add &ldquo;Aenean Typography&rdquo; to your cart" rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li><li class="product type-product post-37 status-publish instock product_cat-comedy has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block"><a href="templatekit.jegtheme.com/docbook/product/art-of-life-vol-16/index.html" class="jkit-product"><div class="product-link"><img loading="lazy" decoding="async" width="300" height="300" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-300x300.png" class="wp-post-image product-image" alt="" srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-300x300.png 300w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-150x150.png 150w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-768x768.png 768w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-800x800.png 800w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-450x450.png 450w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-600x600.png 600w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-100x100.png 100w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8.png 1000w" sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>11.20</bdi></span></span><h2 class="product-title">Art Of Life Vol.16</h2></a><a href="templatekit.jegtheme.com/docbook/indexf4c6.html?add-to-cart=37" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="37" data-product_sku="" aria-label="Add &ldquo;Art Of Life Vol.16&rdquo; to your cart" rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li><li class="product type-product post-35 status-publish last instock product_cat-novel has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block"><a href="templatekit.jegtheme.com/docbook/product/book-of-psalms/index.html" class="jkit-product"><div class="product-link"><img loading="lazy" decoding="async" width="300" height="300" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-300x300.png" class="wp-post-image product-image" alt="" srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-300x300.png 300w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-150x150.png 150w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-768x768.png 768w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-800x800.png 800w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-450x450.png 450w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-600x600.png 600w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-100x100.png 100w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5.png 1000w" sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>16.20</bdi></span></span><h2 class="product-title">Book Of Psalms</h2></a><a href="templatekit.jegtheme.com/docbook/index1c5c.html?add-to-cart=35" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="35" data-product_sku="" aria-label="Add &ldquo;Book Of Psalms&rdquo; to your cart" rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li><li class="product type-product post-31 status-publish first instock product_cat-drama has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block"><a href="templatekit.jegtheme.com/docbook/product/cereal-vol-14-2019/index.html" class="jkit-product"><div class="product-link"><img loading="lazy" decoding="async" width="300" height="300" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-2.png" class="wp-post-image product-image" alt="" /></div><span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>13.10</bdi></span></span><h2 class="product-title">Cereal Vol.14 (2019)</h2></a><a href="templatekit.jegtheme.com/docbook/index1557.html?add-to-cart=31" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="31" data-product_sku="" aria-label="Add &ldquo;Cereal Vol.14 (2019)&rdquo; to your cart" rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li><li class="product type-product post-33 status-publish instock product_cat-fantasy has-post-thumbnail sale shipping-taxable purchasable product-type-simple jkit-product-block"><a href="templatekit.jegtheme.com/docbook/product/design-anthology/index.html" class="jkit-product"><div class="product-link"><span class="onsale percent jkit-onsale-position-left jkit-onsale-position-bottom">12%</span><img loading="lazy" decoding="async" width="300" height="300" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-300x300.png" class="wp-post-image product-image" alt="" srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-300x300.png 300w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-150x150.png 150w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-768x768.png 768w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-450x450.png 450w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-600x600.png 600w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-100x100.png 100w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4.png 800w" sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>20.50</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>18.00</bdi></span></ins></span><h2 class="product-title">Design Anthology</h2></a><a href="templatekit.jegtheme.com/docbook/index51e2.html?add-to-cart=33" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="33" data-product_sku="" aria-label="Add &ldquo;Design Anthology&rdquo; to your cart" rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li><li class="product type-product post-43 status-publish instock product_cat-dictionary product_cat-fiction has-post-thumbnail sale shipping-taxable purchasable product-type-simple jkit-product-block"><a href="templatekit.jegtheme.com/docbook/product/fluid-color-design/index.html" class="jkit-product"><div class="product-link"><span class="onsale percent jkit-onsale-position-left jkit-onsale-position-bottom">19%</span><img loading="lazy" decoding="async" width="300" height="300" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-300x300.png" class="wp-post-image product-image" alt="" srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-300x300.png 300w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-150x150.png 150w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-768x768.png 768w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-800x800.png 800w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-450x450.png 450w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-600x600.png 600w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-100x100.png 100w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14.png 1000w" sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.99</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>29.00</bdi></span></ins></span><h2 class="product-title">Fluid Color Design</h2></a><a href="templatekit.jegtheme.com/docbook/indexa2f1.html?add-to-cart=43" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="43" data-product_sku="" aria-label="Add &ldquo;Fluid Color Design&rdquo; to your cart" rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li><li class="product type-product post-39 status-publish last instock product_cat-mystery has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block"><a href="templatekit.jegtheme.com/docbook/product/geometric-vol-01/index.html" class="jkit-product"><div class="product-link"><img loading="lazy" decoding="async" width="300" height="300" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-300x300.png" class="wp-post-image product-image" alt="" srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-300x300.png 300w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-150x150.png 150w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-768x768.png 768w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-800x800.png 800w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-450x450.png 450w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-600x600.png 600w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-100x100.png 100w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10.png 1000w" sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>17.35</bdi></span></span><h2 class="product-title">Geometric Vol.01</h2></a><a href="templatekit.jegtheme.com/docbook/indexe2ad.html?add-to-cart=39" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="39" data-product_sku="" aria-label="Add &ldquo;Geometric Vol.01&rdquo; to your cart" rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li><li class="product type-product post-40 status-publish first instock product_cat-mystery has-post-thumbnail sale shipping-taxable purchasable product-type-simple jkit-product-block"><a href="templatekit.jegtheme.com/docbook/product/geometric-vol-02/index.html" class="jkit-product"><div class="product-link"><span class="onsale percent jkit-onsale-position-left jkit-onsale-position-bottom">11%</span><img loading="lazy" decoding="async" width="300" height="300" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-300x300.png" class="wp-post-image product-image" alt="" srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-300x300.png 300w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-150x150.png 150w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-768x768.png 768w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-800x800.png 800w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-450x450.png 450w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-600x600.png 600w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-100x100.png 100w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11.png 1000w" sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hidden="true"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>21.90</bdi></span></del> <ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>19.50</bdi></span></ins></span><h2 class="product-title">Geometric Vol.02</h2></a><a href="templatekit.jegtheme.com/docbook/index26b1.html?add-to-cart=40" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="40" data-product_sku="" aria-label="Add &ldquo;Geometric Vol.02&rdquo; to your cart" rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li></ul></div></div></div>		</div>
+			<div  class="jeg-elementor-kit jkit-product-grid jkit-pagination-disable post-element
+			jeg_module_135_7_65f405a0bb5fb"  data-id="jeg_module_135_7_65f405a0bb5fb"
+                  data-settings="{&quot;sg_content_column&quot;:4,&quot;sg_content_show_element&quot;:&quot;image,price,title,rating&quot;,&quot;sg_content_sorting&quot;:&quot;&quot;,&quot;sg_content_image_heading&quot;:&quot;&quot;,&quot;sg_content_image_size&quot;:&quot;&quot;,&quot;sg_content_sale&quot;:&quot;&quot;,&quot;sg_content_percentage&quot;:&quot;yes&quot;,&quot;number_post&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:9,&quot;sizes&quot;:[]},&quot;post_offset&quot;:0,&quot;wc_include_post&quot;:&quot;&quot;,&quot;wc_exclude_post&quot;:&quot;&quot;,&quot;wc_include_category&quot;:&quot;&quot;,&quot;wc_exclude_category&quot;:&quot;&quot;,&quot;wc_include_tag&quot;:&quot;&quot;,&quot;wc_exclude_tag&quot;:&quot;&quot;,&quot;sort_by&quot;:&quot;alphabet_asc&quot;,&quot;pagination_mode&quot;:&quot;disable&quot;,&quot;pagination_loadmore_text&quot;:&quot;Load More&quot;,&quot;pagination_loading_text&quot;:&quot;Loading...&quot;,&quot;pagination_number_post&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:4,&quot;sizes&quot;:[]},&quot;pagination_scroll_limit&quot;:0,&quot;pagination_icon&quot;:{&quot;value&quot;:&quot;&quot;,&quot;library&quot;:&quot;&quot;},&quot;pagination_icon_position&quot;:&quot;before&quot;,&quot;sg_content_image_size_imagesize_size&quot;:&quot;medium&quot;,&quot;post_type&quot;:&quot;product&quot;,&quot;paged&quot;:1,&quot;class&quot;:&quot;jkit_product_grid&quot;}"><div class="jkit-block-container"><div class="woocommerce"><ul class="products jkit-products jkit-align-left "><li class="product type-product post-42 status-publish first instock product_cat-dictionary product_cat-sci-fi has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
+<a href="templatekit.jegtheme.com/docbook/product/aenean-art-design/index.html"
+             class="jkit-product"><div class="product-link">
+<img loading="lazy" decoding="async" width="300" height="300"
+            src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-300x300.png"
+            class="wp-post-image product-image" alt=""
+    srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-300x300.png 300w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-150x150.png 150w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-768x768.png 768w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-450x450.png 450w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-600x600.png 600w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13-100x100.png 100w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-13.png 800w"
+    sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><span
+    class="woocommerce-Price-amount amount"><bdi>
+                  <span class="woocommerce-Price-currencySymbol">&#36;</span>42.95</bdi></span></span>
+                                    <h2 class="product-title">Aenean Art Design</h2></a>
+        <a href="templatekit.jegtheme.com/docbook/index4850.html?add-to-cart=42" data-quantity="1"
+        class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="42"
+        data-product_sku="" aria-label="Add &ldquo;Aenean Art Design&rdquo; to your cart" rel="nofollow">
+                  <i class="fas fa-shopping-cart"></i> Add to cart</a></li>
+<li class="product type-product post-44 status-publish instock product_cat-dictionary product_cat-essays has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
+         <a href="templatekit.jegtheme.com/docbook/product/aenean-typography/index.html" class="jkit-product">
+             <div class="product-link"><img loading="lazy" decoding="async" width="300" height="300"
+             src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-300x300.png"
+             class="wp-post-image product-image" alt=""
+             srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-300x300.png 300w,
+             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-150x150.png 150w,
+             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-768x768.png 768w,
+             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-450x450.png 450w,
+             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-600x600.png 600w,
+             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-100x100.png 100w,
+             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15.png 800w"
+             sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price">
+<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>36.25</bdi></span></span>
+        <h2 class="product-title">Aenean Typography</h2></a>
+<a href="templatekit.jegtheme.com/docbook/indexdaaf.html?add-to-cart=44" data-quantity="1"
+   class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="44"
+data-product_sku="" aria-label="Add &ldquo;Aenean Typography&rdquo; to your cart" rel="nofollow">
+        <i class="fas fa-shopping-cart"></i> Add to cart</a></li>
+<li class="product type-product post-37 status-publish instock product_cat-comedy has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
+<a href="templatekit.jegtheme.com/docbook/product/art-of-life-vol-16/index.html" class="jkit-product">
+<div class="product-link"><img loading="lazy" decoding="async" width="300" height="300"
+    src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-300x300.png"
+    class="wp-post-image product-image" alt=""
+    srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-300x300.png 300w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-150x150.png 150w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-768x768.png 768w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-800x800.png 800w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-450x450.png 450w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-600x600.png 600w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-100x100.png 100w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8.png 1000w"
+    sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price">
+<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>11.20</bdi></span></span>
+        <h2 class="product-title">Art Of Life Vol.16</h2></a><a
+    href="templatekit.jegtheme.com/docbook/indexf4c6.html?add-to-cart=37" data-quantity="1"
+    class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="37" data-product_sku=""
+    aria-label="Add &ldquo;Art Of Life Vol.16&rdquo; to your cart" rel="nofollow">
+    <i class="fas fa-shopping-cart"></i> Add to cart</a></li>
+<li class="product type-product post-35 status-publish last instock product_cat-novel has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
+    <a href="templatekit.jegtheme.com/docbook/product/book-of-psalms/index.html" class="jkit-product">
+    <div class="product-link"><img loading="lazy" decoding="async" width="300" height="300"
+    src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-300x300.png"
+    class="wp-post-image product-image" alt=""
+    srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-300x300.png 300w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-150x150.png 150w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-768x768.png 768w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-800x800.png 800w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-450x450.png 450w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-600x600.png 600w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-100x100.png 100w,
+    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5.png 1000w"
+sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price">
+    <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>16.20</bdi></span></span>
+        <h2 class="product-title">Book Of Psalms</h2></a>
+<a href="templatekit.jegtheme.com/docbook/index1c5c.html?add-to-cart=35" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="35" data-product_sku=""
+aria-label="Add &ldquo;Book Of Psalms&rdquo; to your cart" rel="nofollow">
+        <i class="fas fa-shopping-cart"></i> Add to cart</a></li>
+<li class="product type-product post-31 status-publish first instock product_cat-drama has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
+<a href="templatekit.jegtheme.com/docbook/product/cereal-vol-14-2019/index.html" class="jkit-product">
+     <div class="product-link"><img loading="lazy" decoding="async" width="300" height="300"
+     src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-2.png"
+     class="wp-post-image product-image" alt="" /></div>
+     <span class="price"><span class="woocommerce-Price-amount amount"><bdi>
+     <span class="woocommerce-Price-currencySymbol">&#36;</span>13.10</bdi></span></span>
+           <h2 class="product-title">Cereal Vol.14 (2019)</h2></a>
+<a href="templatekit.jegtheme.com/docbook/index1557.html?add-to-cart=31" data-quantity="1"
+     class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="31"
+     data-product_sku="" aria-label="Add &ldquo;Cereal Vol.14 (2019)&rdquo; to your cart"
+     rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li>
+<li class="product type-product post-33 status-publish instock product_cat-fantasy has-post-thumbnail sale shipping-taxable purchasable product-type-simple jkit-product-block">
+<a href="templatekit.jegtheme.com/docbook/product/design-anthology/index.html" class="jkit-product">
+<div class="product-link"><span class="onsale percent jkit-onsale-position-left jkit-onsale-position-bottom">12%</span>
+     <img loading="lazy" decoding="async" width="300" height="300"
+     src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-300x300.png"
+     class="wp-post-image product-image" alt=""
+     srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-300x300.png 300w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-150x150.png 150w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-768x768.png 768w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-450x450.png 450w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-600x600.png 600w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-100x100.png 100w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4.png 800w"
+     sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hidden="true">
+<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>20.50</bdi></span></del>
+<ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>18.00</bdi></span></ins></span>
+     <h2 class="product-title">Design Anthology</h2></a>
+<a href="templatekit.jegtheme.com/docbook/index51e2.html?add-to-cart=33" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart"
+     data-product_id="33" data-product_sku="" aria-label="Add &ldquo;Design Anthology&rdquo; to your cart"
+     rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li>
+<li class="product type-product post-43 status-publish instock product_cat-dictionary product_cat-fiction has-post-thumbnail sale shipping-taxable purchasable product-type-simple jkit-product-block">
+<a href="templatekit.jegtheme.com/docbook/product/fluid-color-design/index.html" class="jkit-product">
+<div class="product-link"><span class="onsale percent jkit-onsale-position-left jkit-onsale-position-bottom">19%</span>
+      <img loading="lazy" decoding="async" width="300" height="300"
+src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-300x300.png"
+class="wp-post-image product-image" alt=""
+srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-300x300.png 300w,
+https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-150x150.png 150w,
+https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-768x768.png 768w,
+https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-800x800.png 800w,
+https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-450x450.png 450w,
+https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-600x600.png 600w,
+https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-100x100.png 100w,
+https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14.png 1000w"
+sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hidden="true">
+<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.99</bdi></span></del> <ins>
+<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>29.00</bdi></span></ins></span>
+        <h2 class="product-title">Fluid Color Design</h2></a>
+<a href="templatekit.jegtheme.com/docbook/indexa2f1.html?add-to-cart=43" data-quantity="1"
+      class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="43" data-product_sku=""
+        aria-label="Add &ldquo;Fluid Color Design&rdquo; to your cart" rel="nofollow">
+<i class="fas fa-shopping-cart"></i> Add to cart</a></li><li class="product type-product post-39 status-publish last instock product_cat-mystery has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
+<a href="templatekit.jegtheme.com/docbook/product/geometric-vol-01/index.html" class="jkit-product">
+        <div class="product-link"><img loading="lazy" decoding="async" width="300" height="300"
+   src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-300x300.png"
+        class="wp-post-image product-image" alt=""
+   srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-300x300.png 300w,
+   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-150x150.png 150w,
+   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-768x768.png 768w,
+   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-800x800.png 800w,
+   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-450x450.png 450w,
+   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-600x600.png 600w,
+   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-100x100.png 100w,
+   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10.png 1000w"
+   sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price">
+<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>17.35</bdi></span></span>
+        <h2 class="product-title">Geometric Vol.01</h2></a>
+<a href="templatekit.jegtheme.com/docbook/indexe2ad.html?add-to-cart=39" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="39" data-product_sku=""
+     aria-label="Add &ldquo;Geometric Vol.01&rdquo; to your cart" rel="nofollow">
+         <i class="fas fa-shopping-cart"></i> Add to cart</a></li>
+<li class="product type-product post-40 status-publish first instock product_cat-mystery has-post-thumbnail sale shipping-taxable purchasable product-type-simple jkit-product-block">
+<a href="templatekit.jegtheme.com/docbook/product/geometric-vol-02/index.html" class="jkit-product">
+<div class="product-link"><span class="onsale percent jkit-onsale-position-left jkit-onsale-position-bottom">11%</span>
+        <img loading="lazy" decoding="async" width="300" height="300"
+     src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-300x300.png"
+     class="wp-post-image product-image" alt=""
+     srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-300x300.png 300w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-150x150.png 150w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-768x768.png 768w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-800x800.png 800w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-450x450.png 450w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-600x600.png 600w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-100x100.png 100w,
+     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11.png 1000w"
+     sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hidden="true">
+     <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>21.90</bdi></span></del> <ins>
+     <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>19.50</bdi></span></ins></span>
+     <h2 class="product-title">Geometric Vol.02</h2></a>
+<a href="templatekit.jegtheme.com/docbook/index26b1.html?add-to-cart=40" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="40" data-product_sku=""
+     aria-label="Add &ldquo;Geometric Vol.02&rdquo; to your cart" rel="nofollow">
+     <i class="fas fa-shopping-cart"></i> Add to cart</a></li></ul></div></div></div>		</div>
 				</div>
 					</div>
 		</div>

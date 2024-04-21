@@ -2,25 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Customer extends Model implements \Illuminate\Contracts\Auth\Authenticatable
+class Book extends Model
 {
     use HasFactory;
-    use Authenticatable;
-
-    protected $table = 'customer';
+    protected $table = 'books';
     protected $primaryKey='id';
     protected $fillable=[
         'name',
-        'email',
-        'password',
-        'phone',
-        'gender',
-        'address',
+        'quantity',
+        'price',
+        'description',
+        'image',
+        'status',
         'account_status'
     ];
     public $timestamps = false;

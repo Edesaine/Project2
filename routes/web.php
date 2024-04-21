@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Middleware\LoginCheckingCustomer;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,13 +41,6 @@ Route::get('publisher/{id}/delete',[\App\Http\Controllers\PublisherController::c
 Route::get('customer/index',[\App\Http\Controllers\CustomerController::class,'index']);
 Route::post('customer/index',[\App\Http\Controllers\CustomerController::class,'store']);
 
-Route::get('book/index',[\App\Http\Controllers\BookController::class,'index']);
-Route::get('book/create',[\App\Http\Controllers\BookController::class,'create']);
-Route::post('book/create',[\App\Http\Controllers\BookController::class,'store']);
-Route::get('book/{id}/edit',[\App\Http\Controllers\BookController::class,'edit']);
-Route::put('book/{id}/edit',[\App\Http\Controllers\BookController::class,'update']);
-Route::get('book/{id}/delete',[\App\Http\Controllers\BookController::class,'delete']);
-
 Route::middleware(LoginCheckingCustomer::class)->group(function () {
     Route::get('/profile', [CustomerController::class, 'editProfile'])->name('profile');
     Route::put('/profile', [CustomerController::class, 'updateProfile'])->name('profile.update');
@@ -58,9 +52,7 @@ Route::post('/register', [CustomerController::class, 'registerProcess'])->name('
 Route::get('/login', [CustomerController::class, 'login'])->name('Customer.account.login');
 Route::post('/login', [CustomerController::class, 'loginProcess'])->name('Customer.account.loginProcess');
 
+Route::get('/logout', [CustomerController::class, 'logout'])->name('Customer.account.logout');
+Route::get('/forgot_password', [CustomerController::class, 'forgotPassword'])->name('customer.forgotPassword');
 
-Route::get('/register', [CustomerController::class, 'register'])->name('Customer.account.register');
-Route::post('/register', [CustomerController::class, 'registerProcess'])->name('Customer.account.registerProcess');
-
-Route::get('/login', [CustomerController::class, 'login'])->name('Customer.account.login');
-Route::post('/login', [CustomerController::class, 'loginProcess'])->name('Customer.account.loginProcess');
+/*Route::get('/',[App\Http\Controllers\HomeController::class, 'index'])->name('home');*/

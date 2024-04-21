@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Requests\CustomerStoreRequest;
-use App\Requests\UpdateCustomerRequest;
+use App\Requests\CustomerUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Models\Customer;
@@ -29,15 +29,16 @@ class CustomerController extends Controller
             $array = Arr::add($array, 'email', $request->email);
             $array = Arr::add($array, 'password', Hash::make($request->password));
             $array = Arr::add($array, 'phone', $request->phone);
+            $array = Arr::add($array, 'gender', $request->gender);
             $array = Arr::add($array, 'address', $request->address);
-            $array = Arr::add($array, 'status', 1);
+            $array = Arr::add($array, 'account_status', 1);
             //Lấy dữ liệu từ form và lưu lên db
             Customer::create($array);
 
             return Redirect::route('Customer.account.login');
         } else {
             //cho quay về trang login
-            return Redirect::back();
+            return Redirect::back('profile');
         }
     }
 
@@ -65,15 +66,41 @@ class CustomerController extends Controller
         }
     }
 
+    public function logout()
+    {
+        Auth::guard('customer')->logout();
+        session()->forget('customer');
+        return view('Customer.account.logoutConfirm');
+    }
+
     public function editProfile()
     {
         //id cua customers dang dang nhap
-        $id = Auth::guard('customers')->user()->id;
+        $id = Auth::guard('customer')->user()->id;
         //lay ban ghi
         $customer = Customer::find($id);
-        return view('Customer.account.login', [
-            'customers' => $customer
+        return view('Customer.profiles.profile', [
+            'customer' => $customer
         ]);
+    }
+
+    public function updateProfile(Customer $request)
+    {
+        //Lấy dữ liệu trong form và update lên db
+        $array = [];
+        $array = Arr::add($array, 'name', $request->name);
+        $array = Arr::add($array, 'email', $request->email);
+        $array = Arr::add($array, 'phone', $request->phone);
+        $array = Arr::add($array, 'gender', $request->gender);
+        $array = Arr::add($array, 'address', $request->address);
+
+        //id cua customer dang dang nhap
+        $id = Auth::guard('customer')->user()->id;
+        //lay ban ghi
+        $customer = Customer::find($id);
+        $customer->update($array);
+        //Quay về danh sách
+        return Redirect::route('Customer.profiles.profile');
     }
 
     public function index()

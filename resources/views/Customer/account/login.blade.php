@@ -39,21 +39,23 @@
                                 </p>
                             </div>
                         </div>
-                        <form action="{{route('Customer.account.loginProcess')}}" class="signin-form">
+                        <form method="post" action="{{route('Customer.account.loginProcess')}}" class="signin-form" enctype="multipart/form-data">
+                            @csrf
                             <div class="form-group mt-3">
-                                <input type="email" class="form-control" required>
-                                <label class="form-control-placeholder" id="email" for="email"
-                                value="{{old('email')}}">Your email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}" required>
+                                <label class="form-control-placeholder" for="email">Your email</label>
                             </div>
+
                             <div class="form-group">
-                                <input id="password-field" type="password" class="form-control" required>
-                                <label class="form-control-placeholder" id="password" for="password"
-                                value="{{old('password')}}">Your password</label>
+                                <input type="password" class="form-control" id="password" name="password" value="{{old('password')}}" required>
+                                <label class="form-control-placeholder" for="password">Your password</label>
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
+
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
                             </div>
+
                             <div class="form-group d-md-flex">
                                 <div class="w-50 text-left">
                                     <label class="checkbox-wrap checkbox-primary mb-0">Remember Me
@@ -65,9 +67,11 @@
                                     <a href="#">Forgot Password</a>
                                 </div>
                             </div>
+
+                             <p class="text-center">Not a member?
+                                 <a data-toggle="tab" href="{{route('Customer.account.register')}}">Sign Up</a>
+                             </p>
                         </form>
-                        <p class="text-center">Not a member?
-                            <a data-toggle="tab" href="{{route('Customer.account.register')}}">Sign Up</a></p>
                     </div>
                 </div>
             </div>

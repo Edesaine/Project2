@@ -37,81 +37,44 @@
                     <div class="row row-space">
                         <div class="col-2">
                             <div class="input-group">
-                                <label for="first_name" class="label">First Name</label>
-                                <input class="input--style-4" type="text" name="first_name" id="first_name"
-                                       value="{{old('first_name')}}">
-                                @if($errors->has('first_name'))
-                                    {{ $errors->first('first_name') }}
+                                <label for="name" class="label">Your name <label>
+                                <input class="input--style-4" type="text" name="name" id="name"
+                                       value="{{old('name')}}" required>
+                                @if($errors->has('name'))
+                                    {{ $errors->first('name')}}
                                 @endif
                             </div>
                         </div>
 
-                        <div class="col-2">
-                            <div class="input-group">
-                                <label for="last_name" class="label">Last Name</label>
-                                <input class="input--style-4" type="text" name="last_name" id="last_name"
-                                       value="{{old('last_name')}}">
-                                @if($errors->has('last_name'))
-                                    {{ $errors->first('last_name') }}
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row row-space">
                         <div class="col-2">
                             <div class="input-group">
                                 <label for="email" class="label">Your email address</label>
-                                <input class="input--style-4" type="email" name="email" value="{{old('email')}}">
+                                <input class="input--style-4" type="email" name="email" id="email"
+                                       value="{{old('email')}}" required>
                                 @if($errors->has('email'))
                                     {{ $errors->first('email') }}
                                 @endif
                             </div>
                         </div>
-                        <div class="col-2">
-                            <div class="input-group">
-                                <label for="phone" class="label">Your phone Number</label>
-                                <input class="input--style-4" type="number" name="phone" id="phone"
-                                value="{{old('phone')}}">
-                                @if($errors->has('phone'))
-                                    {{ $errors->first('phone') }}
-                                @endif
-                            </div>
-                        </div>
                     </div>
 
                     <div class="row row-space">
                         <div class="col-2">
-                            <div class="input-group">
-                                <label for="password" class="label">Password</label>
-                                <input class="input--style-4" type="text" name="password" id="password"
-                                       value="{{old('password')}}">
-                                @if($errors->has('password'))
-                                    {{ $errors->first('password') }}
-                                @endif
-                            </div>
+                                 <div class="input-group">
+                                      <label for="phone" class="label">Your phone Number</label>
+                                      <input class="input--style-4" type="number" name="phone" id="phone"
+                                             value="{{old('phone')}}" required>
+                                      @if($errors->has('phone'))
+                                        {{ $errors->first('phone') }}
+                                      @endif
+                                 </div>
                         </div>
-                    </div>
 
-                    <div class="row row-space">
-                        <div class="col-2">
-                            <div class="input-group">
-                                <label for="password_2" class="label">Re-enter password</label>
-                                <input class="input--style-4" type="text" name="password_2" id="password_2"
-                                       value="{{old('password_2')}}">
-                                @if($errors->has('password_2'))
-                                    {{ $errors->first('password_2') }}
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row row-space">
                         <div class="col-2">
                             <div class="input-group">
                                 <label for="address" class="label">Your address</label>
                                 <input class="input--style-4" type="text" name="address" id="address"
-                                       value="{{old('address')}}">
+                                       value="{{old('address')}}" required>
                                 @if($errors->has('address'))
                                     {{ $errors->first('address') }}
                                 @endif
@@ -119,8 +82,41 @@
                         </div>
                     </div>
 
+                    <div class="row row-space">
+
+                         <div class="col-2">
+                             <div class="input-group">
+                                <label for="password" class="label">Password</label>
+                                <input class="input--style-4" type="text" name="password" id="password"
+                                       value="{{old('password')}}" required>
+                                @if($errors->has('password'))
+                                    {{ $errors->first('password') }}
+                                @endif
+                             </div>
+                        </div>
+
+                        <div class="col-2">
+                            <div class="input-group">
+                                <label for="password_2" class="label">Re-enter password</label>
+                                <input class="input--style-4" type="text" name="password_2" id="password_2"
+                                       value="{{old('password_2')}}" required>
+                                @if($errors->has('password_2'))
+                                    {{ $errors->first('password_2') }}
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="col-2">
+                            <div class="input-group" >
+                                <label for="gender" class="label">Choose</label>
+                                <input type="radio" name="gender" value="0" id="gender" style="margin-left: 40px">Male
+                                <input type="radio" name="gender" value="1" id="gender" style="margin-left: 40px">Female
+                            </div>
+                        </div>
+
                     <input class="hidden invisible opacity-0" type="hidden"
-                           name="status" value="1" readonly>
+                           name="account_status" value="1" readonly>
 
                     <div class="p-t-15">
                         <button class="btn btn--radius-2 btn--blue" type="submit">Sign Up</button>
