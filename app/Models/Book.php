@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
 class Book extends Model
 {
     use HasFactory;
@@ -18,7 +17,10 @@ class Book extends Model
         'description',
         'image',
         'status',
-        'account_status'
+        'publisher_id',
+        'NumberOfPages',
+        'NumberOfAuthors',
+        'NumberOfCategories'
     ];
     public $timestamps = false;
 }
