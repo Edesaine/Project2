@@ -87,10 +87,10 @@ $direc='products';
                     <textarea  name="description" id="description" class="form-control" rows="3" required>{{$book->description}} </textarea>
                 </div>
                 <div class="row">
-                <div class="form-group col-6">
-                    <label for="file">Choose Image:</label>
-                    <input type="file" class="form-control-file" name="image">
-                </div>
+                    <div class="form-group col-6">
+                        <label for="file">Choose Image:</label>
+                        <input type="file" class="form-control-file" name="image">
+                    </div>
                     <div class="col-2 offset-3">
                         Old image:
                         <img src="{{ asset($book->image) }}" style="width: 100px;height:150px" alt="">
@@ -102,7 +102,7 @@ $direc='products';
                         <option selected value="{{$book->publisher_id}}">
                             @foreach($pub as $p)
                                 {{$p->publisher}}
-                        @endforeach
+                            @endforeach
                         </option>
                         @foreach($publishers as $publisher)
                             <option value="<?= $publisher['id'] ?>">
@@ -122,7 +122,7 @@ $direc='products';
                 </div>
                 <br>
                 <div class="form-group">
-                    <button  type="submit" class="btn btn-outline-primary col-2 offset-5" style="height:40px">Add Item</button>
+                    <button type="submit" class="btn btn-outline-primary col-2 offset-5" style="height:40px">Save</button>
                 </div>
                 <br>
             </form>
@@ -162,4 +162,3 @@ $direc='products';
 </body>
 
 </html>
-

@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
     <!-- Title Pagg-->
     <title>Dashboard</title>
 
@@ -59,7 +58,7 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <td></td>
+        <td>Action</td>
     </tr>
     @foreach($publishers as $publisher)
     <tr>
@@ -75,10 +74,10 @@
     @endforeach
 
 </table>
-</div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
 </div>
 <!-- Jquery JS-->
@@ -104,7 +103,6 @@
 
 <!-- Main JS-->
 <script src="{{asset('js/main.js')}}"></script>
-
 </body>
 </html>
 

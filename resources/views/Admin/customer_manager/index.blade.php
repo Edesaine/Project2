@@ -28,6 +28,7 @@
 
 </head>
 <body class="animsition">
+
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -37,7 +38,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form  enctype='multipart/form-data' action="{{url('customer/index')}}" method="POST">
+                <form enctype='multipart/form-data' action="{{url('customer/index')}}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="name">Customer Name:</label>
@@ -75,14 +76,11 @@
         </div>
     </div>
 </div>
+
 <div class="page-wrapper">
-
     <!-- MENU SIDEBAR-->
-
-
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
-
     <!-- PAGE CONTAINER-->
     <div class="page-container">
         <!-- HEADER DESKTOP-->
@@ -91,9 +89,6 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-<button type="button" class="btn btn-secondary " style="height:40px" data-toggle="modal" data-target="#myModal">
-    ADD A CUSTOMER
-</button>
 
     <table cellpadding="2px" style="" class="table table-bordered table-striped">
         <tr style="height: 10px">
@@ -107,35 +102,38 @@
             <th>Status</th>
             <th>Action</th>
         </tr>
-        @foreach($customers as $customer)
+        @foreach($customer as $cus)
             <tr>
 
-                <td>{{$customer->id}}</td>
-                <td>{{$customer->name}}</td>
-                <td>{{$customer->email}}</td>
+                <td>{{$cus->id}}</td>
+                <td>{{$cus->name}}</td>
+                <td>{{$cus->email}}</td>
                 <td>
-                    <div style="width:100px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap; ">{{$customer->password}}</div>
+                    <div style="width:100px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap; ">{{$cus->password}}</div>
                 </td>
-                <td>{{$customer->phone}}</td>
+                <td>{{$cus->phone}}</td>
                 <td>
-                    @if($customer->gender==1)
+                    @if($cus->gender==1)
                         Male
                     @endif
-                    @if($customer->gender==0)
+                    @if($cus->gender==0)
                         Female
                     @endif
                    </td>
-                <td>{{$customer->address}}</td>
+                <td>{{$cus->address}}</td>
+
                 <td>
-                    @if($customer->account_status==1)
+                    @if($cus->account_status==1)
                         <span style="color: #00b26f;font-weight: bold">Active</span>
                     @endif
-                    @if($customer->account_status==0)
-                       <span style="color: #dc3545;font-weight: bold"> Blocked</span>
+                    @if($cus->account_status==0)
+                        <span style="color: #dc3545;font-weight: bold"> Locked</span>
                     @endif
                 </td>
 
-                <td></td>
+                <td>
+                    <a href="{{url('customer/'.$cus->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                </td>
             </tr>
         @endforeach
     </table>
@@ -144,7 +142,6 @@
         </div>
     </div>
 </div>
-
 <!-- Jquery JS-->
 <script src="{{asset('vendor/jquery-3.2.1.min.js')}}"></script>
 <!-- Bootstrap JS-->
@@ -165,9 +162,7 @@
 <script src="{{asset('vendor/chartjs/Chart.bundle.min.js')}}"></script>
 <script src="{{asset('vendor/select2/select2.min.js')}}">
 </script>
-
 <!-- Main JS-->
 <script src="{{asset('js/main.js')}}"></script>
-
 </body>
 </html>

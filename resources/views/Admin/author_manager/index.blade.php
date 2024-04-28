@@ -32,6 +32,7 @@
     <link href="{{asset('css/theme.css')}}" rel="stylesheet" media="all">
 
 </head>
+<body>
 <body class="animsition">
 <div class="page-wrapper">
 
@@ -49,29 +50,28 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-<h1 style="text-align: center">Author</h1>
-<a href="{{url('author/create')}}" class="btn btn-outline-dark">Add Author</a>
-<table class="table">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Country</th>
-        <td></td>
-    </tr>
-    @foreach($authors as $author)
-    <tr>
-
-            <td>{{$author->id}}</td>
-            <td>{{$author->name}}</td>
-            <td>{{$author->country}}</td>
-            <td>
-                <a href="{{url('author/'.$author->id.'/edit')}}" class="btn btn-primary">Edit</a>
-                <a href="{{url('author/'.$author->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
-            </td>
-
-    </tr>
-    @endforeach
-</table>
+                    <h1 style="text-align: center">Author</h1>
+                    <a href="{{url('author/create')}}" class="btn btn-outline-dark">Add Author</a>
+                    <table class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <td>Action</td>
+                        </tr>
+                        @foreach($authors as $author)
+                            <tr>
+                                <td>{{$author->id}}</td>
+                                <td>{{$author->name}}</td>
+                                <td>{{$author->country}}</td>
+                                <td>
+                                    <a href="{{url('author/'.$author->id.'/edit')}}" class="btn btn-primary">Edit</a>
+                                    <a href="{{url('author/'.$author->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
                 </div>
             </div>
         </div>
@@ -104,4 +104,3 @@
 
 </body>
 </html>
-

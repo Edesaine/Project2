@@ -24,4 +24,9 @@ class Customer extends Model implements \Illuminate\Contracts\Auth\Authenticatab
         'account_status'
     ];
     public $timestamps = false;
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

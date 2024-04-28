@@ -62,7 +62,7 @@
                             <th>Print Length</th>
                             <th>Status</th>
                             <th>Publisher</th>
-                            <td></td>
+                            <td>Action</td>
                         </tr>
                         @foreach($books as $book)
                             <tr>
@@ -82,7 +82,7 @@
                                         On Stock
                                     @endif
                                     @if($book->status == 1)
-                                            Unavailable
+                                        Unavailable
                                     @endif
                                 </td>
                                 <td>{{$book->publisher}}</td>
@@ -126,4 +126,3 @@
 
 </body>
 </html>
-

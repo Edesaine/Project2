@@ -13,7 +13,7 @@ class AuthorController extends Controller
     }
     public function create()
     {
-        return view('author.create');
+        return view('admin.author_manager.create');
     }
     public function store(Request $request)
     {
@@ -30,7 +30,7 @@ class AuthorController extends Controller
     public function edit(int $id)
     {
         $author = Author::findorFail($id);
-        return view('author.edit',compact('author'));
+        return view('admin.author_manager.edit',compact('author'));
     }
     public function update(Request $request,int $id)
     {

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Book;
+use App\Requests;
+
 
 class HomeController extends Controller
 {
-/*    public function index();
-    $products = Product::all();
-    return view('Customer.Layout.index');*/
+    public function index()
+    {
+        $books = Book::all();
+        return view('Customer.Layout.index', compact('books'));
+    }
 }

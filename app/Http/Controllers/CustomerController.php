@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Requests\CustomerStoreRequest;
-use App\Requests\UpdateCustomerRequest;
+use App\Requests\CustomerUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Models\Customer;
@@ -29,15 +29,16 @@ class CustomerController extends Controller
             $array = Arr::add($array, 'email', $request->email);
             $array = Arr::add($array, 'password', Hash::make($request->password));
             $array = Arr::add($array, 'phone', $request->phone);
+            $array = Arr::add($array, 'gender', $request->gender);
             $array = Arr::add($array, 'address', $request->address);
-            $array = Arr::add($array, 'status', 1);
+            $array = Arr::add($array, 'account_status', 1);
             //Lấy dữ liệu từ form và lưu lên db
             Customer::create($array);
 
             return Redirect::route('Customer.account.login');
         } else {
             //cho quay về trang login
-            return Redirect::back();
+            return Redirect::back('profile');
         }
     }
 
@@ -65,75 +66,100 @@ class CustomerController extends Controller
         }
     }
 
+    public function logout()
+    {
+        Auth::guard('customer')->logout();
+        session()->forget('customer');
+        return view('Customer.account.logoutConfirm');
+    }
+
     public function editProfile()
     {
         //id cua customers dang dang nhap
-        $id = Auth::guard('customers')->user()->id;
+        $id = Auth::guard('customer')->user()->id;
         //lay ban ghi
         $customer = Customer::find($id);
-        return view('Customer.account.login', [
-            'customers' => $customer
+        return view('Customer.profiles.profile', [
+            'customer' => $customer
         ]);
+    }
+
+    public function updateProfile(Customer $request)
+    {
+        //Lấy dữ liệu trong form và update lên db
+        $array = [];
+        $array = Arr::add($array, 'name', $request->name);
+        $array = Arr::add($array, 'email', $request->email);
+        $array = Arr::add($array, 'phone', $request->phone);
+        $array = Arr::add($array, 'gender', $request->gender);
+        $array = Arr::add($array, 'address', $request->address);
+
+        //id cua customer dang dang nhap
+        $id = Auth::guard('customer')->user()->id;
+        //lay ban ghi
+        $customer = Customer::find($id);
+        $customer->update($array);
+        //Quay về danh sách
+        return Redirect::route('Customer.profiles.profile');
     }
 
     public function index()
     {
-        $customers = Customer::get();
-        return view('admin.customer_manager.index', compact('customers'));
+        $customer = Customer::get();
+        return view('admin.customer_manager.index', compact('customer'));
     }
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name'=>'required|max:255|string',
-            'email'=>'required|max:255|string',
-            'phone'=>'required|max:10|string',
-            'password'=>'required|max:20|string',
-            'gender'=>'required|max:1|int',
-            'address'=>'required|max:255|string',
-            'account_status' => 'sometimes'
-        ]);
-        Customer::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'phone'=>$request->phone,
-            'password'=>Hash::make($request->password),
-            'gender'=>$request->gender,
-            'address'=>$request->address,
-            'account_status' => $request->account_status == true ? 1:0,
-        ]);
-        return redirect('customer/index')->with('status','Customer Added');
-    }
-    public function edit(int $id)
-    {
-        $customers = Customer::findorFail($id);
-        return view('customer.edit',compact('customers'));
-    }
-    public function update(Request $request,int $id)
-    {
-        $request->validate([
-            'name'=>'required|max:255|string',
-            'email'=>'required|max:255|string',
-            'phone'=>'required|max:10|string',
-            'password'=>'required|max:20|string',
-            'gender'=>'required|max:1|int',
-            'address'=>'required|max:255|string',
-        ]);
-        Customer::findorFail($id)->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'phone'=>$request->phone,
-            'password'=>$request->password,
-            'gender'=>$request->gender,
-            'address'=>$request->address,
-        ]);
-        return redirect()->back()->with('status','Customer Updated');
-    }
+
     public function delete(int $id)
     {
-        $customers = Customer::FindOrFail($id);
-        $customers->delete();
+        $customer= Customer::FindOrFail($id);
+        $customer->delete();
         return redirect()->back()->with('status','Customer Deleted');
     }
+
+    public function showOrderHistory()
+    {
+        //id cua customer dang dang nhap
+        $id = Auth::guard('customer')->user()->id;
+        //lay ban ghi
+        $customer = Customer::find($id);
+        $orders = Order::where('customer_id', $id)->orderBy('status')->paginate(2);
+
+        return view('Customer.carts.orderHistory', [
+            'customer' => $customer,
+            'orders' => $orders,
+        ]);
+    }
+
+    public function orderDetail(Order $order)
+    {
+        //id cua customer dang dang nhap
+        $id = Auth::guard('customer')->user()->id;
+        //lay ban ghi
+        $customer = Customer::find($id);
+        $orderId = $order->id;
+        $orderDetails = DB::table('order_details')
+            ->where('order_id', '=', $orderId)
+            ->join('books', 'order_details.book_id', '=', 'books.id')
+            ->get();
+
+        $orderAmount = 0;
+        $orderItems = 0;
+        foreach ($orderDetails as $detail) {
+            $orderItems += $detail->sold_quantity;
+            $orderAmount += $detail->sold_price * $detail->sold_quantity;
+        }
+        $orderTotal = $orderAmount + 10;
+
+        return view('Customer.carts.orderDetails', [
+            'order' => $order,
+            'order_details' => $orderDetails,
+            'order_item' => $orderItems,
+            'order_amount' => $orderAmount,
+            'order_total' => $orderTotal,
+            'customer' => $customer,
+        ]);
+    }
+
 }
 
 

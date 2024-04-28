@@ -58,7 +58,7 @@ $direc='products';
                 @if (session('status'))
                     <div class="alert alert-success">{{ session('status')}}</div>
                 @endif
-                    <a href="{{ url('book/index') }}" class="btn btn-primary float-end">Back</a>
+                <a href="{{ url('book/index') }}" class="btn btn-primary float-end">Back</a>
                 <h2 style="text-align: center"> Add Book</h2>
             </div>
             <form  class="col-8 offset-2" enctype='multipart/form-data' action="{{ url('book/create') }}" method="POST">
@@ -67,14 +67,17 @@ $direc='products';
                     <label for="name" >Book Name : </label>
                     <input id="name" type="text" name="name" class="form-control" value="" required>
                 </div>
+
                 <div class="form-group">
                     <label for="price" >Price :</label>
                     <input id="price" type="number" step="any" name="price" class="form-control"  required>
                 </div>
+
                 <div class="form-group">
                     <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity :</label>
                     <input id="quantity" type="number" name="quantity" class="form-control" value="" required>
                 </div>
+
                 <div class="form-group">
                     <label for="NumberOfPages" >Number of pages :</label>
                     <input id="NumberOfPages" type="number" name="NumberOfPages" class="form-control" required>
@@ -84,10 +87,12 @@ $direc='products';
                     <label for="description">Description :</label>
                     <textarea  name="description" id="description" class="form-control" rows="3" required></textarea>
                 </div>
+
                 <div class="form-group">
                     <label for="file">Choose Image:</label>
                     <input type="file" class="form-control-file" name="image">
                 </div>
+
                 <div class="form-group">
                     <label>Publisher :</label>
                     <select name="publisher_id">
@@ -150,4 +155,3 @@ $direc='products';
 </body>
 
 </html>
-

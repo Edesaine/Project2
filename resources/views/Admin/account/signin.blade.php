@@ -47,7 +47,7 @@
             <div class="login-content">
                 <div class="login-logo">
                     <a href="#">
-                        <img style="width: 300px" src="{{asset('uploads/logo.png')}}" alt="True Dream" />
+                        <img style="width: 300px" src="{{asset('images/logo.png')}}" alt="" />
                     </a>
                 </div>
                 <div class="login-form">

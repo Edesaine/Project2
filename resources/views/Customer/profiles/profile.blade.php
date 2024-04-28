@@ -76,7 +76,7 @@
     <div class="container-xl px-4 mt-4">
         <!-- Account page navigation-->
         <nav class="nav nav-borders">
-            <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details" target="__blank">Profile</a>
+            <a class="nav-link active ms-0" href="{{route('home')}}" target="__blank">Home</a>
             <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-billing-page" target="__blank">Billing</a>
             <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-profile-security-page" target="__blank">Security</a>
             <a class="nav-link" href="https://www.bootdey.com/snippets/view/bs5-edit-notifications-page"  target="__blank">Notifications</a>
@@ -126,8 +126,10 @@
                                 <div class="col-md-6">
                                     <div class="input-group" >
                                         <label for="gender" class="label">Choose</label>
-                                        <input type="radio" name="gender" value="0" id="gender" style="margin-left: 40px">Male
-                                        <input type="radio" name="gender" value="1" id="gender" style="margin-left: 40px">Female
+                                        <input type="radio" name="gender" value="0" id="gender" style="margin-left: 40px"
+                                               {{$customer->gender == 1 ? 'checked': ''}}>Male
+                                        <input type="radio" name="gender" value="1" id="gender" style="margin-left: 40px"
+                                               {{$customer->gender == 0 ? 'checked': ''}}>Female
                                     </div>
                                 </div>
                             </div>

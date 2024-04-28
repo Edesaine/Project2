@@ -30,7 +30,7 @@
                             <a href="{{url('publisher/index')}}">Publisher</a>
                         </li>
                         <li>
-                            <a href="{{url('customers/index')}}">Author</a>
+                            <a href="{{url('author/index')}}">Author</a>
                         </li>
                     </ul>
                 </li>
