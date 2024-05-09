@@ -90,7 +90,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('admin')->paginate(6);
-        return view("admins.order_manager.index", [
+        return view("Admin.order_manager.index", [
             "orders" => $orders,
         ]);
     }
@@ -114,7 +114,7 @@ class OrderController extends Controller
 //        $product = Product::all();
 //        $customer = Customer::all();
 //        $admin = Admin::all();
-        return view('admins.order_manager.order-detail', [
+        return view('Admin.order_manager.order-detail', [
             'orders' => $orders,
             'admins' => $admins,
             'order_details' => $orderDetails,
@@ -127,49 +127,4 @@ class OrderController extends Controller
         ]);
     }
 
-    public function edit(Book $book)
-    {
-        $categories = Category::all();
-        $author = Author::all();
-        return view('admins.book_manager.edit', [
-            'books' => $book,
-            'categories' => $categories,
-            'author' => $author,
-        ]);
-    }
-
-    public function update(Book $request, Book $book)
-    {
-        $data = $request->validate([
-            'name' => 'required',
-            'quantity' => 'required|numeric',
-            'price' => 'required|numeric',
-            'description' => 'required',
-            'category_id' => 'required|numeric',
-            'author_id' => 'required|numeric',
-        ]);
-
-        if ($request->has('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $path = 'uploads/books/';
-            $file->move($path, $filename);
-            if (file_exists($book->image)) {
-                unlink($book->image);
-            }
-        }
-
-        $book->update([
-            'name' => $request->name,
-            'quantity' => $request->quantity,
-            'price' => $request->price,
-            'description' => $request->description,
-            'image' => $path . $filename,
-            'category_id' => $request->category_id,
-            'author_id' => $request->author_id,
-        ]);
-        //Quay về danh sách
-        return Redirect::route('admin.product')->with('success', 'Edit a product successfully!');
-    }
 }

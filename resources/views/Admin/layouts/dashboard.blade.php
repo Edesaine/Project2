@@ -79,13 +79,10 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="form.html">
+                        <a href="#">
                             <i class="far fa-check-square"></i>Forms</a>
                     </li>
-                    <li>
-                        <a href="calendar.html">
-                            <i class="fas fa-calendar-alt"></i>Calendar</a>
-                    </li>
+
                     <li class="has-sub">
                         <a class="js-arrow" href="#">
                             <i class="fas fa-copy"></i>Pages</a>

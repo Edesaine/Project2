@@ -80,7 +80,7 @@ Route::middleware(LoginCheckingCustomer::class)->group(function () {
     Route::put('/change_password', [CustomerController::class, 'updatePassword'])->name('customer.pwdUpdate');
 
     Route::get('/cart', [BookController::class, 'cart'])->name('Customer.carts.cart');
-    Route::post('/addToCart/{id}', [BookController::class, 'addToCart'])->name('Customer.products.addToCart');
+    Route::get('/addToCart/{id}', [BookController::class, 'addToCart'])->name('Customer.products.addToCart');
     Route::get('/addToCartAjax/{id}', [BookController::class, 'addToCartAjax'])->name('Customer.products.addToCartAjax');
     Route::get('/updateCartQuantity/{id}', [BookController::class, 'updateCartQuantity'])->name('Customer.products.updateCartQuantity');
     Route::get('/deleteFromCart/{id}', [BookController::class, 'deleteFromCart'])->name('Customer.products.deleteFromCart');
@@ -101,3 +101,4 @@ Route::get('/forgot_password', [CustomerController::class, 'forgotPassword'])->n
 
 Route::get('/',[App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('book/{id}', [BookController::class, 'bookDetail'])->name('Customer.product.detail');

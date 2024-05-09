@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Author;
 use App\Models\Book;
@@ -16,6 +17,27 @@ use Illuminate\Support\Facades\Redirect;
 
 class BookController extends Controller
 {
+    public function bookDetail(int $id, Request $request)
+    {
+        $book = Book::findOrFail($id); // Khởi tạo biến $book ở đầu hàm
+        $fileName = '';
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/uploads/books/');
+            $fileName = basename($imagePath);
+            /* $book=DB::table('books')
+                 ->join('publishers','books.publisher_id','=','publishers.id')
+                 ->select('books.*','publishers.name as publisher')
+                 ->where('books.id','=',$id)
+                 ->get(); */
+            $book->image = $fileName;
+            $book->save();
+        }
+
+        $relaBook = Book::orderBy('quantity','asc')->take(4)->get();
+        return view('Customer.product.detail', compact('book','relaBook','fileName'));
+    }
+
     public function cart()
     {
         return view('Customer.carts.cart');
@@ -180,7 +202,7 @@ class BookController extends Controller
 
             $filename = time().'.'.$extension;
 
-            $path = 'uploads/books/';
+            $path = 'storage/uploads/books/';
             $file->move($path, $filename);
         }
         Book::create([
@@ -227,7 +249,7 @@ class BookController extends Controller
 
             $filename = time().'.'.$extension;
 
-            $path = 'uploads/product/';
+            $path = 'storage/uploads/books/';
             $file->move($path, $filename);
 
             if(File::exists($book->image)){

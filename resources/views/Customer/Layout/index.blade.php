@@ -181,9 +181,12 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
                 <button class="jkit-close-menu"><i aria-hidden="true" class="jki jki-times-solid"></i></button>
             </div>
         </div>
-        <div class="jkit-overlay"></div></div>		</div>
+        <div class="jkit-overlay">
+        </div>
+            </div>
+                </div>
 				</div>
-					</div>
+            </div>
 		</div>
 				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-ad5a77e elementor-hidden-tablet elementor-hidden-mobile" data-id="ad5a77e" data-element_type="column">
 			<div class="elementor-widget-wrap elementor-element-populated">
@@ -224,17 +227,35 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 			<link rel="stylesheet"
                   href="{{ asset('templatekit.jegtheme.com/docbook/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css')}}">
 <ul class="elementor-icon-list-items">
-						    	<li class="elementor-icon-list-item">
-											<a href="{{route('profile')}}">
-											<span class="elementor-icon-list-text">Login</span>
-											</a>
-									</li>
+                                    @if(!$customer)
+                                        <li class="elementor-icon-list-item">
 
-								<li class="elementor-icon-list-item">
-											<a href="{{route('Customer.account.register')}}">
-											<span class="elementor-icon-list-text">Sign Up</span>
-											</a>
-									</li>
+                                        <p class="animated-text"> Hello </p>
+                                        </li>
+                                        <li class="elementor-icon-list-item">
+                                        <a href="{{route('profile')}}">
+                                              <span class="elementor-icon-list-text">Login</span>
+									    </a>
+                                        </li>
+                                    @endif
+
+                                    @if($customer)
+                                       <li class="elementor-icon-list-item">
+                                           <p class="animated-text"> Hello, {{$customer->name}}</p>
+                                       </li>
+                                       <li class="elementor-icon-list-item">
+                                            <a href="{{route('Customer.account.logout')}}">
+                                                <span class="elementor-icon-list-text">Sign out</span>
+                                            </a>
+                                       </li>
+                                    @endif
+
+                                <li class="elementor-icon-list-item">
+                                    <a href="{{route('Customer.account.register')}}">
+                                        <span class="elementor-icon-list-text">Sign Up</span>
+                                    </a>
+                                </li>
+
 								<li class="elementor-icon-list-item">
 											<a href="#">
 
@@ -433,13 +454,25 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 		</div>
 							</div>
 		</section>
-				<section class="elementor-section elementor-top-section elementor-element elementor-element-e8899df elementor-reverse-tablet elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="e8899df" data-element_type="section">
+{{--
+       @foreach($books as $sach)
+--}}
+                        <section class="elementor-section elementor-top-section elementor-element elementor-element-e8899df elementor-reverse-tablet elementor-reverse-mobile elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="e8899df" data-element_type="section">
 						<div class="elementor-container elementor-column-gap-default">
-					<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-a8a4612 jkit-sticky-element--enabled jkit-sticky-element-on--down jkit-sticky-position--sticky" data-id="a8a4612" data-element_type="column" data-settings="{&quot;jkit_sticky_device&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;jkit_sticky_top_position&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]}}">
+        @if($sach)
+					<div class="elementor-column elementor-col-50 elementor-top-column elementor-element
+					elementor-element-a8a4612 jkit-sticky-element--enabled jkit-sticky-element-on--down
+					jkit-sticky-position--sticky" data-id="a8a4612" data-element_type="column"
+                         data-settings="{&quot;jkit_sticky_device&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;jkit_sticky_top_position&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]}}">
 			<div class="elementor-widget-wrap elementor-element-populated">
-								<div class="elementor-element elementor-element-ddbe323 elementor-widget elementor-widget-image" data-id="ddbe323" data-element_type="widget" data-widget_type="image.default">
+                <div class="elementor-element elementor-element-ddbe323 elementor-widget elementor-widget-image" data-id="ddbe323" data-element_type="widget" data-widget_type="image.default">
 				<div class="elementor-widget-container">
-															<img loading="lazy" decoding="async" width="1000" height="1000" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-6.png" class="attachment-full size-full wp-image-16" alt="" srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-6.png 1000w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-6-300x300.png 300w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-6-150x150.png 150w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-6-768x768.png 768w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-6-800x800.png 800w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-6-450x450.png 450w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-6-600x600.png 600w, https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-6-100x100.png 100w" sizes="(max-width: 1000px) 100vw, 1000px" />															</div>
+				<img loading="lazy" decoding="async"  style="width:300px; height: 400px; margin-right: 100px"
+                     src="{{$sach->image}}"
+                     class="attachment-full size-full wp-image-16" alt=""
+                     srcset="{{$sach->image}}"
+                     sizes="(max-width: 700px) 70vw, 700px" />
+                </div>
 				</div>
 				<section class="elementor-section elementor-inner-section elementor-element elementor-element-c0fce56 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="c0fce56" data-element_type="section">
 						<div class="elementor-container elementor-column-gap-no">
@@ -448,32 +481,48 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 								<div class="elementor-element elementor-element-172547d elementor-widget__width-auto elementor--star-style-star_unicode elementor-widget elementor-widget-star-rating" data-id="172547d" data-element_type="widget" data-widget_type="star-rating.default">
 				<div class="elementor-widget-container">
 			<style>/*! elementor - v3.17.0 - 08-11-2023 */
-@charset "UTF-8";.elementor-star-rating{color:#ccd6df;font-family:eicons;display:inline-block}.elementor-star-rating i{display:inline-block;position:relative;font-style:normal;cursor:default}.elementor-star-rating i:before{content:"\e934";display:block;font-size:inherit;font-family:inherit;position:absolute;overflow:hidden;color:#f0ad4e;top:0;left:0}.elementor-star-rating .elementor-star-empty:before{content:none}.elementor-star-rating .elementor-star-1:before{width:10%}.elementor-star-rating .elementor-star-2:before{width:20%}.elementor-star-rating .elementor-star-3:before{width:30%}.elementor-star-rating .elementor-star-4:before{width:40%}.elementor-star-rating .elementor-star-5:before{width:50%}.elementor-star-rating .elementor-star-6:before{width:60%}.elementor-star-rating .elementor-star-7:before{width:70%}.elementor-star-rating .elementor-star-8:before{width:80%}.elementor-star-rating .elementor-star-9:before{width:90%}.elementor-star-rating__wrapper{display:flex;align-items:center}.elementor-star-rating__title{margin-right:10px}.elementor-star-rating--align-right .elementor-star-rating__wrapper{text-align:right;justify-content:flex-end}.elementor-star-rating--align-left .elementor-star-rating__wrapper{text-align:left;justify-content:flex-start}.elementor-star-rating--align-center .elementor-star-rating__wrapper{text-align:center;justify-content:center}.elementor-star-rating--align-justify .elementor-star-rating__title{margin-right:auto}@media (max-width:1024px){.elementor-star-rating-tablet--align-right .elementor-star-rating__wrapper{text-align:right;justify-content:flex-end}.elementor-star-rating-tablet--align-left .elementor-star-rating__wrapper{text-align:left;justify-content:flex-start}.elementor-star-rating-tablet--align-center .elementor-star-rating__wrapper{text-align:center;justify-content:center}.elementor-star-rating-tablet--align-justify .elementor-star-rating__title{margin-right:auto}}@media (max-width:767px){.elementor-star-rating-mobile--align-right .elementor-star-rating__wrapper{text-align:right;justify-content:flex-end}.elementor-star-rating-mobile--align-left .elementor-star-rating__wrapper{text-align:left;justify-content:flex-start}.elementor-star-rating-mobile--align-center .elementor-star-rating__wrapper{text-align:center;justify-content:center}.elementor-star-rating-mobile--align-justify .elementor-star-rating__title{margin-right:auto}}.last-star{letter-spacing:0}.elementor--star-style-star_unicode .elementor-star-rating{font-family:Arial,Helvetica,sans-serif}.elementor--star-style-star_unicode .elementor-star-rating i:not(.elementor-star-empty):before{content:"★"}</style>
+        @charset "UTF-8";.elementor-star-rating{color:#ccd6df;font-family:eicons;display:inline-block}.elementor-star-rating i{display:inline-block;position:relative;font-style:normal;cursor:default}.elementor-star-rating i:before{content:"\e934";display:block;font-size:inherit;font-family:inherit;position:absolute;overflow:hidden;color:#f0ad4e;top:0;left:0}.elementor-star-rating .elementor-star-empty:before{content:none}.elementor-star-rating .elementor-star-1:before{width:10%}.elementor-star-rating .elementor-star-2:before{width:20%}.elementor-star-rating .elementor-star-3:before{width:30%}.elementor-star-rating .elementor-star-4:before{width:40%}.elementor-star-rating .elementor-star-5:before{width:50%}.elementor-star-rating .elementor-star-6:before{width:60%}.elementor-star-rating .elementor-star-7:before{width:70%}.elementor-star-rating .elementor-star-8:before{width:80%}.elementor-star-rating .elementor-star-9:before{width:90%}.elementor-star-rating__wrapper{display:flex;align-items:center}.elementor-star-rating__title{margin-right:10px}.elementor-star-rating--align-right .elementor-star-rating__wrapper{text-align:right;justify-content:flex-end}.elementor-star-rating--align-left .elementor-star-rating__wrapper{text-align:left;justify-content:flex-start}.elementor-star-rating--align-center .elementor-star-rating__wrapper{text-align:center;justify-content:center}.elementor-star-rating--align-justify .elementor-star-rating__title{margin-right:auto}@media (max-width:1024px){.elementor-star-rating-tablet--align-right .elementor-star-rating__wrapper{text-align:right;justify-content:flex-end}.elementor-star-rating-tablet--align-left .elementor-star-rating__wrapper{text-align:left;justify-content:flex-start}.elementor-star-rating-tablet--align-center .elementor-star-rating__wrapper{text-align:center;justify-content:center}.elementor-star-rating-tablet--align-justify .elementor-star-rating__title{margin-right:auto}}@media (max-width:767px){.elementor-star-rating-mobile--align-right .elementor-star-rating__wrapper{text-align:right;justify-content:flex-end}.elementor-star-rating-mobile--align-left .elementor-star-rating__wrapper{text-align:left;justify-content:flex-start}.elementor-star-rating-mobile--align-center .elementor-star-rating__wrapper{text-align:center;justify-content:center}.elementor-star-rating-mobile--align-justify .elementor-star-rating__title{margin-right:auto}}.last-star{letter-spacing:0}.elementor--star-style-star_unicode .elementor-star-rating{font-family:Arial,Helvetica,sans-serif}.elementor--star-style-star_unicode .elementor-star-rating i:not(.elementor-star-empty):before{content:"★"}</style>
 		<div class="elementor-star-rating__wrapper">
-						<div class="elementor-star-rating" title="5/5" itemtype="http://schema.org/Rating" itemscope="" itemprop="reviewRating"><i class="elementor-star-full">&#9733;</i><i class="elementor-star-full">&#9733;</i><i class="elementor-star-full">&#9733;</i><i class="elementor-star-full">&#9733;</i><i class="elementor-star-full">&#9733;</i> <span itemprop="ratingValue" class="elementor-screen-only">5/5</span></div>		</div>
+
 				</div>
-				</div>
-				<div class="elementor-element elementor-element-bbf0ae8 elementor-widget__width-auto elementor-widget elementor-widget-heading" data-id="bbf0ae8" data-element_type="widget" data-widget_type="heading.default">
+
+                <div class="elementor-element elementor-element-bbf0ae8 elementor-widget__width-auto elementor-widget elementor-widget-heading"
+                     data-id="bbf0ae8" data-element_type="widget" data-widget_type="heading.default">
 				<div class="elementor-widget-container">
-			<h2 class="elementor-heading-title elementor-size-default">$31.23</h2>		</div>
+			<h2 class="elementor-heading-title elementor-size-default" style="margin-top: 30px">${{$sach->price}}</h2>
+                </div>
 				</div>
-				<div class="elementor-element elementor-element-1a5a945 jkit-equal-height-disable elementor-widget elementor-widget-jkit_icon_box" data-id="1a5a945" data-element_type="widget" data-widget_type="jkit_icon_box.default">
+				<div class="elementor-element elementor-element-1a5a945 jkit-equal-height-disable elementor-widget elementor-widget-jkit_icon_box"
+                     data-id="1a5a945" data-element_type="widget" data-widget_type="jkit_icon_box.default">
 				<div class="elementor-widget-container">
-			<div  class="jeg-elementor-kit jkit-icon-box icon-position- elementor-animation- jeg_module_135_6_65f405a097a0a" ><div class="jkit-icon-box-wrapper hover-from-left"><div class="icon-box icon-box-body">
-                <h2 class="title">Rucksack</h2><p class="icon-box-description">The Journey Issue</p><div class="icon-box-button ">
+			<div  class="jeg-elementor-kit jkit-icon-box icon-position- elementor-animation- jeg_module_135_6_65f405a097a0a" >
+                <div class="jkit-icon-box-wrapper hover-from-left"><div class="icon-box icon-box-body">
+                <h2 class="title">{{$sach->name}}</h2>
+                        <div class="icon-box-button ">
                 <div class="btn-wrapper icon-position-before">
-                    <a href="#"  class="icon-box-link"  ><i aria-hidden="true" class="fas fa-shopping-cart"></i>Buy Now</a>
+                    <a href="{{route('Customer.products.addToCart', $sach->id)}}"  class="icon-box-link"  >
+                        <i aria-hidden="true" class="fas fa-shopping-cart"></i>Buy Now
+                    </a>
+                </div>
                 </div>
             </div>
-            </div>
 
-            </div></div>		</div>
+                </div>
+                </div>
+                </div>
 				</div>
-					</div>
+            </div>
 		</div>
-							</div>
+        @else
+            <p>Sold Out</p>
+        @endif
+                        </div>
 		</section>
-					</div>
+{{--
+        @endforeach
+--}}
+
+            </div>
 		</div>
 				<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-f9bb2d3" data-id="f9bb2d3" data-element_type="column">
 			<div class="elementor-widget-wrap elementor-element-populated">
@@ -490,287 +539,111 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 			<div  class="jeg-elementor-kit jkit-product-grid jkit-pagination-disable post-element
 			jeg_module_135_7_65f405a0bb5fb"  data-id="jeg_module_135_7_65f405a0bb5fb"
                   data-settings="{&quot;sg_content_column&quot;:4,&quot;sg_content_show_element&quot;:&quot;image,price,title,rating&quot;,&quot;sg_content_sorting&quot;:&quot;&quot;,&quot;sg_content_image_heading&quot;:&quot;&quot;,&quot;sg_content_image_size&quot;:&quot;&quot;,&quot;sg_content_sale&quot;:&quot;&quot;,&quot;sg_content_percentage&quot;:&quot;yes&quot;,&quot;number_post&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:9,&quot;sizes&quot;:[]},&quot;post_offset&quot;:0,&quot;wc_include_post&quot;:&quot;&quot;,&quot;wc_exclude_post&quot;:&quot;&quot;,&quot;wc_include_category&quot;:&quot;&quot;,&quot;wc_exclude_category&quot;:&quot;&quot;,&quot;wc_include_tag&quot;:&quot;&quot;,&quot;wc_exclude_tag&quot;:&quot;&quot;,&quot;sort_by&quot;:&quot;alphabet_asc&quot;,&quot;pagination_mode&quot;:&quot;disable&quot;,&quot;pagination_loadmore_text&quot;:&quot;Load More&quot;,&quot;pagination_loading_text&quot;:&quot;Loading...&quot;,&quot;pagination_number_post&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:4,&quot;sizes&quot;:[]},&quot;pagination_scroll_limit&quot;:0,&quot;pagination_icon&quot;:{&quot;value&quot;:&quot;&quot;,&quot;library&quot;:&quot;&quot;},&quot;pagination_icon_position&quot;:&quot;before&quot;,&quot;sg_content_image_size_imagesize_size&quot;:&quot;medium&quot;,&quot;post_type&quot;:&quot;product&quot;,&quot;paged&quot;:1,&quot;class&quot;:&quot;jkit_product_grid&quot;}"><div class="jkit-block-container"><div class="woocommerce"><ul class="products jkit-products jkit-align-left ">
-@foreach($books as $book)
-<li class="product type-product post-42 status-publish first instock product_cat-dictionary product_cat-sci-fi has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
-<a href="templatekit.jegtheme.com/docbook/product/aenean-art-design/index.html"
-             class="jkit-product"><div class="product-link">
-<img loading="lazy" decoding="async" style="width:160px ; height:220px; margin-left: 3px"
-            src="{{$book->image}}" class="wp-post-image product-image" alt=""
-    srcset="{{$book->image}},
-    {{$book->image}},
-    {{$book->image}},
-    {{$book->image}},
-    {{$book->image}},
-    {{$book->image}},
-    {{$book->image}}"
-    sizes="(max-width: 300px) 100vw, 300px" />
-    </div>
-    <span class="price"><span
-    class="woocommerce-Price-amount amount">
-            <bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>{{$book->price}}</bdi></span></span>
-                                    <h2 class="product-title">{{$book->name}}</h2></a>
-    @auth('customer')
-        <form action="" >
-            @csrf
-            <button type="submit" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-id="{{ $book->id }}">
-                <a href="{{route('Customer.products.addToCartAjax', $book->id)}}">
-                    <i class="fas fa-shopping-cart"></i> Add to cart
-                </a>
-            </button>
-        </form>
-    @endauth
 
-</li>
-@endforeach
-<li class="product type-product post-44 status-publish instock product_cat-dictionary product_cat-essays has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
-         <a href="templatekit.jegtheme.com/docbook/product/aenean-typography/index.html" class="jkit-product">
-             <div class="product-link"><img loading="lazy" decoding="async" width="300" height="300"
-             src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-300x300.png"
-             class="wp-post-image product-image" alt=""
-             srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-300x300.png 300w,
-             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-150x150.png 150w,
-             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-768x768.png 768w,
-             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-450x450.png 450w,
-             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-600x600.png 600w,
-             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15-100x100.png 100w,
-             https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-15.png 800w"
-             sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price">
-<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>36.25</bdi></span></span>
-        <h2 class="product-title">Aenean Typography</h2></a>
-<a href="templatekit.jegtheme.com/docbook/indexdaaf.html?add-to-cart=44" data-quantity="1"
-   class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="44"
-data-product_sku="" aria-label="Add &ldquo;Aenean Typography&rdquo; to your cart" rel="nofollow">
-        <i class="fas fa-shopping-cart"></i> Add to cart</a></li>
-<li class="product type-product post-37 status-publish instock product_cat-comedy has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
-<a href="templatekit.jegtheme.com/docbook/product/art-of-life-vol-16/index.html" class="jkit-product">
-<div class="product-link"><img loading="lazy" decoding="async" width="300" height="300"
-    src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-300x300.png"
-    class="wp-post-image product-image" alt=""
-    srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-300x300.png 300w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-150x150.png 150w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-768x768.png 768w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-800x800.png 800w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-450x450.png 450w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-600x600.png 600w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8-100x100.png 100w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-8.png 1000w"
-    sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price">
-<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>11.20</bdi></span></span>
-        <h2 class="product-title">Art Of Life Vol.16</h2></a><a
-    href="templatekit.jegtheme.com/docbook/indexf4c6.html?add-to-cart=37" data-quantity="1"
-    class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="37" data-product_sku=""
-    aria-label="Add &ldquo;Art Of Life Vol.16&rdquo; to your cart" rel="nofollow">
-    <i class="fas fa-shopping-cart"></i> Add to cart</a></li>
-<li class="product type-product post-35 status-publish last instock product_cat-novel has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
-    <a href="templatekit.jegtheme.com/docbook/product/book-of-psalms/index.html" class="jkit-product">
-    <div class="product-link"><img loading="lazy" decoding="async" width="300" height="300"
-    src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-300x300.png"
-    class="wp-post-image product-image" alt=""
-    srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-300x300.png 300w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-150x150.png 150w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-768x768.png 768w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-800x800.png 800w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-450x450.png 450w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-600x600.png 600w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5-100x100.png 100w,
-    https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-5.png 1000w"
-sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price">
-    <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>16.20</bdi></span></span>
-        <h2 class="product-title">Book Of Psalms</h2></a>
-<a href="templatekit.jegtheme.com/docbook/index1c5c.html?add-to-cart=35" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="35" data-product_sku=""
-aria-label="Add &ldquo;Book Of Psalms&rdquo; to your cart" rel="nofollow">
-        <i class="fas fa-shopping-cart"></i> Add to cart</a></li>
-<li class="product type-product post-31 status-publish first instock product_cat-drama has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
-<a href="templatekit.jegtheme.com/docbook/product/cereal-vol-14-2019/index.html" class="jkit-product">
-     <div class="product-link"><img loading="lazy" decoding="async" width="300" height="300"
-     src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-2.png"
-     class="wp-post-image product-image" alt="" /></div>
-     <span class="price"><span class="woocommerce-Price-amount amount"><bdi>
-     <span class="woocommerce-Price-currencySymbol">&#36;</span>13.10</bdi></span></span>
-           <h2 class="product-title">Cereal Vol.14 (2019)</h2></a>
-<a href="templatekit.jegtheme.com/docbook/index1557.html?add-to-cart=31" data-quantity="1"
-     class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="31"
-     data-product_sku="" aria-label="Add &ldquo;Cereal Vol.14 (2019)&rdquo; to your cart"
-     rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li>
-<li class="product type-product post-33 status-publish instock product_cat-fantasy has-post-thumbnail sale shipping-taxable purchasable product-type-simple jkit-product-block">
-<a href="templatekit.jegtheme.com/docbook/product/design-anthology/index.html" class="jkit-product">
-<div class="product-link"><span class="onsale percent jkit-onsale-position-left jkit-onsale-position-bottom">12%</span>
-     <img loading="lazy" decoding="async" width="300" height="300"
-     src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-300x300.png"
-     class="wp-post-image product-image" alt=""
-     srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-300x300.png 300w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-150x150.png 150w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-768x768.png 768w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-450x450.png 450w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-600x600.png 600w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4-100x100.png 100w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-4.png 800w"
-     sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hidden="true">
-<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>20.50</bdi></span></del>
-<ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>18.00</bdi></span></ins></span>
-     <h2 class="product-title">Design Anthology</h2></a>
-<a href="templatekit.jegtheme.com/docbook/index51e2.html?add-to-cart=33" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart"
-     data-product_id="33" data-product_sku="" aria-label="Add &ldquo;Design Anthology&rdquo; to your cart"
-     rel="nofollow"><i class="fas fa-shopping-cart"></i> Add to cart</a></li>
-<li class="product type-product post-43 status-publish instock product_cat-dictionary product_cat-fiction has-post-thumbnail sale shipping-taxable purchasable product-type-simple jkit-product-block">
-<a href="templatekit.jegtheme.com/docbook/product/fluid-color-design/index.html" class="jkit-product">
-<div class="product-link"><span class="onsale percent jkit-onsale-position-left jkit-onsale-position-bottom">19%</span>
-      <img loading="lazy" decoding="async" width="300" height="300"
-src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-300x300.png"
-class="wp-post-image product-image" alt=""
-srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-300x300.png 300w,
-https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-150x150.png 150w,
-https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-768x768.png 768w,
-https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-800x800.png 800w,
-https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-450x450.png 450w,
-https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-600x600.png 600w,
-https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14-100x100.png 100w,
-https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-14.png 1000w"
-sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hidden="true">
-<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>35.99</bdi></span></del> <ins>
-<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>29.00</bdi></span></ins></span>
-        <h2 class="product-title">Fluid Color Design</h2></a>
-<a href="templatekit.jegtheme.com/docbook/indexa2f1.html?add-to-cart=43" data-quantity="1"
-      class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="43" data-product_sku=""
-        aria-label="Add &ldquo;Fluid Color Design&rdquo; to your cart" rel="nofollow">
-<i class="fas fa-shopping-cart"></i> Add to cart</a></li><li class="product type-product post-39 status-publish last instock product_cat-mystery has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
-<a href="templatekit.jegtheme.com/docbook/product/geometric-vol-01/index.html" class="jkit-product">
-        <div class="product-link"><img loading="lazy" decoding="async" width="300" height="300"
-   src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-300x300.png"
-        class="wp-post-image product-image" alt=""
-   srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-300x300.png 300w,
-   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-150x150.png 150w,
-   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-768x768.png 768w,
-   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-800x800.png 800w,
-   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-450x450.png 450w,
-   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-600x600.png 600w,
-   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10-100x100.png 100w,
-   https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-10.png 1000w"
-   sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price">
-<span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>17.35</bdi></span></span>
-        <h2 class="product-title">Geometric Vol.01</h2></a>
-<a href="templatekit.jegtheme.com/docbook/indexe2ad.html?add-to-cart=39" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="39" data-product_sku=""
-     aria-label="Add &ldquo;Geometric Vol.01&rdquo; to your cart" rel="nofollow">
-         <i class="fas fa-shopping-cart"></i> Add to cart</a></li>
-<li class="product type-product post-40 status-publish first instock product_cat-mystery has-post-thumbnail sale shipping-taxable purchasable product-type-simple jkit-product-block">
-<a href="templatekit.jegtheme.com/docbook/product/geometric-vol-02/index.html" class="jkit-product">
-<div class="product-link"><span class="onsale percent jkit-onsale-position-left jkit-onsale-position-bottom">11%</span>
-        <img loading="lazy" decoding="async" width="300" height="300"
-     src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-300x300.png"
-     class="wp-post-image product-image" alt=""
-     srcset="https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-300x300.png 300w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-150x150.png 150w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-768x768.png 768w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-800x800.png 800w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-450x450.png 450w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-600x600.png 600w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11-100x100.png 100w,
-     https://templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/book-11.png 1000w"
-     sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hidden="true">
-     <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>21.90</bdi></span></del> <ins>
-     <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>19.50</bdi></span></ins></span>
-     <h2 class="product-title">Geometric Vol.02</h2></a>
-<a href="templatekit.jegtheme.com/docbook/index26b1.html?add-to-cart=40" data-quantity="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="40" data-product_sku=""
-     aria-label="Add &ldquo;Geometric Vol.02&rdquo; to your cart" rel="nofollow">
-     <i class="fas fa-shopping-cart"></i> Add to cart</a></li></ul></div></div></div>		</div>
+@if($books->isEmpty())
+       <p>Sold Out</p>
+@else
+            @foreach($books as $book)
+            <li class="product type-product post-42 status-publish first instock product_cat-dictionary product_cat-sci-fi has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
+            <a href="{{ route('Customer.product.detail', $book->id) }}"
+                         class="jkit-product"><div class="product-link">
+            <img loading="lazy" decoding="async" style="width:160px ; height:220px; margin-left: 3px"
+                        src="{{$book->image}}" class="wp-post-image product-image" alt=""
+                srcset="{{$book->image}},
+                {{$book->image}},
+                {{$book->image}},
+                {{$book->image}},
+                {{$book->image}},
+                {{$book->image}},
+                {{$book->image}}"
+                sizes="(max-width: 300px) 100vw, 300px" />
+                </div>
+                <span class="price"><span
+                class="woocommerce-Price-amount amount">
+                        <bdi><span class="woocommerce-Price-currencySymbol">&#36;</span>{{$book->price}}</bdi></span></span>
+                                                <h2 class="product-title" style="width: 180px">{{$book->name}}</h2></a>
+                @auth('customer')
+                    <form action="" >
+                        @csrf
+                        <button type="submit" class="button product_type_simple add_to_cart_button ajax_add_to_cart"
+                                data-id="{{ $book->id }}">
+                            <a href="{{route('Customer.products.addToCartAjax', $book->id)}}">
+                                <i class="fas fa-shopping-cart"></i> Add to cart
+                            </a>
+                        </button>
+                    </form>
+                @endauth
+            </li>
+            @endforeach
+@endif
+                    </div>
+            </div>
+                </div>
 				</div>
-					</div>
+            </div>
 		</div>
-							</div>
+                        </div>
 		</section>
-				<section class="elementor-section elementor-top-section elementor-element elementor-element-57ee89b1 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="57ee89b1" data-element_type="section">
+                            <section class="elementor-section elementor-top-section elementor-element elementor-element-57ee89b1 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="57ee89b1" data-element_type="section">
 						<div class="elementor-container elementor-column-gap-no">
 					<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-26722993" data-id="26722993" data-element_type="column">
 			<div class="elementor-widget-wrap elementor-element-populated">
 								<div class="elementor-element elementor-element-4d5ba075 jkit-equal-height-disable elementor-widget elementor-widget-jkit_icon_box" data-id="4d5ba075" data-element_type="widget" data-widget_type="jkit_icon_box.default">
 				<div class="elementor-widget-container">
 			<div  class="jeg-elementor-kit jkit-icon-box icon-position- elementor-animation-float jeg_module_135_8_65f405a0d40e3" ><div class="jkit-icon-box-wrapper hover-from-left"><div class="icon-box icon-box-header elementor-animation-"><div class="icon style-gradient"><i aria-hidden="true" class="jki jki-speed-light"></i></div></div><div class="icon-box icon-box-body">
-                <h2 class="title">Fast Delivery</h2><p class="icon-box-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h2 class="title">Fast Delivery</h2><p class="icon-box-description">Your order will be delivered quickly!</p>
             </div>
 
-            </div></div>		</div>
+            </div>
+            </div>
+                </div>
 				</div>
-					</div>
+            </div>
 		</div>
 				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-6694ed4f" data-id="6694ed4f" data-element_type="column">
 			<div class="elementor-widget-wrap elementor-element-populated">
 								<div class="elementor-element elementor-element-48819c5e jkit-equal-height-disable elementor-widget elementor-widget-jkit_icon_box" data-id="48819c5e" data-element_type="widget" data-widget_type="jkit_icon_box.default">
 				<div class="elementor-widget-container">
 			<div  class="jeg-elementor-kit jkit-icon-box icon-position- elementor-animation-float jeg_module_135_9_65f405a0d698a" ><div class="jkit-icon-box-wrapper hover-from-left"><div class="icon-box icon-box-header elementor-animation-"><div class="icon style-gradient"><i aria-hidden="true" class="jki jki-clock-1-light"></i></div></div><div class="icon-box icon-box-body">
-                <h2 class="title">Open 24 Hour</h2><p class="icon-box-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h2 class="title">Open 24 Hour</h2><p class="icon-box-description">You can choose your book anytime !</p>
             </div>
-
-            </div></div>		</div>
+            </div>
+            </div>
+                </div>
 				</div>
-					</div>
+            </div>
 		</div>
 				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-4125c215" data-id="4125c215" data-element_type="column">
 			<div class="elementor-widget-wrap elementor-element-populated">
 								<div class="elementor-element elementor-element-4e5f1a0d jkit-equal-height-disable elementor-widget elementor-widget-jkit_icon_box" data-id="4e5f1a0d" data-element_type="widget" data-widget_type="jkit_icon_box.default">
 				<div class="elementor-widget-container">
 			<div  class="jeg-elementor-kit jkit-icon-box icon-position- elementor-animation-float jeg_module_135_10_65f405a0d8c7c" ><div class="jkit-icon-box-wrapper hover-from-left"><div class="icon-box icon-box-header elementor-animation-"><div class="icon style-gradient"><i aria-hidden="true" class="jki jki-credit-card1-light"></i></div></div><div class="icon-box icon-box-body">
-                <h2 class="title">Online Payment</h2><p class="icon-box-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h2 class="title">Online Payment</h2><p class="icon-box-description">Pay for your orders anytime, anywhere!</p>
             </div>
 
-            </div></div>		</div>
+            </div>
+            </div>
+                </div>
 				</div>
-					</div>
+            </div>
 		</div>
 				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-2f539630" data-id="2f539630" data-element_type="column">
 			<div class="elementor-widget-wrap elementor-element-populated">
 								<div class="elementor-element elementor-element-6e792924 jkit-equal-height-disable elementor-widget elementor-widget-jkit_icon_box" data-id="6e792924" data-element_type="widget" data-widget_type="jkit_icon_box.default">
 				<div class="elementor-widget-container">
 			<div  class="jeg-elementor-kit jkit-icon-box icon-position- elementor-animation-float jeg_module_135_11_65f405a0dac83" ><div class="jkit-icon-box-wrapper hover-from-left"><div class="icon-box icon-box-header elementor-animation-"><div class="icon style-gradient"><i aria-hidden="true" class="jki jki-book-open-line"></i></div></div><div class="icon-box icon-box-body">
-                <h2 class="title">Online Order</h2><p class="icon-box-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h2 class="title">Online Order</h2><p class="icon-box-description">Order your favorite books online !</p>
             </div>
 
-            </div></div>		</div>
+            </div>
+            </div>
+                </div>
 				</div>
-					</div>
+            </div>
 		</div>
-							</div>
+                        </div>
 		</section>
-				<section class="elementor-section elementor-top-section elementor-element elementor-element-e17ddcd elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="e17ddcd" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-							<div class="elementor-background-overlay"></div>
-							<div class="elementor-container elementor-column-gap-default">
-					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-0dc6b0b" data-id="0dc6b0b" data-element_type="column">
-			<div class="elementor-widget-wrap elementor-element-populated">
-								<div class="elementor-element elementor-element-cefda0d elementor-widget elementor-widget-heading" data-id="cefda0d" data-element_type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
-			<h2 class="elementor-heading-title elementor-size-default">Get Special Promo <br> All Books Are 50% Off Now!</h2>		</div>
-				</div>
-				<div class="elementor-element elementor-element-511a65c elementor-widget elementor-widget-jkit_countdown" data-id="511a65c" data-element_type="widget" data-widget_type="jkit_countdown.default">
-				<div class="elementor-widget-container">
-			<div  class="jeg-elementor-kit jkit-countdown  jeg_module_135_12_65f405a0e671e"  data-due-date="2023-01-01T12:00:00" data-expired-type="none"><div class="timer-container timer-days">
-                <div class="timer-inner-container countdown-inner">
-                    <div class="timer-content label-bottom"><span class="timer-count timer-loading">0 </span><span class="timer-title">Days</span></div>
-                </div>
-            </div><div class="timer-container timer-hours">
-                <div class="timer-inner-container countdown-inner">
-                    <div class="timer-content label-bottom"><span class="timer-count timer-loading">0 </span><span class="timer-title">Hours</span></div>
-                </div>
-            </div><div class="timer-container timer-minutes">
-                <div class="timer-inner-container countdown-inner">
-                    <div class="timer-content label-bottom"><span class="timer-count timer-loading">0 </span><span class="timer-title">Minutes</span></div>
-                </div>
-            </div><div class="timer-container timer-seconds">
-                <div class="timer-inner-container countdown-inner">
-                    <div class="timer-content label-bottom"><span class="timer-count timer-loading">0 </span><span class="timer-title">Seconds</span></div>
-                </div>
-            </div></div>		</div>
-				</div>
-				<div class="elementor-element elementor-element-e31e87f elementor-widget__width-auto elementor-widget elementor-widget-jkit_button" data-id="e31e87f" data-element_type="widget" data-widget_type="jkit_button.default">
-				<div class="elementor-widget-container">
-			<div  class="jeg-elementor-kit jkit-button  icon-position-after jeg_module_135_13_65f405a0e81d5" ><a href="#"  class="jkit-button-wrapper"  >Explore Now</a></div>		</div>
-				</div>
-				<div class="elementor-element elementor-element-f069758 elementor-widget__width-auto elementor-widget elementor-widget-jkit_button" data-id="f069758" data-element_type="widget" data-widget_type="jkit_button.default">
-				<div class="elementor-widget-container">
-			<div  class="jeg-elementor-kit jkit-button  icon-position-after jeg_module_135_14_65f405a0e8e96" ><a href="#"  class="jkit-button-wrapper"  >Read More<i aria-hidden="true" class="jki jki-arrow-right-line"></i></a></div>		</div>
-				</div>
-					</div>
-		</div>
-							</div>
-		</section>
+
 				<section class="elementor-section elementor-top-section elementor-element elementor-element-37ee44c elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="37ee44c" data-element_type="section">
 						<div class="elementor-container elementor-column-gap-default">
 					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-3bfb189" data-id="3bfb189" data-element_type="column">
@@ -785,7 +658,8 @@ sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hi
 				</div>
 				<div class="elementor-element elementor-element-3d69ac9 elementor-widget elementor-widget-text-editor" data-id="3d69ac9" data-element_type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-							<p>Lorem ipsum dolor sit amet adipiscing elit.</p>						</div>
+							<p>We have a collection of books with many different genres!</p>
+                </div>
 				</div>
 					</div>
 		</div>
@@ -974,7 +848,8 @@ sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hi
 				</div>
 				<div class="elementor-element elementor-element-7f30244 elementor-widget elementor-widget-text-editor" data-id="7f30244" data-element_type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>						</div>
+							<p>Leave the comments for us !</p>
+                </div>
 				</div>
 					</div>
 		</div>
@@ -987,67 +862,59 @@ sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hi
                 <div class="testimonial-box" >
                     <div class="testimonial-slider hover-from-left">
                         <div class="comment-bio">
-                <div class="profile-image"><img decoding="async" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/pov-of-business-woman-talking-on-video-call-in-off-4LUUPWJ-150x150.jpg" alt="Audrey Stevenson"></div>
+                <div class="profile-image"><img decoding="async" src="{{asset('images/Tam.jpg')}}" alt="Audrey Stevenson"></div>
                 <ul class="rating-stars"><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-half"></i></li></ul>
                 <span class="profile-info">
-                    <strong class="profile-name">Audrey Stevenson</strong>
-                    <p class="profile-des">Milan</p>
+                    <strong class="profile-name">Duc Tam</strong>
+                    <p class="profile-des">Java Developer</p>
                 </span>
-            </div><div class="comment-content"><div class="icon-content"><i aria-hidden="true" class="jki jki-quote-light"></i></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin aliquet maurisa volutpat lobortis erat libero condimentum metuseu tincidunt.</p></div>
+            </div><div class="comment-content"><div class="icon-content"><i aria-hidden="true" class="jki jki-quote-light"></i></div>
+                            <p>"Gay"</p></div>
                     </div>
                 </div>
             </div><div class="testimonial-item  elementor-repeater-item-2a1c64e">
                 <div class="testimonial-box" >
                     <div class="testimonial-slider hover-from-left">
                         <div class="comment-bio">
-                <div class="profile-image"><img decoding="async" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/software-developer-at-office-TM9GY2C-150x150.jpg" alt="Fred Rodriquez"></div>
+                <div class="profile-image"><img decoding="async" src="{{asset('images/Ninh.jpg')}}" alt="Fred Rodriquez"></div>
                 <ul class="rating-stars"><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li></ul>
                 <span class="profile-info">
-                    <strong class="profile-name">Fred Rodriquez</strong>
-                    <p class="profile-des">Boston</p>
+                    <strong class="profile-name">Ninh Tran</strong>
+                    <p class="profile-des">Tester</p>
                 </span>
-            </div><div class="comment-content"><div class="icon-content"><i aria-hidden="true" class="jki jki-quote-light"></i></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin aliquet maurisa volutpat lobortis erat libero condimentum metuseu tincidunt.</p></div>
+            </div><div class="comment-content"><div class="icon-content"><i aria-hidden="true" class="jki jki-quote-light"></i></div><p>"Nice"</p></div>
                     </div>
                 </div>
             </div><div class="testimonial-item  elementor-repeater-item-5251de3">
                 <div class="testimonial-box" >
                     <div class="testimonial-slider hover-from-left">
                         <div class="comment-bio">
-                <div class="profile-image"><img decoding="async" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/portrait-of-two-confident-female-designers-at-offi-L55KUTY-150x150.jpg" alt="Laura Ferguson"></div>
+                <div class="profile-image"><img decoding="async"
+                                                src="{{asset('images/Phuc.jpg')}}" alt="Laura Ferguson"></div>
                 <ul class="rating-stars"><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li></ul>
                 <span class="profile-info">
-                    <strong class="profile-name">Laura Ferguson</strong>
-                    <p class="profile-des">Los Angeles</p>
+                    <strong class="profile-name">Phuc Do</strong>
+                    <p class="profile-des">Designer</p>
                 </span>
-            </div><div class="comment-content"><div class="icon-content"><i aria-hidden="true" class="jki jki-quote-light"></i></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin aliquet maurisa volutpat lobortis erat libero condimentum metuseu tincidunt.</p></div>
+            </div><div class="comment-content"><div class="icon-content"><i aria-hidden="true" class="jki jki-quote-light"></i></div><p>"Nice try"</p></div>
                     </div>
                 </div>
             </div><div class="testimonial-item  elementor-repeater-item-c6129c9">
                 <div class="testimonial-box" >
                     <div class="testimonial-slider hover-from-left">
                         <div class="comment-bio">
-                <div class="profile-image"><img decoding="async" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/programmer-with-notebook-sitting-in-autumn-park-HPAWSZN-150x150.jpg" alt="Bennett Miller"></div>
+                <div class="profile-image"><img decoding="async" src="{{asset('images/Huy.png')}}" alt="Bennett Miller"></div>
                 <ul class="rating-stars"><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li></ul>
                 <span class="profile-info">
-                    <strong class="profile-name">Bennett Miller</strong>
-                    <p class="profile-des">Chicago</p>
+                    <strong class="profile-name">Quoc Huy</strong>
+                    <p class="profile-des">PHP Developer</p>
                 </span>
-            </div><div class="comment-content"><div class="icon-content"><i aria-hidden="true" class="jki jki-quote-light"></i></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin aliquet maurisa volutpat lobortis erat libero condimentum metuseu tincidunt.</p></div>
+            </div><div class="comment-content"><div class="icon-content"><i aria-hidden="true" class="jki jki-quote-light"></i></div>
+                            <p>"love owner Tung"</p></div>
                     </div>
                 </div>
             </div><div class="testimonial-item  elementor-repeater-item-9bd8642">
-                <div class="testimonial-box" >
-                    <div class="testimonial-slider hover-from-left">
-                        <div class="comment-bio">
-                <div class="profile-image"><img decoding="async" src="templatekit.jegtheme.com/docbook/wp-content/uploads/sites/277/2022/05/happy-female-video-editor-works-indoors-in-creativ-YU3YPTH-150x150.jpg" alt="Maya Gabriella"></div>
-                <ul class="rating-stars"><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-solid"></i></li><li><i aria-hidden="true" class="jki jki-star-half"></i></li></ul>
-                <span class="profile-info">
-                    <strong class="profile-name">Maya Gabriella</strong>
-                    <p class="profile-des">Tokyo</p>
-                </span>
-            </div><div class="comment-content"><div class="icon-content"><i aria-hidden="true" class="jki jki-quote-light"></i></div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin aliquet maurisa volutpat lobortis erat libero condimentum metuseu tincidunt.</p></div>
-                    </div>
-                </div>
+
             </div></div>
         </div></div>		</div>
 				</div>
@@ -1141,7 +1008,8 @@ sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hi
 				</div>
 				<div class="elementor-element elementor-element-d909c3a elementor-widget elementor-widget-text-editor" data-id="d909c3a" data-element_type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>						</div>
+							<p>"Books that can heal your soul"</p>
+                </div>
 				</div>
 				<section class="elementor-section elementor-inner-section elementor-element elementor-element-db680b1 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="db680b1" data-element_type="section">
 						<div class="elementor-container elementor-column-gap-no">
@@ -1182,7 +1050,7 @@ sizes="(max-width: 300px) 100vw, 300px" /></div><span class="price"><del aria-hi
 				</div>
 				<div class="elementor-element elementor-element-057344b elementor-widget elementor-widget-text-editor" data-id="057344b" data-element_type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-							Puputan Renon East ST. 1190 Denpasar, Bali 						</div>
+							A17 Le Thanh Nghi Tower						</div>
 				</div>
 				<div class="elementor-element elementor-element-708870d elementor-widget__width-auto elementor-widget elementor-widget-jkit_button" data-id="708870d" data-element_type="widget" data-widget_type="jkit_button.default">
 				<div class="elementor-widget-container">
