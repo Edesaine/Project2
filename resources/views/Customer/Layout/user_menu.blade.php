@@ -19,6 +19,7 @@
     ul.horizontal-list {
         list-style: none;
         background-color: #48abe0;
+        width: 100%;
         color: white;
         display: inline-block;
         padding: 1rem 2rem;
@@ -28,7 +29,7 @@
     ul.horizontal-list li {
         display: inline-block;
         padding: 0 0.5rem;
-        min-width: 7rem;
+        min-width: 24%;
         text-align: center;
         cursor: pointer;
     }
@@ -43,7 +44,7 @@
     <span class="fs-5">{{$customer->name}}</span>
 </div>
 <hr>
-<div>
+
     <ul class="horizontal-list">
         <li class="pb-2">
             <a href="{{route('profile')}}" class="text-decoration-none text-dark">
@@ -66,7 +67,8 @@
             </a>
         </li>
     </ul>
-</div>
+
+
 </body>
 </html>
 

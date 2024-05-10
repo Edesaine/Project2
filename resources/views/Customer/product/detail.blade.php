@@ -423,7 +423,7 @@
                     <form action="" >
                         @csrf
                         <button type="submit" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-id="{{ $book->id }}">
-                            <a href="{{route('Customer.products.addToCartAjax', $book->id)}}"  data-quantity="1" class="button wp-element-button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="44" data-product_sku="" aria-label="Add &ldquo;Aenean Typography&rdquo; to your cart" rel="nofollow">
+                            <a href="{{route('Customer.products.addToCart', $book->id)}}"  data-quantity="1" class="button wp-element-button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="44" data-product_sku="" aria-label="Add &ldquo;Aenean Typography&rdquo; to your cart" rel="nofollow">
                                 <i class="fas fa-shopping-cart"></i> Add to cart
                             </a>
                         </button>

@@ -40,6 +40,10 @@
                         <hr>
                         <div>
                         <p>Total
+                            ${{ $book['price'] * $book['quantity'] }}
+                            @php
+                                $amount[$book_id] = $book['price'] * $book['quantity'];
+                            @endphp
                             <span class="price" style="color:black">
                                     @php
                                         $total_items[$book_id] = $book['quantity'];
