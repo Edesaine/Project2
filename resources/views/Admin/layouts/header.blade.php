@@ -2,7 +2,7 @@
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="header-wrap">
-                <form class="form-header" action="" method="POST">
+                <form class="form-header" action="{{url($url.'/index')}}" method="GET">
                     <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for datas &amp; reports..." />
                     <button class="au-btn--submit" type="submit">
                         <i class="zmdi zmdi-search"></i>
@@ -125,38 +125,21 @@
                         <div class="account-item clearfix js-item-menu">
 
                             <div class="content">
-                                <a class="js-acc-btn" href="#">Admin</a>
+                                <a class="js-acc-btn" href="#">{{$LoginName}}</a>
                             </div>
                             <div class="account-dropdown js-dropdown">
                                 <div class="info clearfix">
-                                    <div class="image">
-                                        <a href="#">
-                                            <img src="" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="name">
-                                            <a href="#">Admin</a>
+
+                                    <div>
+                                        <h5>
+                                            <a style="color: black" href="#">{{$LoginName}}</a>
                                         </h5>
-                                        <span class="email">Admin@example.com</span>
+                                        <span class="email">{{$LoginEmail}}</span>
                                     </div>
                                 </div>
-                                <div class="account-dropdown__body">
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-account"></i>Account</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-settings"></i>Setting</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                    </div>
-                                </div>
+
                                 <div class="account-dropdown__footer">
-                                    <a href="#">
+                                    <a href="{{url('/adminlogout')}}">
                                         <i class="zmdi zmdi-power"></i>Logout</a>
                                 </div>
                             </div>

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 
 class CustomerController extends Controller
@@ -103,10 +104,19 @@ class CustomerController extends Controller
         return Redirect::route('Customer.profiles.profile');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $customer = Customer::get();
-        return view('admin.customer_manager.index', compact('customer'));
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+        $search='%%';
+        if($request->search){
+            $search='%'.$request->search.'%';
+        }
+        $customer = DB::table('customer')
+            ->select('customer.*')
+            ->where('name','like',$search)
+            ->get();
+        return view('admin.customer_manager.index', compact('customer','LoginName','LoginEmail'));
     }
 
     public function delete(int $id)
@@ -158,6 +168,20 @@ class CustomerController extends Controller
             'order_total' => $orderTotal,
             'customer' => $customer,
         ]);
+    }
+    public function ChangeStatus(int $id)
+    {
+        $customer = Customer::findOrFail($id);
+        if($customer->account_status==0){
+            $customer->update([
+                'account_status'=>1
+            ]);
+        } else{
+            $customer->update([
+                'account_status'=>0
+            ]);
+        }
+        return redirect()->back();
     }
 
 }

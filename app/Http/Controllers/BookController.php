@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Author;
 use App\Models\Book;
@@ -47,7 +46,7 @@ class BookController extends Controller
     {
         $book = Book::with('author')
             ->with('category')
-/*            ->with('name')*/
+            /*            ->with('name')*/
             ->where('id', $id)
             ->first();
 //        neu da co cart
@@ -163,8 +162,14 @@ class BookController extends Controller
         ]);
     }
 
+
+
+
+//ADMIN
     public function index(Request $request)
     {
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
         $search='%%';
         if($request->search){
             $search='%'.$request->search.'%';
@@ -173,15 +178,16 @@ class BookController extends Controller
             ->join('publishers','books.id','=','publishers.id')
             ->select("books.*","publishers.name AS publisher")
             ->where('books.name','like',$search)
-            ->get();
+            ->paginate(3);
 
-        return view('admin.book_manager.index',compact('books'));
+        return view('admin.book_manager.index',compact('books','LoginName','LoginEmail'));
     }
     public function create()
     {
-
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
         $publishers = Publisher::get();
-        return view('admin.book_manager.create',compact('publishers'));
+        return view('admin.book_manager.create',compact('publishers','LoginName','LoginEmail'));
     }
     public function store(Request $request)
     {
@@ -202,7 +208,7 @@ class BookController extends Controller
 
             $filename = time().'.'.$extension;
 
-            $path = 'storage/uploads/books/';
+            $path = 'uploads/books/';
             $file->move($path, $filename);
         }
         Book::create([
@@ -220,6 +226,8 @@ class BookController extends Controller
     }
     public function edit(int $id)
     {
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
 
         $book = Book::findOrFail($id);
         $pub=DB::table('books')
@@ -228,7 +236,7 @@ class BookController extends Controller
             ->select('books.*','publishers.name as publisher')
             ->get();
         $publishers= Publisher::get();
-        return view('admin.book_manager.edit', compact('book','pub','publishers'));
+        return view('admin.book_manager.edit', compact('book','pub','publishers','LoginName','LoginEmail'));
     }
     public function update(Request $request, int $id){
         $request->validate([
@@ -249,7 +257,7 @@ class BookController extends Controller
 
             $filename = time().'.'.$extension;
 
-            $path = 'storage/uploads/books/';
+            $path = 'uploads/product/';
             $file->move($path, $filename);
 
             if(File::exists($book->image)){
@@ -280,5 +288,34 @@ class BookController extends Controller
 
         return redirect()->back()->with('status','Book Deleted !');
     }
+public function ChangeStatus(int $id)
+{
+    $book = Book::findOrFail($id);
+    if($book->status==0){
+        $book->update([
+            'status'=>1
+        ]);
+    } else{
+        $book->update([
+            'status'=>0
+        ]);
+    }
+    return redirect()->back()->with('status','Books Edited !');
+}
+public function detail(int $id)
+{
+    $LoginName= Session::get('loginname');
+    $LoginEmail= Session::get('loginemail');
 
+    $book = Book::findOrFail($id);
+    $info=DB::table('books')
+        ->join('publishers','books.publisher_id','=','publishers.id')
+        ->join('authorbooks','books.publisher_id','=','publishers.id')
+        ->where('books.id','=',$id)
+        ->select('books.*','publishers.name as publisher')
+        ->get();
+
+    $publishers= Publisher::get();
+    return view('admin.book_manager.edit', compact('book','info','publishers','LoginName','LoginEmail'));
+}
 }

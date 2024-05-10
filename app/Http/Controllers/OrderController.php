@@ -12,6 +12,7 @@ use App\Requests\OrderStoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use function PHPUnit\Framework\isEmpty;
@@ -86,45 +87,60 @@ class OrderController extends Controller
         return to_route('Customer.carts.orderHistory')->with('success', 'Cancel order successfully!');
     }
 
+
+
     //ADMIN
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with('admin')->paginate(6);
-        return view("Admin.order_manager.index", [
-            "orders" => $orders,
-        ]);
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+        $search='%%';
+        if($request->search){
+            $search='%'.$request->search.'%';
+        }
+        $orders = DB::table('orders')
+            ->join('payment_method','orders.method_id','=','payment_method.id')
+            ->join('customer','orders.customer_id','=','customer.id')
+            ->join('admins','orders.admin_id','=','admins.id')
+            ->select('orders.*','payment_method.name as paymentname','customer.name as name','admins.name as admin')
+            ->where('orders.receiver_name','like',$search)
+            ->orWhere('orders.receiver_address','like',$search)
+            ->orWhere('orders.receiver_phone','like',$search)
+            ->orWhere('customer.name','like',$search)
+            ->paginate(5);
+        return view('admin.order_manager.index',compact('orders','LoginName','LoginEmail'));
     }
 
-    public function showDetail(Order $orders)
-    {
-        $orderId = $orders->id;
-        $orderDetails = DB::table('orders_details')
-            ->where('order_id', '=', $orderId)
-            ->join('books', 'orders_details.book_id', '=', 'books.id')
-            ->get();
 
-        $orderAmount = 0;
-        $orderItems = 0;
-        foreach ($orderDetails as $detail) {
-            $orderItems += $detail->sold_quantity;
-            $orderAmount += $detail->sold_price * $detail->sold_quantity;
+    public function details(int $id,Request $request)
+    {
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+        $search='%%';
+        if($request->search){
+            $search='%'.$request->search.'%';
         }
-        $orderTotal = $orderAmount + 10;
-        $admins = Admin::where('id', '=', $orders->admin_id)->first();
-//        $product = Product::all();
-//        $customer = Customer::all();
-//        $admin = Admin::all();
-        return view('Admin.order_manager.order-detail', [
-            'orders' => $orders,
-            'admins' => $admins,
-            'order_details' => $orderDetails,
-            'order_item' => $orderItems,
-            'order_amount' => $orderAmount,
-            'order_total' => $orderTotal,
-//            'product' => $product,
-//            'customer' => $customer,
-//            'admin' => $admin
+        $orders = DB::table('order_details')
+            ->join('books','order_details.book_id','=','books.id')
+            ->join('orders','order_details.order_id','=','orders.id')
+            ->select('order_details.*','books.name as name','books.image as image','orders.status as status')
+            ->where('books.name','like',$search)
+            ->where('order_details.order_id','=',$id)
+            ->paginate(3);
+        $status =Order::findOrFail($id);
+       return view('admin.order_manager.details',compact('orders','LoginName','LoginEmail','id','status'));
+    }
+    public function ChangeStatus(Request $request)
+    {
+        $id=$request->order_id;
+        $order = Order::findOrFail($id);
+
+        $order->update([
+            'admin_id'=>Session::get('loginId'),
+            'status'=>$request->status
         ]);
+
+        return redirect()->back()->with('status','Books Edited !');
     }
 
 }

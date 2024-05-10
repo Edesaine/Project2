@@ -4,12 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Publisher;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
 class PublisherController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $publishers = publisher::get();
-        return view('admin.publisher_manager.index',compact('publishers'));
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+        if($request->search){
+            $search='%'.$request->search.'%';
+        }
+        $search='%%';
+        $publishers = DB::table('publishers')
+            ->select('publishers.*')
+            ->where('name','like',$search)
+            ->paginate(5);
+        return view('admin.publisher_manager.index',compact('publishers','LoginEmail','LoginName'));
     }
     public function create()
     {

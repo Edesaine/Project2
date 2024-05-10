@@ -49,23 +49,37 @@ Route::get('category/{id}/edit',[\App\Http\Controllers\CategoryController::class
 Route::put('category/{id}/edit',[\App\Http\Controllers\CategoryController::class,'update'])->middleware('AdminLogged');
 Route::get('category/{id}/delete',[\App\Http\Controllers\CategoryController::class,'delete'])->middleware('AdminLogged');
 
+Route::get('order/index',[\App\Http\Controllers\OrderController::class,'index'])->middleware('AdminLogged');
+Route::get('order/create',[\App\Http\Controllers\OrderController::class,'create'])->middleware('AdminLogged');
+Route::post('order/create',[\App\Http\Controllers\OrderController::class,'store'])->middleware('AdminLogged');
+Route::get('order/{id}/edit',[\App\Http\Controllers\OrderController::class,'edit'])->middleware('AdminLogged');
+Route::put('order/{id}/edit',[\App\Http\Controllers\OrderController::class,'update'])->middleware('AdminLogged');
+Route::get('order/{id}/delete',[\App\Http\Controllers\OrderController::class,'delete'])->middleware('AdminLogged');
+Route::get('order/{id}/details',[\App\Http\Controllers\OrderController::class,'details'])->middleware('AdminLogged');
+Route::put('order/{id}/details',[\App\Http\Controllers\OrderController::class,'ChangeStatus'])->middleware('AdminLogged');
+
 
 Route::get('customer/index',[\App\Http\Controllers\CustomerController::class,'index'])->middleware('AdminLogged');
 Route::get('customer/{id}/delete',[\App\Http\Controllers\CustomerController::class,'delete'])->middleware('AdminLogged');
+Route::get('customer/{id}/changestatus',[CustomerController::class,'ChangeStatus'])->middleware('AdminLogged');
 
 Route::get('book/index',[BookController::class,'index'])->middleware('AdminLogged');
 Route::get('book/create',[BookController::class,'create'])->middleware('AdminLogged');
 Route::post('book/create',[BookController::class,'store'])->middleware('AdminLogged');
 Route::get('book/{id}/edit',[BookController::class,'edit'])->middleware('AdminLogged');
 Route::put('book/{id}/edit',[BookController::class,'update'])->middleware('AdminLogged');
+Route::get('book/{id}/changestatus',[BookController::class,'ChangeStatus'])->middleware('AdminLogged');
+Route::get('book/{id}/detail',[BookController::class,'detail'])->middleware('AdminLogged');
 Route::get('book/{id}/delete',[BookController::class,'delete'])->middleware('AdminLogged');
 
 Route::get('/adminlogin', [App\Http\Controllers\AdminAuthController::class,'adminlogin']);
 Route::post('/adminlogin_process', [App\Http\Controllers\AdminAuthController::class,'loginprocess'])->name('loginprocess');
-Route::get('/logout', [App\Http\Controllers\AdminAuthController::class,'logout'])->middleware('AdminLogged');
+Route::get('/adminlogout', [App\Http\Controllers\AdminAuthController::class,'logout'])->middleware('AdminLogged');
 
 Route::get('/admin_manage-panel', [DashboardController::class, 'index'])->name('admin_manage-panel');
 Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index']);
+
+
 
 
 Route::middleware(LoginCheckingCustomer::class)->group(function () {
@@ -100,5 +114,5 @@ Route::get('/logout', [CustomerController::class, 'logout'])->name('Customer.acc
 Route::get('/forgot_password', [CustomerController::class, 'forgotPassword'])->name('customer.forgotPassword');
 
 Route::get('/',[App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('book/{id}', [BookController::class, 'bookDetail'])->name('Customer.product.detail');
+

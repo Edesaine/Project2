@@ -8,7 +8,7 @@
 
 
     <!-- Title Pagg-->
-    <title>Category</title>
+    <title>Order</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,24 +55,56 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-                    <h1 style="text-align: center">Category</h1>
-                    <a href="{{url('category/create')}}" class="btn btn-outline-dark">Add Category</a>
+                    <h1 style="text-align: center">Order</h1>
+                    <a href="{{url('order/create')}}" class="btn btn-outline-dark">Add Order</a>
                     <br>
                     <br>
                     <table  class="table table-light ">
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>Date Buy</th>
+                            <th>Customer Name</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Payment Method</th>
+                            <th>Admin</th>
+                            <th>Receiver Name</th>
+                            <th>Receiver Phone</th>
+                            <th>Receiver Address</th>
                             <th>Action</th>
                         </tr>
-                        @foreach($categories as $category)
+                        @foreach($orders as $order)
                             <tr>
-
-                                <td>{{$category->id}}</td>
-                                <td>{{$category->name}}</td>
+                                <td>{{$order->id}}</td>
+                                <td>{{$order->date_buy}}</td>
+                                <td>{{$order->name}}</td>
+                                <td>{{$order->price}}</td>
                                 <td>
-                                    <a href="{{url('category/'.$category->id.'/edit')}}" class="btn btn-primary">Edit</a>
-                                    <a href="{{url('category/'.$category->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                @if($order->status==0)
+                                    <span style="color: #e67e22;font-weight: bold">Pending</span>
+                                @endif
+                                @if($order->status==1)
+                                    <span style="color: #f1c40f;font-weight: bold">Approved</span>
+                                @endif
+                                @if($order->status==2)
+                                    <span style="color: #3498db;font-weight: bold">Delivering</span>
+                                @endif
+                                @if($order->status==3)
+                                    <span style="color: #2ecc71;font-weight: bold">Completed</span>
+                                @endif
+                                @if($order->status==4)
+                                    <span style="color: #e74c3c;font-weight: bold">Cancelled</span>
+                                @endif
+                                </td>
+                                <td>{{$order->paymentname}}</td>
+                                <td>{{$order->admin}}</td>
+                                <td>{{$order->receiver_name}}</td>
+                                <td>{{$order->receiver_phone}}</td>
+                                <td>{{$order->receiver_address}}</td>
+                                <td>
+                                    <a style="width: 80px;text-align: center" href="{{url('order/'.$order->id.'/edit')}}" class="btn btn-primary">Edit</a>
+                                    <a style="width: 80px;text-align: center;margin-top: 5px" href="{{url('order/'.$order->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                    <a style="width: 80px;text-align: center;margin-top: 5px" href="{{url('order/'.$order->id.'/details')}}" class="btn btn-secondary">Details</a>
                                 </td>
 
                             </tr>
@@ -80,7 +112,7 @@
                     </table>
                     <br>
                     <div style="display:flex;justify-content: center">
-                        {{$categories->links()}}
+                        {{$orders->links()}}
                     </div>
                 </div>
             </div>

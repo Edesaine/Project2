@@ -39,7 +39,9 @@
 <div class="page-wrapper">
 
     <!-- MENU SIDEBAR-->
-
+<?php
+    $url='publisher';
+    ?>
 
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
@@ -52,28 +54,32 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-<h1 style="text-align: center">Publisher</h1>
-<a href="{{url('publisher/create')}}" class="btn btn-outline-dark">Add Publisher</a>
-<table class="table table-light">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <td>Action</td>
-    </tr>
-    @foreach($publishers as $publisher)
-    <tr>
+                    <h1 style="text-align: center">Publisher</h1>
+                    <a href="{{url('publisher/create')}}" class="btn btn-outline-dark">Add Publisher</a>
+                    <table class="table table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <td>Action</td>
+                        </tr>
+                        @foreach($publishers as $publisher)
+                            <tr>
 
-            <td>{{$publisher->id}}</td>
-            <td>{{$publisher->name}}</td>
-            <td>
-                <a href="{{url('publisher/'.$publisher->id.'/edit')}}" class="btn btn-primary">Edit</a>
-                <a href="{{url('publisher/'.$publisher->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
-            </td>
+                                <td>{{$publisher->id}}</td>
+                                <td>{{$publisher->name}}</td>
+                                <td>
+                                    <a href="{{url('publisher/'.$publisher->id.'/edit')}}" class="btn btn-primary">Edit</a>
+                                    <a href="{{url('publisher/'.$publisher->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                </td>
 
-    </tr>
-    @endforeach
+                            </tr>
+                        @endforeach
 
-</table>
+                    </table>
+                    <br>
+                    <div style="display:flex;justify-content: center">
+                        {{$publishers->links()}}
+                    </div>
                 </div>
             </div>
         </div>
