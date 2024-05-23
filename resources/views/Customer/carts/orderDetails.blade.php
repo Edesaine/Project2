@@ -5,12 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap Order Details Table with Search Filter</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <style type="text/css">
         body {
             color: #566787;
@@ -222,6 +217,8 @@
     </script>
 </head>
 <body>
+@include('Customer/Layout/user_menu')
+
 <div class="container">
     <div class="table-wrapper">
         <div class="table-title">
@@ -241,7 +238,7 @@
                         <input type="text" class="form-control">
                     </div>
                     <div class="filter-group">
-                        <label>Location</label>
+                        {{--<label>Location</label>
                         <select class="form-control">
                             <option>All</option>
                             <option>Berlin</option>
@@ -249,7 +246,7 @@
                             <option>Madrid</option>
                             <option>New York</option>
                             <option>Paris</option>
-                        </select>
+                        </select>--}}
                     </div>
                     <div class="filter-group">
                         <label>Status</label>
@@ -289,19 +286,19 @@
                 <td>
                     @switch($order->status)
                         @case(0)
-                            <span class="status text-danger">Pending</span>
+                            <span style="font-size: 18px" class="status text-secondary">Pending</span>
                             @break
                         @case(1)
-                            <span class="status text-danger">Cancelled</span>
+                            <span style="font-size: 18px" class="status text-danger">Cancelled</span>
                             @break
                         @case(2)
-                            <span class="status text-success">Completed</span>
+                            <span style="font-size: 18px" class="status text-success">Completed</span>
                             @break
                         @case(3)
-                            <span class="status text-success">Confirmed</span>
+                            <span style="font-size: 18px" class="status text-success">Confirmed</span>
                             @break
                         @case(4)
-                            <span class="status text-primary">Delivery</span>
+                            <span style="font-size: 18px" class="status text-primary">Delivery</span>
                             @break
                     @endswitch
                 </td>
@@ -311,18 +308,19 @@
                 <td>{{$order_total}}</td>
 
                 <td>
-                    <a href="{{route('Customer.carts.cancelOrder', $order)}}" class="btn btn-danger">Cancel order</a>
+                    <a type="button" style="font-size: 14px" href="{{route('Customer.carts.cancelOrder', $order)}}"
+                       class="btn btn-primary">Cancel order</a>
                 </td>
             </tr>
             </tbody>
         </table>
-        <div class="w-50 border rounded p-3 overflow-y-auto" style="height: 314px">
+        <div class="w-50 border rounded p-3 overflow-y-auto" style="width: 1500px;height: 350px">
             @foreach($order_details as $detail)
                 <div class="d-flex mb-3 ">
                     <div class="border rounded p-3 object-fit-fill
                              overflow-hidden w-25 me-3">
-                        <img src="{{asset('uploads/books./'.$detail->image)}}" width="80px"
-                             height="80px">
+                        <img src="{{asset($detail->image)}}" width="80px"
+                             height="110px">
                     </div>
                     <div class="flex-fill d-flex flex-column justify-content-between">
                         <div>
@@ -345,12 +343,7 @@
         <a href="{{route('Customer.carts.orderHistory')}}" class="btn btn-primary">
             Back
         </a>
-        @if($order->status != 4)
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">
-                Cancel
-            </button>
-        @endif
+
 
         <div class="clearfix">
             <ul class="pagination">
@@ -388,7 +381,7 @@
         </div>
     </div>
 </div>
-@include('Customer/Layout/user_menu')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </body>
 </html>

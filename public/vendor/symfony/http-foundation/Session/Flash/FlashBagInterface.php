@@ -33,7 +33,7 @@ interface FlashBagInterface extends SessionBagInterface
     /**
      * Gets flash messages for a given type.
      *
-     * @param string $type    Message category type
+     * @param string $type    Message publisher type
      * @param array  $default Default value if $type does not exist
      */
     public function peek(string $type, array $default = []): array;

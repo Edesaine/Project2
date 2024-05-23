@@ -2,19 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\Publisher;
 class PublisherController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $publishers = publisher::get();
-        return view('admin.publisher_manager.index',compact('publishers'));
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+        if($request->search){
+            $search='%'.$request->search.'%';
+        }
+        $search='%%';
+        $publishers = DB::table('publishers')
+            ->select('publishers.*')
+            ->where('name','like',$search)
+            ->paginate(5);
+        return view('admin.publisher_manager.index',compact('publishers','LoginEmail','LoginName'));
     }
+
     public function create()
     {
-        return view('admin.publisher_manager.create');
-    }
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+        return view('admin.publisher_manager.create',compact('LoginName','LoginEmail'));     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -25,11 +40,15 @@ class PublisherController extends Controller
         ]);
         return redirect('publisher/create')->with('status','Publisher Added');
     }
+
     public function edit(int $id)
     {
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
         $publishers = Publisher::findorFail($id);
-        return view('admin.publisher_manager.edit',compact('publishers'));
+        return view('admin.category_manager.edit',compact('publishers','LoginName','LoginEmail'));
     }
+
     public function update(Request $request,int $id)
     {
         $request->validate([
@@ -41,10 +60,12 @@ class PublisherController extends Controller
         ]);
         return redirect()->back()->with('status','Publisher Updated');
     }
+
     public function delete(int $id)
     {
         $publishers = Publisher::FindOrFail($id);
         $publishers->delete();
         return redirect()->back()->with('status','Publisher Deleted');
     }
+
 }

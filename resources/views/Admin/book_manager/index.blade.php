@@ -37,7 +37,9 @@
 
     <!-- MENU SIDEBAR-->
 
-
+    <?php
+    $url='book'
+    ?>
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
 
@@ -87,13 +89,18 @@
                                 </td>
                                 <td>{{$book->publisher}}</td>
                                 <td>
-                                    <a href="{{url('book/'.$book->id.'/edit')}}" class="btn btn-primary">Edit</a>
+                                    <a href="{{url('book/'.$book->id.'/edit')}}" class="btn btn-primary">Edit</a><br>
+                                    <a href="{{url('book/'.$book->id.'/changestatus')}}" style="margin-top: 10px; margin-bottom: 10px" class="btn btn-secondary">Change Status</a>
                                     <a href="{{url('book/'.$book->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
                                 </td>
 
                             </tr>
                         @endforeach
                     </table>
+                    <br>
+                    <div style="display:flex;justify-content: center">
+                        {{$books->links()}}
+                    </div>
                 </div>
             </div>
         </div>

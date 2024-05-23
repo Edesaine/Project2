@@ -24,7 +24,12 @@ class CustomerUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-
+            'name' => 'required',
+            'email' =>
+                'required|max:255|unique:customer,email,' . preg_replace('/[^0-9]/', '', request()->path()),
+            // lay id tren thanh url de bo qua unique cho email cua guest dang edit
+//            'password' => 'required|min:6',
+            'phone' => 'required|max:20',
         ];
     }
 }

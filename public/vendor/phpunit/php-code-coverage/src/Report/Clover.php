@@ -119,10 +119,10 @@ final class Clover
                     );
                 }
 
-                if (!empty($class['package']['category'])) {
+                if (!empty($class['package']['publisher'])) {
                     $xmlClass->setAttribute(
-                        'category',
-                        $class['package']['category']
+                        'publisher',
+                        $class['package']['publisher']
                     );
                 }
 

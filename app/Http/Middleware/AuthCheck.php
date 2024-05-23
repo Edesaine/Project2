@@ -19,7 +19,7 @@ class AuthCheck
     public function handle(Request $request, Closure $next): Response
     {
         if(!Session::has('loginId')){
-            return redirect('adminlogin');
+            return redirect('admin-login');
         }else{
             return $next($request);
         }

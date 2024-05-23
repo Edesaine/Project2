@@ -4,17 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Author;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
 class AuthorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $authors = Author::get();
-        return view('admin.author_manager.index',compact('authors'));
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+        $search='%%';
+        if($request->search){
+            $search='%'.$request->search.'%';
+        }
+        $authors = DB::table('authors')
+            ->select('authors.*')
+            ->where('name','like',$search)
+            ->paginate(5);
+        return view('admin.author_manager.index',compact('authors','LoginName','LoginEmail'));
     }
+
     public function create()
     {
-        return view('admin.author_manager.create');
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+        return view('admin.author_manager.create',compact('LoginName','LoginEmail'));
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -27,6 +43,7 @@ class AuthorController extends Controller
         ]);
         return redirect('author/create')->with('status','Author Added');
     }
+
     public function edit(int $id)
     {
         $author = Author::findorFail($id);

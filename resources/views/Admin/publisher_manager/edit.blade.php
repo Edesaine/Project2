@@ -36,7 +36,9 @@
 <div class="page-wrapper">
 
     <!-- MENU SIDEBAR-->
-
+    <?php
+    $url='publisher';
+    ?>
 
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->

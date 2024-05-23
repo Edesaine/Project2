@@ -257,9 +257,8 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
                                 </li>
 
 								<li class="elementor-icon-list-item">
-											<a href="#">
-
-											<span class="elementor-icon-list-text">News & Updated</span>
+											<a href="{{route('profile')}}">
+											<span class="elementor-icon-list-text">My Profile</span>
 											</a>
 									</li>
 								<li class="elementor-icon-list-item">
@@ -360,15 +359,20 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 		</div>
 				</div>
 			</div>
-		</div></div>		</div>
+		</div>
+            </div>
+                </div>
 				</div>
-				<div class="elementor-element elementor-element-0a4adb2 elementor-widget__width-auto elementor-widget elementor-widget-jkit_search" data-id="0a4adb2" data-element_type="widget" data-widget_type="jkit_search.default">
+				<div class="elementor-element elementor-element-0a4adb2 elementor-widget__width-auto elementor-widget elementor-widget-jkit_search"
+                     data-id="0a4adb2" data-element_type="widget" data-widget_type="jkit_search.default">
 				<div class="elementor-widget-container">
 			<div  class="jeg-elementor-kit jkit-search jeg_module_135_3_65f405a06f859" ><a href="#" class="jkit-search-modal"><i aria-hidden="true" class="jki jki-search-line"></i></a>
 			<div class="jkit-modal-search-panel-wrapper">
 				<div class="jkit-modal-search-panel">
 					<div class="jkit-search-panel">
-					<form role="search" method="get" class="jkit-search-group" action="https://templatekit.jegtheme.com/docbook/">
+					<form role="search" method="post" class="jkit-search-group" action="{{route('Customer.books.search')}}">
+                        @csrf
+                        @method('POST')
 						<input type="search" class="jkit-search-field" placeholder="Search..." value="" name="s" />
 						<button type="submit" class="jkit-search-button"><i aria-hidden="true" class="jki jki-search-line"></i></button>
 					</form>
@@ -514,7 +518,7 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
             </div>
 		</div>
         @else
-            <p>Sold Out</p>
+            <img src="{{asset('images/SoldOut.jpg')}}" style="width: 250px;height: 120px">
         @endif
                         </div>
 		</section>
@@ -540,9 +544,7 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 			jeg_module_135_7_65f405a0bb5fb"  data-id="jeg_module_135_7_65f405a0bb5fb"
                   data-settings="{&quot;sg_content_column&quot;:4,&quot;sg_content_show_element&quot;:&quot;image,price,title,rating&quot;,&quot;sg_content_sorting&quot;:&quot;&quot;,&quot;sg_content_image_heading&quot;:&quot;&quot;,&quot;sg_content_image_size&quot;:&quot;&quot;,&quot;sg_content_sale&quot;:&quot;&quot;,&quot;sg_content_percentage&quot;:&quot;yes&quot;,&quot;number_post&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:9,&quot;sizes&quot;:[]},&quot;post_offset&quot;:0,&quot;wc_include_post&quot;:&quot;&quot;,&quot;wc_exclude_post&quot;:&quot;&quot;,&quot;wc_include_category&quot;:&quot;&quot;,&quot;wc_exclude_category&quot;:&quot;&quot;,&quot;wc_include_tag&quot;:&quot;&quot;,&quot;wc_exclude_tag&quot;:&quot;&quot;,&quot;sort_by&quot;:&quot;alphabet_asc&quot;,&quot;pagination_mode&quot;:&quot;disable&quot;,&quot;pagination_loadmore_text&quot;:&quot;Load More&quot;,&quot;pagination_loading_text&quot;:&quot;Loading...&quot;,&quot;pagination_number_post&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:4,&quot;sizes&quot;:[]},&quot;pagination_scroll_limit&quot;:0,&quot;pagination_icon&quot;:{&quot;value&quot;:&quot;&quot;,&quot;library&quot;:&quot;&quot;},&quot;pagination_icon_position&quot;:&quot;before&quot;,&quot;sg_content_image_size_imagesize_size&quot;:&quot;medium&quot;,&quot;post_type&quot;:&quot;product&quot;,&quot;paged&quot;:1,&quot;class&quot;:&quot;jkit_product_grid&quot;}"><div class="jkit-block-container"><div class="woocommerce"><ul class="products jkit-products jkit-align-left ">
 
-@if($books->isEmpty())
-       <p>Sold Out</p>
-@else
+        @if($books)
             @foreach($books as $book)
             <li class="product type-product post-42 status-publish first instock product_cat-dictionary product_cat-sci-fi has-post-thumbnail shipping-taxable purchasable product-type-simple jkit-product-block">
             <a href="{{ route('Customer.product.detail', $book->id) }}"
@@ -575,7 +577,10 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
                 @endauth
             </li>
             @endforeach
-@endif
+        @else
+             <img src="{{asset('images/SoldOut.jpg')}}" style="width: 250px;height: 120px">
+        @endif
+
                     </div>
             </div>
                 </div>

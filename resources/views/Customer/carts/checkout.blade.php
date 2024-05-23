@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="profile" href="https://gmpg.org/xfn/11" />
     <link rel="pingback" href="templatekit.jegtheme.com/docbook/xmlrpc.html" />
-    <title>Docbook &#8211; Online Bookstore WooCommerce Elementor Template Kit by Jegtheme</title>
+    <title>Infinite Knowledge &#8211; Online Bookstore</title>
     <meta name='robots' content='max-image-preview:large' />
     <link rel="alternate" type="application/rss+xml" title="Docbook &raquo; Feed" href="templatekit.jegtheme.com/docbook/feed/index.html" />
     <link rel="alternate" type="application/rss+xml" title="Docbook &raquo; Comments Feed" href="templatekit.jegtheme.com/docbook/comments/feed/index.html" />
@@ -35,11 +35,15 @@
                                 {{$book['name']}}
                             </a>
                             <span class="price">${{$book['price']}}</span>
-                            <span class="amount">{{$book['quantity']}}x</span>
+                            <span class="amount">{{$book['quantity']}}x </span>
                         </p>
                         <hr>
                         <div>
                         <p>Total
+                                    ${{ $book['price'] * $book['quantity'] }}
+                                    @php
+                                        $amount[$book_id] = $book['price'] * $book['quantity'];
+                                    @endphp
                             <span class="price" style="color:black">
                                     @php
                                         $total_items[$book_id] = $book['quantity'];
@@ -95,7 +99,7 @@
                 </div>
                 <div class="d-flex justify-content-end mb-1">
                     <div class="fw-bold fs-5">
-                        Total: ${{array_sum($amount)}}
+                        Orders total: ${{array_sum($amount)}}
                     </div>
                 </div>
                 <button class="btn">

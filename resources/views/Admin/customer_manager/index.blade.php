@@ -78,6 +78,9 @@
 </div>
 
 <div class="page-wrapper">
+    <?php
+    $url = 'customer';
+    ?>
     <!-- MENU SIDEBAR-->
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
@@ -133,6 +136,7 @@
 
                 <td>
                     <a href="{{url('customer/'.$cus->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                    <a href="{{url('customer/'.$cus->id.'/changestatus')}}" class="btn btn-primary" onclick="return confirm('Are you sure ?')">Change Status</a>
                 </td>
             </tr>
         @endforeach

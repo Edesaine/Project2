@@ -37,10 +37,12 @@
 
 </head>
 <body class="animsition">
+<?php
+$url='category'
+?>
 <div class="page-wrapper">
 
     <!-- MENU SIDEBAR-->
-
 
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
@@ -54,7 +56,9 @@
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <h1 style="text-align: center">Category</h1>
-                    <a href="{{url('category/create')}}" class="btn btn-outline-dark">Add Category</a>
+                    <a href="{{ url('category/create') }}" class="btn btn-outline-dark">Add Category</a>
+                    <br>
+                    <br>
                     <table  class="table table-light ">
                         <tr>
                             <th>ID</th>
@@ -67,14 +71,17 @@
                                 <td>{{$category->id}}</td>
                                 <td>{{$category->name}}</td>
                                 <td>
-                                    <a href="{{url('category/'.$category->id.'/edit')}}" class="btn btn-primary">Edit</a>
-                                    <a href="{{url('category/'.$category->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                    <a href="{{url('publisher/'.$category->id.'/edit')}}" class="btn btn-primary">Edit</a>
+                                    <a href="{{url('publisher/'.$category->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
                                 </td>
 
                             </tr>
                         @endforeach
-
                     </table>
+                    <br>
+                    <div style="display:flex;justify-content: center">
+                        {{$categories->links()}}
+                    </div>
                 </div>
             </div>
         </div>

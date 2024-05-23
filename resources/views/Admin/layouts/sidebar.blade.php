@@ -8,7 +8,7 @@
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
                 <li>
-                    <a  href="#">
+                    <a  href="{{url('dashboard')}}">
                         <i class="fas fa-tachometer-alt"></i>Dashboard
                     </a>
                 </li>
@@ -21,16 +21,22 @@
                         <i class="fas fa-table"></i>Tables</a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
                         <li>
-                            <a href="{{url('book/index')}}">Books</a>
+                            <a href="{{url('book/index')}}">Book Management</a>
                         </li>
                         <li>
-                            <a href="{{ url('customer/index')}}">Customer</a>
+                            <a href="{{ url('customer/index')}}">Customer Management</a>
                         </li>
                         <li>
-                            <a href="{{url('publisher/index')}}">Publisher</a>
+                            <a href="{{url('publisher/index')}}">Publisher Management</a>
                         </li>
                         <li>
-                            <a href="{{url('author/index')}}">Author</a>
+                            <a href="{{url('author/index')}}">Author Management</a>
+                        </li>
+                        <li>
+                            <a href="{{url('category/index')}}">Category Management</a>
+                        </li>
+                        <li>
+                            <a href="{{url('order/index')}}">Order Management</a>
                         </li>
                     </ul>
                 </li>

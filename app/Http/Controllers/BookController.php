@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Author;
 use App\Models\Book;
@@ -21,6 +20,7 @@ class BookController extends Controller
     {
         $book = Book::findOrFail($id); // Khởi tạo biến $book ở đầu hàm
         $fileName = '';
+        $pub = Publisher::findOrFail($book->publisher_id);
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('public/uploads/books/');
@@ -35,7 +35,7 @@ class BookController extends Controller
         }
 
         $relaBook = Book::orderBy('quantity','asc')->take(4)->get();
-        return view('Customer.product.detail', compact('book','relaBook','fileName'));
+        return view('Customer.product.detail', compact('book','pub','relaBook','fileName'));
     }
 
     public function cart()
@@ -45,10 +45,10 @@ class BookController extends Controller
 
     public function addToCart(int $id)
     {
-        $book = Book::with('author')
-            ->with('category')
+        $book = Book::/*with('author')
+            ->with('publisher')
 /*            ->with('name')*/
-            ->where('id', $id)
+            where('id', $id)
             ->first();
 //        neu da co cart
         if (Session::exists('cart')) {
@@ -86,9 +86,9 @@ class BookController extends Controller
         if (!Auth::guard('customer')->check()) {
             return Redirect::route('Customer.account.login');
         } else {
-            $book = Book::with('author')
-                ->with('category')
-                ->where('id', $id)
+            $book = Book::/*with('author')
+                ->with('publisher')
+                ->*/where('id', $id)
                 ->first();
 
 //        neu da co cart
@@ -165,24 +165,29 @@ class BookController extends Controller
 
     public function index(Request $request)
     {
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
         $search='%%';
         if($request->search){
             $search='%'.$request->search.'%';
         }
         $books = DB::table("books")
-            ->join('publishers','books.id','=','publishers.id')
+            ->join('publishers','books.publisher_id','=','publishers.id')
             ->select("books.*","publishers.name AS publisher")
             ->where('books.name','like',$search)
-            ->get();
+            ->paginate(5);
 
-        return view('admin.book_manager.index',compact('books'));
+        return view('admin.book_manager.index',compact('books','LoginName','LoginEmail'));
     }
+
     public function create()
     {
-
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
         $publishers = Publisher::get();
-        return view('admin.book_manager.create',compact('publishers'));
+        return view('admin.book_manager.create',compact('publishers','LoginName','LoginEmail'));
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -220,16 +225,14 @@ class BookController extends Controller
     }
     public function edit(int $id)
     {
-
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
         $book = Book::findOrFail($id);
-        $pub=DB::table('books')
-            ->join('publishers','books.publisher_id','=','publishers.id')
-            ->where('books.id','=',$id)
-            ->select('books.*','publishers.name as publisher')
-            ->get();
+        $pub=Publisher::findOrFail($book->publisher_id);
         $publishers= Publisher::get();
-        return view('admin.book_manager.edit', compact('book','pub','publishers'));
+        return view('admin.book_manager.edit', compact('book','pub','publishers','LoginName','LoginEmail'));
     }
+
     public function update(Request $request, int $id){
         $request->validate([
             'name' => 'required|string',
@@ -255,13 +258,16 @@ class BookController extends Controller
             if(File::exists($book->image)){
                 File::delete($book->image);
             }
+            $image = $path.$filename;
+        }else{
+            $image = $book->image;
         }
 
         $book->update([
             'name' => $request->name,
             'price' => $request->price,
             'quantity' => $request->quantity,
-            'image' => $path.$filename,
+            'image' => $image,
             'description' => $request->description,
             'publisher_id' => $request->publisher_id,
             'NumberOfAuthors' => $request->NumberOfAuthors,
@@ -281,4 +287,34 @@ class BookController extends Controller
         return redirect()->back()->with('status','Book Deleted !');
     }
 
+    public function ChangeStatus(int $id)
+    {
+        $book = Book::findOrFail($id);
+        if($book->status==0){
+            $book->update([
+                'status'=>1
+            ]);
+        } else{
+            $book->update([
+                'status'=>0
+            ]);
+        }
+        return redirect()->back()->with('status','Books Edited !');
+    }
+    public function detail(int $id)
+    {
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+
+        $book = Book::findOrFail($id);
+        $info=DB::table('books')
+            ->join('publishers','books.publisher_id','=','publishers.id')
+            ->join('authorbooks','books.publisher_id','=','publishers.id')
+            ->where('books.id','=',$id)
+            ->select('books.*','publishers.name as publisher')
+            ->get();
+
+        $publishers= Publisher::get();
+        return view('admin.book_manager.edit', compact('book','info','publishers','LoginName','LoginEmail'));
+    }
 }

@@ -19,6 +19,7 @@ class Customer extends Model implements \Illuminate\Contracts\Auth\Authenticatab
         'email',
         'password',
         'phone',
+        'image',
         'gender',
         'address',
         'account_status'

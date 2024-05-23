@@ -19,7 +19,8 @@ class Order extends Model
         'receiver_phone',
         'receiver_address',
         'amount',
-        'method_id'
+        'method_id',
+        'payment_id'
     ];
     protected $table = 'orders';
 
@@ -33,9 +34,13 @@ class Order extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    public function method()
+    public function payment()
     {
         return $this->belongsTo(Method::class);
     }
 
+    public function shipping()
+    {
+        return $this->belongsTo(Shipping::class);
+    }
 }

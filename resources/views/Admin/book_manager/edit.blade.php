@@ -40,7 +40,7 @@
 
 <body class="animsition">
 <?php
-$direc='products';
+$url='book'
 ?>
     <!-- MENU SIDEBAR-->
 @include('admin.layouts.sidebar')
@@ -100,9 +100,7 @@ $direc='products';
                     <label>Publisher :</label>
                     <select name="publisher_id">
                         <option selected value="{{$book->publisher_id}}">
-                            @foreach($pub as $p)
-                                {{$p->publisher}}
-                            @endforeach
+                                {{$pub->name}}
                         </option>
                         @foreach($publishers as $publisher)
                             <option value="<?= $publisher['id'] ?>">
@@ -122,7 +120,7 @@ $direc='products';
                 </div>
                 <br>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-outline-primary col-2 offset-5" style="height:40px">Save</button>
+                    <button type="submit" class="btn btn-outline-primary" style="height:40px">Save</button>
                 </div>
                 <br>
             </form>

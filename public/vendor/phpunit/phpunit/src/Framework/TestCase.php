@@ -1756,7 +1756,7 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
         if ($result === false) {
             throw new Exception(
                 'The locale functionality is not implemented on your platform, ' .
-                'the specified locale does not exist or the category name is ' .
+                'the specified locale does not exist or the publisher name is ' .
                 'invalid.',
             );
         }

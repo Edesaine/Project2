@@ -21,7 +21,7 @@
     <link rel='stylesheet' id='jkit-elements-main-css' href='../../wp-content/plugins/jeg-elementor-kit/assets/css/elements/main61da.css?ver=2.6.2' media='all' />
     <style id='wp-emoji-styles-inline-css'>
 
-        img.wp-smiley, img.emoji {
+      /*  img.wp-smiley, img.emoji {
             display: inline !important;
             border: none !important;
             box-shadow: none !important;
@@ -31,7 +31,65 @@
             vertical-align: -0.1em !important;
             background: none !important;
             padding: 0 !important;
+        }*/
+
+        .related.products {
+            padding: 20px;
         }
+
+        .related.products h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .related.products .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .related.products .product {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+        }
+
+        .related.products .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .related.products .price {
+            color: #555;
+            font-size: 1em;
+        }
+
+        .related.products .button {
+            background-color: #0071a1;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .related.products .button:hover {
+            background-color: #005f8b;
+        }
+
+      }
+
     </style>
     <link rel='stylesheet' id='wp-block-library-css' href='../../wp-includes/css/dist/block-library/style.minaec2.css?ver=6.4.1' media='all' />
     <link rel='stylesheet' id='wc-blocks-vendors-style-css' href='../../wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/wc-blocks-vendors-style556e.css?ver=9.4.4' media='all' />
@@ -187,7 +245,7 @@
                             <div class="elementor-element elementor-element-fb70685 elementor-widget__width-auto elementor-view-default elementor-widget elementor-widget-icon" data-id="fb70685" data-element_type="widget" data-widget_type="icon.default">
                                 <div class="elementor-widget-container">
                                     <div class="elementor-icon-wrapper">
-                                        <a class="elementor-icon" href="../../cart/index.html">
+                                        <a class="elementor-icon" href="{{route('Customer.carts.cart')}}">
                                             <i aria-hidden="true" class="jki jki-shopping-bag-1-light"></i>			</a>
                                     </div>
                                 </div>
@@ -361,7 +419,7 @@
     <div id="primary" class="content-area">
         <main id="main" class="site-main" role="main"><nav class="woocommerce-breadcrumb">
                 <a href="{{route('home')}}>Home</a>&nbsp;&#47;&nbsp;
-                <a href="#">Category{{--{{$categories->name}}--}}</a>&nbsp;&#47;&nbsp;{{$book->name}}</nav>
+                <a href="#">Book/{{--{{$categories->name}}--}}</a>&nbsp;&#47;&nbsp;{{$book->name}}</nav>
 
             <div class="woocommerce-notices-wrapper">
 
@@ -390,7 +448,7 @@
                     <form class="cart" action="#" enctype='multipart/form-data'>
 
                         <div class="quantity">
-                            <Span class="posted_in">The remaining amount: </Span>
+                            <Span class="posted_in">Buy quantity: </Span>
                             <label class="screen-reader-text" for="quantity_65f405c6b8f66">Quantity</label>
                             <input
                                 type="number"
@@ -403,15 +461,22 @@
 
                     <div class="product_meta">
 
-                        <span class="posted_in">Categories: <a href="#" rel="tag">{{$book->NumberOfCategories}}</a>,
+                        <span class="posted_in">Categories: <a href="#" rel="tag">{{$book->NumberOfCategories}}</a>
                             </span><br><br>
-                        <span class="posted_in">Status: <a href="#" rel="tag">{{$book->status}}</a>,
+                        <span class="posted_in">Status: <a href="#" rel="tag">
+                                @if($book->status == 0)
+                                    On Stock
+                                @endif
+                                @if($book->status == 1)
+                                    Unavailable
+                                @endif
+                            </a>
                             </span><br><br>
-                        <span class="posted_in">Description: <a href="#" rel="tag">{{$book->description}}</a>,
+                        <span class="posted_in">Description: <a href="#" rel="tag">{{$book->description}}</a>
                             </span><br><br>
-                        <span class="posted_in">Publisher: <a href="#" rel="tag">{{$book->publisher_id}}</a>,
+                        <span class="posted_in">Publisher: <a href="#" rel="tag">{{$pub->name}}</a>
                             </span><br><br>
-                        <span class="posted_in">Number of pages: <a href="#" rel="tag">{{$book->NumberOfPages}}</a>,
+                        <span class="posted_in">Number of pages: <a href="#" rel="tag">{{$book->NumberOfPages}}</a>
                             </span><br><br>
                         <span class="posted_in">Authors: <a href="#" rel="tag">{{$book->NumberOfAuthors}}</a>
                           </span>
@@ -479,16 +544,16 @@
                     <ul class="products rows-4">
 
                     @foreach($relaBook as $relB)
-                        <div class="row">
                         <li class="product type-product post-44 status-publish first instock product_cat-dictionary
                         product_cat-essays has-post-thumbnail shipping-taxable purchasable product-type-simple">
                             <a href="#" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-                                <img width="120" height="150" src="{{ asset($relB->image)}}" style="width: 150px; height: 200px"
-                                     class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""
+                                <img width="200" height="150" src="{{ asset($relB->image)}}" style="width: 160px; height: 210px"
+                                      alt=""
                                      decoding="async" loading="lazy"
                                      srcset="{{ asset($relB->image) }}" />
 
                                 <h2 class="woocommerce-loop-product__title">{{$relB->name}}</h2>
+
                                 <span class="price">
                                     <span class="woocommerce-Price-amount amount">
                                         <bdi>
@@ -508,7 +573,6 @@
                                 </form>
                             @endauth
                         </li>
-                        </div>
                     @endforeach
 
                     </ul>

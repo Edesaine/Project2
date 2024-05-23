@@ -24,13 +24,13 @@ class CustomerStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=> ['required'],
-            'email' => ['required'],
-            'password' => ['required'],
-            'phone' => ['required'],
-            'gender' => ['required'],
-            'address' => ['required'],
-            'account_status' => ['required'],
+            'name'=> 'required',
+            'email' => 'required|unique:customer|max:255',
+            'password' => 'required',
+            'phone' => 'required',
+            'gender' => 'required',
+            'address' => 'required',
+            'account_status' => 'required',
         ];
     }
 

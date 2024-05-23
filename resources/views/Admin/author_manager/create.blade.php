@@ -40,7 +40,7 @@
 
 <body class="animsition">
 <?php
-$direc='products';
+$url='author';
 ?>
     <!-- MENU SIDEBAR-->
 @include('admin.layouts.sidebar')

@@ -22,7 +22,6 @@
                 <h2 class="heading-section">Your order history</h2>
             </div>
         </div>
-        @foreach($orders as $ord)
         <div class="row">
             <div class="col-md-12">
                 <div class="table-wrap">
@@ -34,11 +33,12 @@
                             <th>Payment method</th>
                             <th>Total price</th>
                             <th>Status</th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        @foreach($orders as $ord)
+                            <tr>
                             <th scope="row">{{$ord->id}}</th>
                             <td>
                                 @php
@@ -50,11 +50,11 @@
                                 {{$orderDate}}
                             </td>
                             <td>Pay on delivery</td>
-                            <td>{{$ord->amount}}</td>
+                            <td>${{$ord->amount}}</td>
                             <td>
                                 @switch($ord->status)
                                     @case(0)
-                                        <span class="text-danger">Pending</span>
+                                        <span class="text-secondary">Pending</span>
                                         @break
                                     @case(1)
                                         <span class="text-danger">Cancelled</span>
@@ -77,13 +77,13 @@
                                 </a>
                             </td>
                         </tr>
+                        @endforeach
 
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        @endforeach
     </div>
 </section>
 

@@ -41,7 +41,7 @@ class AdminAuthController extends Controller
             Session::forget('loginemail');
             Session::forget('loginId');
             Session::forget('loginname');
-            return redirect('adminlogin');
+            return redirect('admin-login');
         }else{
             return redirect('dashboard');
         }

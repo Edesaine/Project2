@@ -63,7 +63,7 @@ class ConstantEnumerator extends Enumerator
 
         $user = $input->getOption('user');
         $internal = $input->getOption('internal');
-        $category = $input->getOption('category');
+        $category = $input->getOption('publisher');
 
         if ($category) {
             $category = \strtolower($category);
@@ -115,8 +115,8 @@ class ConstantEnumerator extends Enumerator
     /**
      * Get defined constants.
      *
-     * Optionally restrict constants to a given category, e.g. "date". If the
-     * category is "internal", include all non-user-defined constants.
+     * Optionally restrict constants to a given publisher, e.g. "date". If the
+     * publisher is "internal", include all non-user-defined constants.
      *
      * @param string $category
      *

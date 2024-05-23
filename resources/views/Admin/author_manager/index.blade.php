@@ -32,10 +32,13 @@
     <link href="{{asset('css/theme.css')}}" rel="stylesheet" media="all">
 
 </head>
-<body>
+
 <body class="animsition">
 <div class="page-wrapper">
 
+    <?php
+    $url='author'
+    ?>
     <!-- MENU SIDEBAR-->
 
 
@@ -71,7 +74,11 @@
                             </tr>
                         @endforeach
                     </table>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+                    <br>
+                    <br>
+                    <div style="display:flex;justify-content: center">
+                        {{$authors->links()}}
+                    </div>
                 </div>
             </div>
         </div>

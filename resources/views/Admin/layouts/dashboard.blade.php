@@ -1,3 +1,21 @@
+<?php
+/*
+$json = '{
+    "soldProductsCount": 2,
+    "ordersCount": 1,
+    "customersCount": 3,
+    "revenue": 74.2699966430664
+}';
+
+// Chuyển đổi JSON thành đối tượng PHP
+$data = json_decode($json);
+
+// In ra dữ liệu để kiểm tra
+echo 'Sold Products Count: ' . $data->soldProductsCount . "\n";
+echo 'Orders Count: ' . $data->ordersCount . "\n";
+echo 'Customers Count: ' . $data->customersCount . "\n";
+echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
+*/?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +27,7 @@
     <meta name="author" content="Hau Nguyen">
     <meta name="keywords" content="au theme template">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Title Page-->
     <title>Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,243 +60,17 @@
 <div class="page-wrapper">
 
     <!-- MENU SIDEBAR-->
-    <aside class="menu-sidebar d-none d-lg-block">
-        <div class="logo">
-            <a href="{{route('home')}}">
-                <img src="{{asset('images/logo.png')}}" alt="Cool Admin" />
-            </a>
-        </div>
-        <div class="menu-sidebar__content js-scrollbar1">
-            <nav class="navbar-sidebar">
-                <ul class="list-unstyled navbar__list">
-                    <li>
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="chart.html">
-                            <i class="fas fa-chart-bar"></i>Order</a>
-                    </li>
-                    <li class="has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-table"></i>Tables</a>
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li>
-                                <a href="{{url('book/index')}}">Book Management</a>
-                            </li>
-                            <li>
-                                <a href="{{url('customer/index')}}">Customer Management</a>
-                            </li>
-                            <li>
-                                <a href="{{ url('publisher/index')}}">Publisher Management</a>
-                            </li>
-                            <li>
-                                <a href="{{url('author/index')}}">Author Management</a>
-                            </li>
-
-
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="far fa-check-square"></i>Forms</a>
-                    </li>
-
-                    <li class="has-sub">
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-copy"></i>Pages</a>
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li>
-                                <a href="login.html">Login</a>
-                            </li>
-                            <li>
-                                <a href="register.html">Register</a>
-                            </li>
-                            <li>
-                                <a href="forget-pass.html">Forget Password</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                </li>
-                </ul>
-            </nav>
-        </div>
-    </aside>
+    <?php
+    $url='dashboard'
+    ?>
+    @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
 
     <!-- PAGE CONTAINER-->
     <div class="page-container">
         <!-- HEADER DESKTOP-->
-        <header class="header-desktop">
-            <div class="section__content section__content--p30">
-                <div class="container-fluid">
-                    <div class="header-wrap">
-                        <form class="form-header" action="" method="POST">
-                            <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for datas &amp; reports..." />
-                            <button class="au-btn--submit" type="submit">
-                                <i class="zmdi zmdi-search"></i>
-                            </button>
-                        </form>
-                        <div class="header-button">
-                            <div class="noti-wrap">
-                                <div class="noti__item js-item-menu">
-                                    <i class="zmdi zmdi-comment-more"></i>
-                                    <span class="quantity">1</span>
-                                    <div class="mess-dropdown js-dropdown">
-                                        <div class="mess__title">
-                                            <p>You have 2 news message</p>
-                                        </div>
-                                        <div class="mess__item">
-                                            <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
-                                            </div>
-                                            <div class="content">
-                                                <h6>Michelle Moreno</h6>
-                                                <p>Have sent a photo</p>
-                                                <span class="time">3 min ago</span>
-                                            </div>
-                                        </div>
-                                        <div class="mess__item">
-                                            <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
-                                            </div>
-                                            <div class="content">
-                                                <h6>Diane Myers</h6>
-                                                <p>You are now connected on message</p>
-                                                <span class="time">Yesterday</span>
-                                            </div>
-                                        </div>
-                                        <div class="mess__footer">
-                                            <a href="#">View all messages</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="noti__item js-item-menu">
-                                    <i class="zmdi zmdi-email"></i>
-                                    <span class="quantity">1</span>
-                                    <div class="email-dropdown js-dropdown">
-                                        <div class="email__title">
-                                            <p>You have 3 New Emails</p>
-                                        </div>
-                                        <div class="email__item">
-                                            <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-06.jpg" alt="Cynthia Harvey" />
-                                            </div>
-                                            <div class="content">
-                                                <p>Meeting about new dashboard...</p>
-                                                <span>Cynthia Harvey, 3 min ago</span>
-                                            </div>
-                                        </div>
-                                        <div class="email__item">
-                                            <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-05.jpg" alt="Cynthia Harvey" />
-                                            </div>
-                                            <div class="content">
-                                                <p>Meeting about new dashboard...</p>
-                                                <span>Cynthia Harvey, Yesterday</span>
-                                            </div>
-                                        </div>
-                                        <div class="email__item">
-                                            <div class="image img-cir img-40">
-                                                <img src="images/icon/avatar-04.jpg" alt="Cynthia Harvey" />
-                                            </div>
-                                            <div class="content">
-                                                <p>Meeting about new dashboard...</p>
-                                                <span>Cynthia Harvey, April 12,,2018</span>
-                                            </div>
-                                        </div>
-                                        <div class="email__footer">
-                                            <a href="#">See all emails</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="noti__item js-item-menu">
-                                    <i class="zmdi zmdi-notifications"></i>
-                                    <span class="quantity">3</span>
-                                    <div class="notifi-dropdown js-dropdown">
-                                        <div class="notifi__title">
-                                            <p>You have 3 Notifications</p>
-                                        </div>
-                                        <div class="notifi__item">
-                                            <div class="bg-c1 img-cir img-40">
-                                                <i class="zmdi zmdi-email-open"></i>
-                                            </div>
-                                            <div class="content">
-                                                <p>You got a email notification</p>
-                                                <span class="date">April 12, 2018 06:50</span>
-                                            </div>
-                                        </div>
-                                        <div class="notifi__item">
-                                            <div class="bg-c2 img-cir img-40">
-                                                <i class="zmdi zmdi-account-box"></i>
-                                            </div>
-                                            <div class="content">
-                                                <p>Your account has been blocked</p>
-                                                <span class="date">April 12, 2018 06:50</span>
-                                            </div>
-                                        </div>
-                                        <div class="notifi__item">
-                                            <div class="bg-c3 img-cir img-40">
-                                                <i class="zmdi zmdi-file-text"></i>
-                                            </div>
-                                            <div class="content">
-                                                <p>You got a new file</p>
-                                                <span class="date">April 12, 2018 06:50</span>
-                                            </div>
-                                        </div>
-                                        <div class="notifi__footer">
-                                            <a href="#">All notifications</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="account-wrap">
-                                <div class="account-item clearfix js-item-menu">
+@include('admin.layouts.header')
 
-                                    <div class="content">
-                                        <a class="js-acc-btn" href="#">Admin</a>
-                                    </div>
-                                    <div class="account-dropdown js-dropdown">
-                                        <div class="info clearfix">
-                                            <div class="image">
-                                                <a href="#">
-                                                    <img src="{{asset('images/catmeme.jpg')}}" alt="John Doe" />
-                                                </a>
-                                            </div>
-                                            <div class="content">
-                                                <h5 class="name">
-                                                    <a href="#">Son Tung</a>
-                                                </h5>
-                                                <span class="email">tung@gmail.com</span>
-                                            </div>
-                                        </div>
-                                        <div class="account-dropdown__body">
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-account"></i>Account</a>
-                                            </div>
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
-                                            </div>
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                            </div>
-                                        </div>
-                                        <div class="account-dropdown__footer">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-power"></i>Logout</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
         <!-- HEADER DESKTOP-->
 
         <!-- MAIN CONTENT-->
@@ -288,8 +81,7 @@
                         <div class="col-md-12">
                             <div class="overview-wrap">
                                 <h2 class="title-1">overview</h2>
-                                <button class="au-btn au-btn-icon au-btn--blue">
-                                    <i class="zmdi zmdi-plus"></i>add item</button>
+
                             </div>
                         </div>
                     </div>
@@ -302,7 +94,7 @@
                                             <i class="zmdi zmdi-account-o"></i>
                                         </div>
                                         <div class="text">
-                                            <h2>10368</h2>
+                                            <h2 id="customersCount">{{ $stats->customersCount }}</h2>
                                             <span>members online</span>
                                         </div>
                                     </div>
@@ -320,8 +112,8 @@
                                             <i class="zmdi zmdi-shopping-cart"></i>
                                         </div>
                                         <div class="text">
-                                            <h2>388,688</h2>
-                                            <span>items solid</span>
+                                            <h2 id="soldProductsCount">{{ $stats->soldProductsCount }}</h2>
+                                            <span>Books Sold</span>
                                         </div>
                                     </div>
                                     <div class="overview-chart">
@@ -338,8 +130,8 @@
                                             <i class="zmdi zmdi-calendar-note"></i>
                                         </div>
                                         <div class="text">
-                                            <h2>1,086</h2>
-                                            <span>this week</span>
+                                            <h2 id="ordersCount">{{ $stats->ordersCount }}</h2>
+                                            <span>Orders this week</span>
                                         </div>
                                     </div>
                                     <div class="overview-chart">
@@ -356,8 +148,8 @@
                                             <i class="zmdi zmdi-money"></i>
                                         </div>
                                         <div class="text">
-                                            <h2>$1,060,386</h2>
-                                            <span>total earnings</span>
+                                            <h2 id="revenue">${{ number_format($stats->revenue, 2) }}</h2>
+                                            <span>Total revenue</span>
                                         </div>
                                     </div>
                                     <div class="overview-chart">
@@ -367,38 +159,13 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="au-card recent-report">
                                 <div class="au-card-inner">
                                     <h3 class="title-2">recent reports</h3>
-                                    <div class="chart-info">
-                                        <div class="chart-info__left">
-                                            <div class="chart-note">
-                                                <span class="dot dot--blue"></span>
-                                                <span>products</span>
-                                            </div>
-                                            <div class="chart-note mr-0">
-                                                <span class="dot dot--green"></span>
-                                                <span>services</span>
-                                            </div>
-                                        </div>
-                                        <div class="chart-info__right">
-                                            <div class="chart-statis">
-                                                    <span class="index incre">
-                                                        <i class="zmdi zmdi-long-arrow-up"></i>25%</span>
-                                                <span class="label">products</span>
-                                            </div>
-                                            <div class="chart-statis mr-0">
-                                                    <span class="index decre">
-                                                        <i class="zmdi zmdi-long-arrow-down"></i>10%</span>
-                                                <span class="label">services</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="recent-report__chart">
-                                        <canvas id="recent-rep-chart"></canvas>
-                                    </div>
+                                    <div id="chartContainer3" style="width: 100%; height: 300px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -429,135 +196,61 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="au-card recent-report">
+                        <h3 class="title-2">Top 5 Bestselling Books</h3>
+                        <br>
+                    @foreach($topBooks as $book)
+                            <div class="d-flex mb-3 ">
+                                <div class="border rounded p-3 object-fit-fill
+                             overflow-hidden w-10 me-1">
+                                    <img src="{{ $book->image }}" width="80px"
+                                         height="110px">
+                                </div>
+                                <div class="flex-fill d-flex flex-column justify-content-between">
+                                    <div>
+                                        {{ $book->name }}
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            ({{ $book->total_sold }} sold)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                     <div class="row">
-                        <div class="col-lg-9">
-                            <h2 class="title-1 m-b-25">Earnings By Items</h2>
+                        <div class="col-lg-9" style="max-width: 100%">
+                            <h2 class="title-1 m-b-25">Statistics on sold products</h2>
                             <div class="table-responsive table--no-card m-b-40">
                                 <table class="table table-borderless table-striped table-earning">
                                     <thead>
                                     <tr>
-                                        <th>date</th>
-                                        <th>order ID</th>
-                                        <th>name</th>
-                                        <th class="text-right">price</th>
-                                        <th class="text-right">quantity</th>
-                                        <th class="text-right">total</th>
+                                        <th>Order_date</th>
+                                        <th>Order ID</th>
+                                        <th>Product name</th>
+                                        <th class="text-right">Price</th>
+                                        <th class="text-right">Quantity</th>
+                                        <th class="text-right">Total price</th>
                                     </tr>
                                     </thead>
+                                    @foreach($soldProducts as $productOrd)
                                     <tbody>
                                     <tr>
-                                        <td>2018-09-29 05:57</td>
-                                        <td>100398</td>
-                                        <td>iPhone X 64Gb Grey</td>
-                                        <td class="text-right">$999.00</td>
-                                        <td class="text-right">1</td>
-                                        <td class="text-right">$999.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2018-09-28 01:22</td>
-                                        <td>100397</td>
-                                        <td>Samsung S8 Black</td>
-                                        <td class="text-right">$756.00</td>
-                                        <td class="text-right">1</td>
-                                        <td class="text-right">$756.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2018-09-27 02:12</td>
-                                        <td>100396</td>
-                                        <td>Game Console Controller</td>
-                                        <td class="text-right">$22.00</td>
-                                        <td class="text-right">2</td>
-                                        <td class="text-right">$44.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2018-09-26 23:06</td>
-                                        <td>100395</td>
-                                        <td>iPhone X 256Gb Black</td>
-                                        <td class="text-right">$1199.00</td>
-                                        <td class="text-right">1</td>
-                                        <td class="text-right">$1199.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2018-09-25 19:03</td>
-                                        <td>100393</td>
-                                        <td>USB 3.0 Cable</td>
-                                        <td class="text-right">$10.00</td>
-                                        <td class="text-right">3</td>
-                                        <td class="text-right">$30.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2018-09-29 05:57</td>
-                                        <td>100392</td>
-                                        <td>Smartwatch 4.0 LTE Wifi</td>
-                                        <td class="text-right">$199.00</td>
-                                        <td class="text-right">6</td>
-                                        <td class="text-right">$1494.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2018-09-24 19:10</td>
-                                        <td>100391</td>
-                                        <td>Camera C430W 4k</td>
-                                        <td class="text-right">$699.00</td>
-                                        <td class="text-right">1</td>
-                                        <td class="text-right">$699.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2018-09-22 00:43</td>
-                                        <td>100393</td>
-                                        <td>USB 3.0 Cable</td>
-                                        <td class="text-right">$10.00</td>
-                                        <td class="text-right">3</td>
-                                        <td class="text-right">$30.00</td>
+                                        <td>{{ $productOrd->order_date }}</td>
+                                        <td>{{ $productOrd->order_id }}</td>
+                                        <td>{{ $productOrd->product_name }}</td>
+                                        <td class="text-right">${{ number_format($productOrd->price, 2) }}</td>
+                                        <td class="text-right">{{ $productOrd->quantity }} </td>
+                                        <td class="text-right">${{ number_format($productOrd->total_price, 2) }}</td>
                                     </tr>
                                     </tbody>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                            <h2 class="title-1 m-b-25">Top countries</h2>
-                            <div class="au-card au-card--bg-blue au-card-top-countries m-b-40">
-                                <div class="au-card-inner">
-                                    <div class="table-responsive">
-                                        <table class="table table-top-countries">
-                                            <tbody>
-                                            <tr>
-                                                <td>United States</td>
-                                                <td class="text-right">$119,366.96</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Australia</td>
-                                                <td class="text-right">$70,261.65</td>
-                                            </tr>
-                                            <tr>
-                                                <td>United Kingdom</td>
-                                                <td class="text-right">$46,399.22</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Turkey</td>
-                                                <td class="text-right">$35,364.90</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Germany</td>
-                                                <td class="text-right">$20,366.96</td>
-                                            </tr>
-                                            <tr>
-                                                <td>France</td>
-                                                <td class="text-right">$10,366.96</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Australia</td>
-                                                <td class="text-right">$5,366.96</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Italy</td>
-                                                <td class="text-right">$1639.32</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
@@ -811,13 +504,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="copyright">
-                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -845,11 +532,36 @@
 <script src="../../../vendor/circle-progress/circle-progress.min.js"></script>
 <script src="../../../vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
 <script src="../../../vendor/chartjs/Chart.bundle.min.js"></script>
-<script src="../../../vendor/select2/select2.min.js">
-</script>
+<script src="../../../vendor/select2/select2.min.js"></script>
+<script {{--type="text/javascript"--}} src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <!-- Main JS-->
 <script src="js/main.js"></script>
+<script>
+    window.onload = function () {
+
+        var chart3 = new CanvasJS.Chart("chartContainer3", {
+            animationEnabled: true,
+
+            axisX: {
+                valueFormatString: "DD MMM",
+                interval: 1,
+                intervalType: "day"
+            },
+
+            axisY: {
+                includeZero: false
+            },
+
+            data: [{
+                type: "line",
+                dataPoints: <?php echo json_encode($firstChartData, JSON_NUMERIC_CHECK); ?>
+            }]
+        });
+        chart3.render();
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 </body>
 
