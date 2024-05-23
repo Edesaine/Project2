@@ -255,67 +255,29 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                                <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');">
+                                <div class="au-card-title">
                                     <div class="bg-overlay bg-overlay--blue"></div>
                                     <h3>
-                                        <i class="zmdi zmdi-account-calendar"></i>26 April, 2018</h3>
-                                    <button class="au-btn-plus">
+                                        <i class="zmdi zmdi-account-calendar"></i>Tasks</h3>
+                                    <button class="au-btn-plus" data-toggle="modal" data-target="#addTaskModal">
                                         <i class="zmdi zmdi-plus"></i>
                                     </button>
                                 </div>
                                 <div class="au-task js-list-load">
                                     <div class="au-task__title">
-                                        <p>Tasks for John Doe</p>
+                                        <p>Tasks for Admins</p>
                                     </div>
                                     <div class="au-task-list js-scrollbar3">
-                                        <div class="au-task__item au-task__item--danger">
-                                            <div class="au-task__item-inner">
-                                                <h5 class="task">
-                                                    <a href="#">Meeting about plan for Admin Template 2018</a>
-                                                </h5>
-                                                <span class="time">10:00 AM</span>
+                                        @foreach($tasks as $task)
+                                            <div class="au-task__item au-task__item--{{ strtolower($task->status) }}">
+                                                <div class="au-task__item-inner">
+                                                    <h5 class="task">
+                                                        <a href="#">{{ $task->title }}</a>
+                                                    </h5>
+                                                    <span class="time">{{ $task->time }}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="au-task__item au-task__item--warning">
-                                            <div class="au-task__item-inner">
-                                                <h5 class="task">
-                                                    <a href="#">Create new task for Dashboard</a>
-                                                </h5>
-                                                <span class="time">11:00 AM</span>
-                                            </div>
-                                        </div>
-                                        <div class="au-task__item au-task__item--primary">
-                                            <div class="au-task__item-inner">
-                                                <h5 class="task">
-                                                    <a href="#">Meeting about plan for Admin Template 2018</a>
-                                                </h5>
-                                                <span class="time">02:00 PM</span>
-                                            </div>
-                                        </div>
-                                        <div class="au-task__item au-task__item--success">
-                                            <div class="au-task__item-inner">
-                                                <h5 class="task">
-                                                    <a href="#">Create new task for Dashboard</a>
-                                                </h5>
-                                                <span class="time">03:30 PM</span>
-                                            </div>
-                                        </div>
-                                        <div class="au-task__item au-task__item--danger js-load-item">
-                                            <div class="au-task__item-inner">
-                                                <h5 class="task">
-                                                    <a href="#">Meeting about plan for Admin Template 2018</a>
-                                                </h5>
-                                                <span class="time">10:00 AM</span>
-                                            </div>
-                                        </div>
-                                        <div class="au-task__item au-task__item--warning js-load-item">
-                                            <div class="au-task__item-inner">
-                                                <h5 class="task">
-                                                    <a href="#">Create new task for Dashboard</a>
-                                                </h5>
-                                                <span class="time">11:00 AM</span>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <div class="au-task__footer">
                                         <button class="au-btn au-btn-load js-load-btn">load more</button>
@@ -323,6 +285,60 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Modal thêm task mới -->
+                        <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog"
+                             aria-labelledby="addTaskModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form action="{{ route('dashboard.addTask') }}" method="POST">
+                                        @csrf
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="title">Task Title</label>
+                                                <input type="text" class="form-control" id="title" name="title" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Task Description</label>
+                                                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="time">Time</label>
+                                                <input type="time" class="form-control" id="time" name="time" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="date">Date</label>
+                                                <input type="date" class="form-control" id="date" name="date" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="status">Status</label>
+                                                <select class="form-control" id="status" name="status">
+                                                    <option value="primary">Primary</option>
+                                                    <option value="success">Success</option>
+                                                    <option value="danger">Danger</option>
+                                                    <option value="warning">Warning</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="admin_id">Admin: </label>
+                                                <input type="number" class="form-control" id="user_id" name="user_id" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Add Task</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-lg-6">
                             <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
                                 <div class="au-card-title" style="background-image:url('images/bg-title-02.jpg');">

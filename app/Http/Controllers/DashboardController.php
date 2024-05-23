@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use App\Models\Order;
+use App\Models\Task;
 use App\Models\OrderDetail;
 use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+
 class DashboardController extends Controller
 {
     public function index()
@@ -66,10 +69,26 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
+        $tasks = Task::all();
 
         return view('admin.layouts.dashboard', [
             'firstChartData' => $firstChartData,
             /*'secondChartData' => $secondChartData,*/], compact('LoginName', 'LoginEmail',
-            'stats','soldProducts','topBooks'));
+            'stats','soldProducts','topBooks','tasks'));
+    }
+
+    public function addTask(Request $request)
+    {
+        $task = new Task();
+        $task->title = $request->input('title');
+        $task->description = $request->input('description');
+        $task->time = $request->input('time');
+        $task->date = $request->input('date');
+        $task->status = $request->input('status');
+        $task->user_id = $request->input('user_id'); // Giả sử bạn có user_id
+
+        $task->save();
+
+        return redirect()->back()->with('success', 'Task added successfully!');
     }
 }

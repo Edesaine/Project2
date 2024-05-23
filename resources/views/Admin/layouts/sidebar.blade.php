@@ -38,12 +38,6 @@
                         <li>
                             <a href="{{url('order/index')}}">Order Management</a>
                         </li>
-                        <li>
-                            <a href="{{url('category/index')}}">Category</a>
-                        </li>
-                        <li>
-                            <a href="{{url('order/index')}}">Order</a>
-                        </li>
                     </ul>
                 </li>
             </ul>

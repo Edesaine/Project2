@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\Publisher;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
-
 class PublisherController extends Controller
 {
     public function index(Request $request)

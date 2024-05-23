@@ -80,6 +80,7 @@ Route::get('/adminlogout', [App\Http\Controllers\AdminAuthController::class,'log
 
 Route::get('/admin_manage-panel', [DashboardController::class, 'index'])->name('admin_manage-panel');
 Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('AdminLogged');
+Route::post('/dashboard/add-task', [DashboardController::class, 'addTask'])->name('dashboard.addTask');
 
 
 Route::middleware(LoginCheckingCustomer::class)->group(function () {
