@@ -68,6 +68,8 @@ Route::get('customer/{id}/changestatus',[CustomerController::class,'ChangeStatus
 Route::get('book/index',[BookController::class,'index'])->middleware('AdminLogged');
 Route::get('book/create',[BookController::class,'create'])->middleware('AdminLogged');
 Route::post('book/create',[BookController::class,'store'])->middleware('AdminLogged');
+Route::get('book/{id}/additional-information',[BookController::class,'addinfomation'])->middleware('AdminLogged')->name('book.addinformation');
+Route::post('book/additional-information',[BookController::class,'addinfomationprocess'])->middleware('AdminLogged');
 Route::get('book/{id}/edit',[BookController::class,'edit'])->middleware('AdminLogged');
 Route::put('book/{id}/edit',[BookController::class,'update'])->middleware('AdminLogged');
 Route::get('book/{id}/changestatus',[BookController::class,'ChangeStatus'])->middleware('AdminLogged');
@@ -75,12 +77,13 @@ Route::get('book/{id}/changestatus',[BookController::class,'ChangeStatus'])->mid
 Route::get('book/{id}/detail',[BookController::class,'detail'])->middleware('AdminLogged');
 Route::get('book/{id}/delete',[BookController::class,'delete'])->middleware('AdminLogged');
 
-Route::get('/adminlogin', [App\Http\Controllers\AdminAuthController::class,'adminlogin']);
+Route::get('/admin-login', [App\Http\Controllers\AdminAuthController::class,'adminlogin']);
 Route::post('/adminlogin_process', [App\Http\Controllers\AdminAuthController::class,'loginprocess'])->name('loginprocess');
 Route::get('/adminlogout', [App\Http\Controllers\AdminAuthController::class,'logout'])->middleware('AdminLogged');
 
 Route::get('/admin_manage-panel', [DashboardController::class, 'index'])->name('admin_manage-panel');
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('AdminLogged');
+Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('AdminLogged');
+Route::post('/dashboard/add-task', [DashboardController::class, 'addTask'])->name('dashboard.addTask');
 
 
 
