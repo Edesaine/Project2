@@ -6,6 +6,9 @@ use App\Models\Customer;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Publisher;
+use App\Models\Category;
+use App\Models\AuthorBook;
+use App\Models\CategoryBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -45,10 +48,7 @@ class BookController extends Controller
 
     public function addToCart(int $id)
     {
-        $book = Book::/*with('author')
-            ->with('publisher')
-/*            ->with('name')*/
-            where('id', $id)
+        $book = Book::where('id', $id)
             ->first();
 //        neu da co cart
         if (Session::exists('cart')) {
@@ -86,9 +86,7 @@ class BookController extends Controller
         if (!Auth::guard('customer')->check()) {
             return Redirect::route('Customer.account.login');
         } else {
-            $book = Book::/*with('author')
-                ->with('publisher')
-                ->*/where('id', $id)
+            $book = Book::where('id', $id)
                 ->first();
 
 //        neu da co cart
@@ -163,6 +161,12 @@ class BookController extends Controller
         ]);
     }
 
+
+
+
+
+
+//ADMIN
     public function index(Request $request)
     {
         $LoginName= Session::get('loginname');
@@ -175,11 +179,9 @@ class BookController extends Controller
             ->join('publishers','books.publisher_id','=','publishers.id')
             ->select("books.*","publishers.name AS publisher")
             ->where('books.name','like',$search)
-            ->paginate(5);
-
+            ->paginate(4);
         return view('admin.book_manager.index',compact('books','LoginName','LoginEmail'));
     }
-
     public function create()
     {
         $LoginName= Session::get('loginname');
@@ -187,7 +189,6 @@ class BookController extends Controller
         $publishers = Publisher::get();
         return view('admin.book_manager.create',compact('publishers','LoginName','LoginEmail'));
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -207,7 +208,7 @@ class BookController extends Controller
 
             $filename = time().'.'.$extension;
 
-            $path = 'storage/uploads/books/';
+            $path = 'uploads/books/';
             $file->move($path, $filename);
         }
         Book::create([
@@ -221,18 +222,63 @@ class BookController extends Controller
             'NumberOfCategories' => $request->NumberOfCategories,
             'NumberOfPages' => $request->NumberOfPages
         ]);
-        return redirect()->back()->with('status','Books Created !');
+        $book=Book::where('name',$request->name)
+            ->first();
+        return redirect()->route('book.addinformation', ['id' => $book->id]);
+
     }
+
+    public function addinfomation(int $id){
+        $book=Book::FindorFail($id);
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+        $authors = Author::get();
+        $categories= Category::get();
+        return view('admin.book_manager.addinfomation',compact('categories','authors','book','LoginName','LoginEmail'));
+
+    }
+    public function addinfomationprocess(Request $request){
+        $bookId = $request->id;
+        $authorIds = [];
+        $categoryIds = [];
+
+        foreach ($request->all() as $key => $value) {
+            if (strpos($key, 'author_id') === 0 && !is_null($value)) {
+                $authorIds[] = $value;
+            }
+            if (strpos($key, 'category_id') === 0 && !is_null($value)) {
+                $categoryIds[] = $value;
+            }
+        }
+
+        // Insert thông tin tác giả vào bảng book_authors
+        foreach ($authorIds as $authorId) {
+            AuthorBook::create([
+                'book_id' => $bookId,
+                'author_id' => $authorId
+            ]);
+        }
+
+        // Insert thông tin thể loại vào bảng book_categories
+        foreach ($categoryIds as $categoryId) {
+            CategoryBook::create([
+                'book_id' => $bookId,
+                'category_id' => $categoryId
+            ]);
+        }
+        return redirect('book/index');
+    }
+
     public function edit(int $id)
     {
         $LoginName= Session::get('loginname');
         $LoginEmail= Session::get('loginemail');
+
         $book = Book::findOrFail($id);
         $pub=Publisher::findOrFail($book->publisher_id);
         $publishers= Publisher::get();
-        return view('admin.book_manager.edit', compact('book','pub','publishers','LoginName','LoginEmail'));
+       return view('admin.book_manager.edit', compact('book','pub','publishers','LoginName','LoginEmail'));
     }
-
     public function update(Request $request, int $id){
         $request->validate([
             'name' => 'required|string',
@@ -252,7 +298,7 @@ class BookController extends Controller
 
             $filename = time().'.'.$extension;
 
-            $path = 'storage/uploads/books/';
+            $path = 'uploads/product/';
             $file->move($path, $filename);
 
             if(File::exists($book->image)){
@@ -286,35 +332,34 @@ class BookController extends Controller
 
         return redirect()->back()->with('status','Book Deleted !');
     }
-
-    public function ChangeStatus(int $id)
-    {
-        $book = Book::findOrFail($id);
-        if($book->status==0){
-            $book->update([
-                'status'=>1
-            ]);
-        } else{
-            $book->update([
-                'status'=>0
-            ]);
-        }
-        return redirect()->back()->with('status','Books Edited !');
+public function ChangeStatus(int $id)
+{
+    $book = Book::findOrFail($id);
+    if($book->status==0){
+        $book->update([
+            'status'=>1
+        ]);
+    } else{
+        $book->update([
+            'status'=>0
+        ]);
     }
-    public function detail(int $id)
-    {
-        $LoginName= Session::get('loginname');
-        $LoginEmail= Session::get('loginemail');
+    return redirect()->back()->with('status','Books Edited !');
+}
+public function detail(int $id)
+{
+    $LoginName= Session::get('loginname');
+    $LoginEmail= Session::get('loginemail');
 
-        $book = Book::findOrFail($id);
-        $info=DB::table('books')
-            ->join('publishers','books.publisher_id','=','publishers.id')
-            ->join('authorbooks','books.publisher_id','=','publishers.id')
-            ->where('books.id','=',$id)
-            ->select('books.*','publishers.name as publisher')
-            ->get();
+    $book = Book::findOrFail($id);
+    $info=DB::table('books')
+        ->join('publishers','books.publisher_id','=','publishers.id')
+        ->join('authorbooks','books.publisher_id','=','publishers.id')
+        ->where('books.id','=',$id)
+        ->select('books.*','publishers.name as publisher')
+        ->get();
 
-        $publishers= Publisher::get();
-        return view('admin.book_manager.edit', compact('book','info','publishers','LoginName','LoginEmail'));
-    }
+    $publishers= Publisher::get();
+    return view('admin.book_manager.detail', compact('book','info','publishers','LoginName','LoginEmail'));
+}
 }

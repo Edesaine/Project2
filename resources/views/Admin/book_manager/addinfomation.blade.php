@@ -59,66 +59,40 @@ $url='book'
                     <div class="alert alert-success">{{ session('status')}}</div>
                 @endif
                 <a href="{{ url('book/index') }}" class="btn btn-primary float-end">Back</a>
-                <h2 style="text-align: center"> Edit Book</h2>
+                <h2 style="text-align: center">Additional Information</h2>
             </div>
-            <form  class="col-8 offset-2" enctype='multipart/form-data' action="{{ url('book/'.$book->id.'/edit') }}" method="POST">
-                @method('PUT')
+            <form  class="col-8 offset-2" enctype='multipart/form-data' action="{{ url('book/additional-information') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id" value="{{$book->id}}">
-                <div class="form-group">
-                    <label for="name" >Book Name : </label>
-                    <input id="name" type="text" name="name" class="form-control" value="{{$book->name}}" required>
-                </div>
-                <div class="form-group">
-                    <label for="price" >Price :</label>
-                    <input id="price" type="number" step="any" name="price" class="form-control" value="{{$book->price}}" required>
-                </div>
-                <div class="form-group">
-                    <label for="quantity">Quantity :</label>
-                    <input id="quantity" type="number" name="quantity" class="form-control" value="{{$book->quantity}}" required>
-                </div>
-                <div class="form-group">
-                    <label for="NumberOfPages" >Number of pages :</label>
-                    <input id="NumberOfPages" type="number" name="NumberOfPages" class="form-control" value="{{$book->NumberOfPages}}" required>
-                </div>
+                <div id="select-container">
+                @for($i=1;$i<=$book->NumberOfAuthors;$i++)
+                    <div class="form-group">
+                        <label>Author {{$i}} :</label>
+                        <select class="dynamic-select" name="author_id{{$i}}" onchange="validateSelects()">
+                            <option disabled selected> - Choose - </option>
+                            @foreach($authors as $author)
+                                <option value="<?= $author['id'] ?>">
+                                        <?= $author['name'] ?>
+                                </option>
+                            @endforeach
 
-                <div class="form-group">
-                    <label for="description">Description :</label>
-                    <textarea  name="description" id="description" class="form-control" rows="3" required>{{$book->description}} </textarea>
-                </div>
-                <div class="row">
-                    <div class="form-group col-6">
-                        <label for="file">Choose Image:</label>
-                        <input type="file" class="form-control-file" name="image">
+                        </select>
                     </div>
-                    <div class="col-2 offset-3">
-                        Old image:
-                        <img src="{{ asset($book->image) }}" style="width: 100px;height:150px" alt="">
+                @endfor
+                @for($i=1;$i<=$book->NumberOfCategories;$i++)
+                    <div class="form-group">
+                        <label>Category {{$i}} :</label>
+                        <select class="dynamic-select2" name="category_id{{$i}}" onchange="validateSelects2()">
+                            <option disabled selected> - Choose - </option>
+                            @foreach($categories as $category)
+                                <option value="<?= $category['id'] ?>">
+                                        <?= $category['name'] ?>
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
+                @endfor
                 </div>
-                <div class="form-group">
-                    <label>Publisher :</label>
-                    <select name="publisher_id">
-                        <option selected value="{{$book->publisher_id}}">
-                            {{$pub->name}}
-                        </option>
-                        @foreach($publishers as $publisher)
-                            <option value="<?= $publisher['id'] ?>">
-                                    <?= $publisher['name'] ?>
-                            </option>
-                        @endforeach
-
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="NumberOfAuthors" >Number of author</label>
-                    <input min="1" id="NumberOfAuthors" type="number" name="NumberOfAuthors" class="form-control" value="{{$book->NumberOfAuthors}}" required>
-                </div>
-                <div class="form-group">
-                    <label for="NumberOfCategories">Number of categories</label>
-                    <input min="1" id="NumberOfCategories" type="number" name="NumberOfCategories" class="form-control" value="{{$book->NumberOfCategories}}" required>
-                </div>
-                <br>
                 <div class="form-group">
                     <button type="submit" class="btn btn-outline-primary" style="height:40px">Save</button>
                 </div>
@@ -131,8 +105,84 @@ $url='book'
 <!-- END PAGE CONTAINER-->
 
 
+<script>
+    function validateSelects2() {
+        var selects = document.querySelectorAll('.dynamic-select2');
+        var selectedValues = [];
 
+        // Reset tất cả các tùy chọn
+        selects.forEach(function(select) {
+            resetOptions(select);
+        });
 
+        // Thu thập các giá trị đã chọn
+        selects.forEach(function(select) {
+            if (select.value) {
+                selectedValues.push(select.value);
+            }
+        });
+
+        // Vô hiệu hóa các tùy chọn đã được chọn trong các thẻ select khác
+        selects.forEach(function(select) {
+            disableSelectedOptions(select, selectedValues);
+        });
+    }
+
+    function resetOptions(select) {
+        var options = select.options;
+        for (var i = 0; i < options.length; i++) {
+            options[i].disabled = false;
+        }
+    }
+
+    function disableSelectedOptions(select, selectedValues) {
+        var options = select.options;
+        for (var i = 0; i < options.length; i++) {
+            if (selectedValues.includes(options[i].value) && options[i].value !== select.value) {
+                options[i].disabled = true;
+            }
+        }
+    }
+</script>
+<script>
+    function validateSelects() {
+        var selects = document.querySelectorAll('.dynamic-select');
+        var selectedValues = [];
+
+        // Reset tất cả các tùy chọn
+        selects.forEach(function(select) {
+            resetOptions(select);
+        });
+
+        // Thu thập các giá trị đã chọn
+        selects.forEach(function(select) {
+            if (select.value) {
+                selectedValues.push(select.value);
+            }
+        });
+
+        // Vô hiệu hóa các tùy chọn đã được chọn trong các thẻ select khác
+        selects.forEach(function(select) {
+            disableSelectedOptions(select, selectedValues);
+        });
+    }
+
+    function resetOptions(select) {
+        var options = select.options;
+        for (var i = 0; i < options.length; i++) {
+            options[i].disabled = false;
+        }
+    }
+
+    function disableSelectedOptions(select, selectedValues) {
+        var options = select.options;
+        for (var i = 0; i < options.length; i++) {
+            if (selectedValues.includes(options[i].value) && options[i].value !== select.value) {
+                options[i].disabled = true;
+            }
+        }
+    }
+</script>
 <!-- Jquery JS-->
 <script src="{{asset('vendor/jquery-3.2.1.min.js')}}"></script>
 <!-- Bootstrap JS-->
@@ -160,3 +210,4 @@ $url='book'
 </body>
 
 </html>
+

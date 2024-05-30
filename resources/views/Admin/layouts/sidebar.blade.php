@@ -18,7 +18,7 @@
                 </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">
-                        <i class="fas fa-table"></i>Tables</a>
+                        <i class="fas fa-table"></i>Management</a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
                         <li>
                             <a href="{{url('book/index')}}">Book Management</a>

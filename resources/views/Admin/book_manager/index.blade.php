@@ -37,9 +37,9 @@
 
     <!-- MENU SIDEBAR-->
 
-    <?php
-    $url='book'
-    ?>
+<?php
+$url='book'
+?>
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
 
@@ -53,6 +53,8 @@
                 <div class="container-fluid">
                     <h1 style="text-align: center">Book</h1>
                     <a href="{{url('book/create')}}" class="btn btn-outline-dark">Add Book</a>
+                    <br>
+                    <br>
                     <table class="table">
                         <tr>
                             <th>ID</th>
@@ -72,7 +74,7 @@
                                 <td>{{$book->id}}</td>
                                 <td>{{$book->name}}</td>
                                 <td>
-                                    <div style="width: 100px"><img  src="{{ asset($book->image) }}" style="width: 100px;height:150px" alt=""></div>
+                                    <div style="width: 100px"><img  src="{{asset($book->image)}}" style="width: 100px;height:150px" alt=""></div>
                                 </td>
                                 <td>{{$book->price}}$</td>
                                 <td>{{$book->quantity}}</td>
@@ -90,8 +92,8 @@
                                 <td>{{$book->publisher}}</td>
                                 <td>
                                     <a href="{{url('book/'.$book->id.'/edit')}}" class="btn btn-primary">Edit</a><br>
-                                    <a href="{{url('book/'.$book->id.'/changestatus')}}" style="margin-top: 10px; margin-bottom: 10px" class="btn btn-secondary">Change Status</a>
-                                    <a href="{{url('book/'.$book->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                    <a style="margin-top: 5px" href="{{url('book/'.$book->id.'/changestatus')}}" class="btn btn-secondary">Change Status</a>
+                                    <a style="margin-top: 5px" href="{{url('book/'.$book->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
                                 </td>
 
                             </tr>
@@ -99,7 +101,7 @@
                     </table>
                     <br>
                     <div style="display:flex;justify-content: center">
-                        {{$books->links()}}
+                      {{$books->links()}}
                     </div>
                 </div>
             </div>

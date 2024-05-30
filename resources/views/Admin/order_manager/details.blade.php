@@ -41,7 +41,7 @@
 
     <!-- MENU SIDEBAR-->
     <?php
-    $url='publisher'
+    $url='category'
     ?>
 
     @include('admin.layouts.sidebar')
@@ -56,7 +56,7 @@
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="row">
-                        <h1 style="text-align: center" class="col-4 offset-4">Order Details Management</h1>
+                        <h1 style="text-align: center" class="col-4 offset-4">Order Details</h1>
                         <div class="col-3 offset-1" style="width: 100%;height: 120px">
                             @if($status->status==0)
                                 <form enctype='multipart/form-data' action="{{ url('order/'.$id.'/details') }}" method="POST">
@@ -121,7 +121,7 @@
                                     </div>
                                 </form>
                             @endif
-                            @if($status->status==2)
+                                @if($status->status==2)
                                 <form enctype='multipart/form-data' action="{{ url('order/'.$id.'/details') }}" method="POST">
                                     @method('PUT')
                                     @csrf
@@ -148,15 +148,15 @@
                                     </div>
                                 </form>
                             @endif
-                            @if($status->status==3)
-                                <img style="width: 200px" src="{{asset('images/complete_stamp.png')}}">
-                            @endif
-                            @if($status->status==4)
-                                <img style="width: 180px" src="{{asset('images/cancelled_stamp.png')}}">
-                            @endif
+                                @if($status->status==3)
+                                   <img style="width: 200px" src="{{asset('images/complete_stamp.png')}}">
+                                @endif
+                                @if($status->status==4)
+                                    <img style="width: 180px" src="{{asset('images/cancelled_stamp.png')}}">
+                                @endif
                         </div>
                     </div>
-                    <a href="/order/index" class="btn btn-primary">Back</a>
+                    <a href="javascript:window.history.back();" class="btn btn-primary">Back</a>
                     <br>
                     <br>
                     <table  class="table table-light ">
@@ -213,3 +213,4 @@
 
 </body>
 </html>
+

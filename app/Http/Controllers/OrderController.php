@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\Author;
 use App\Models\Admin;
 use App\Models\Category;
@@ -13,6 +12,7 @@ use App\Requests\OrderStoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use function PHPUnit\Framework\isEmpty;
@@ -34,10 +34,11 @@ class OrderController extends Controller
         $totalAmount = array_sum($amount);
         //lay status (status mac dinh la 0 tuong ung trang thai xac nhan don hang)
         $status = 0;
-        //1: pay on delivery, 2: pay on vnpay
         $paymentID = 1;
+
         //1: Fast delivery, 2: Normal Delivery
-        $methodID = 1;
+
+        $methodId = 1;
         //customer id
         $customerId = Auth::guard('customer')->id();
 
@@ -52,7 +53,7 @@ class OrderController extends Controller
         $array = Arr::add($array, 'customer_id', $customerId);
         $array = Arr::add($array, 'amount', $totalAmount);
         $array = Arr::add($array, 'payment_id', $paymentID);
-        $array = Arr::add($array, 'method_id', $methodID);
+        $array = Arr::add($array, 'method_id', $methodId);
         Order::create($array);
 
         $maxOrderId = Order::where('customer_id', $customerId)->max('id');
@@ -90,6 +91,7 @@ class OrderController extends Controller
         return to_route('Customer.carts.orderHistory')->with('success', 'Cancel order successfully!');
     }
 
+
     //ADMIN
     public function index(Request $request)
     {
@@ -108,11 +110,12 @@ class OrderController extends Controller
             ->orWhere('orders.receiver_address', 'like', $search)
             ->orWhere('orders.receiver_phone', 'like', $search)
             ->orWhere('customer.name', 'like', $search)
-            ->OrderBy('orders.date_buy','DESC')
-            ->OrderBy('orders.status','ASC')
+            ->OrderBy('orders.date_buy', 'DESC')
+            ->OrderBy('orders.status', 'ASC')
             ->paginate(5);
         return view('admin.order_manager.index', compact('orders', 'LoginName', 'LoginEmail'));
     }
+
 
     public function details(int $id, Request $request)
     {
@@ -122,28 +125,57 @@ class OrderController extends Controller
         if ($request->search) {
             $search = '%' . $request->search . '%';
         }
-            $orders = DB::table('order_details')
-                ->join('books', 'order_details.book_id', '=', 'books.id')
-                ->join('orders', 'order_details.order_id', '=', 'orders.id')
-                ->select('order_details.*', 'books.name as name', 'books.image as image', 'orders.status as status')
-                ->where('books.name', 'like', $search)
-                ->where('order_details.order_id', '=', $id)
-                ->paginate(3);
-            $status = Order::findOrFail($id);
-            return view('admin.order_manager.details', compact('orders', 'LoginName', 'LoginEmail', 'id', 'status'));
+        $orders = DB::table('order_details')
+            ->join('books', 'order_details.book_id', '=', 'books.id')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->select('order_details.*', 'books.name as name', 'books.image as image', 'orders.status as status')
+            ->where('books.name', 'like', $search)
+            ->where('order_details.order_id', '=', $id)
+            ->paginate(3);
+        $status = Order::findOrFail($id);
+        return view('admin.order_manager.details', compact('orders', 'LoginName', 'LoginEmail', 'id', 'status'));
     }
 
-    public function ChangeStatus(Request $request)
+    public function ChangeStatus(int $id, Request $request)
     {
-        $id=$request->order_id;
+        if ($request->id) {
+            $id = $request->order_id;
+        }
         $order = Order::findOrFail($id);
 
         $order->update([
-            'admin_id'=>Session::get('loginId'),
-            'status'=>$request->status
+            'admin_id' => Session::get('loginId'),
+            'status' => $request->status
         ]);
 
-        return redirect()->back()->with('status','Books Edited !');
+        return redirect()->back()->with('status', 'Orders Edited !');
     }
-
+    public function ApproveOrder(int $id)
+    {
+        $orders = Order::findOrFail($id);
+        $orders->update([
+            'admin_id' => Session::get('loginId'),
+            'status' => 1
+        ]);
+        return redirect()->back();
+    }
+    public function approve(Request $request)
+    {
+        $LoginName = Session::get('loginname');
+        $LoginEmail = Session::get('loginemail');
+        $search = '%%';
+        if ($request->search) {
+            $search = '%' . $request->search . '%';
+        }
+        $orders = DB::table('orders')
+            ->join('payment_method', 'orders.method_id', '=', 'payment_method.id')
+            ->join('customer', 'orders.customer_id', '=', 'customer.id')
+            ->join('admins', 'orders.admin_id', '=', 'admins.id')
+            ->select('orders.*', 'payment_method.name as paymentname', 'customer.name as name', 'admins.name as admin')
+            ->where('orders.status', '=', 0)
+            ->Where('customer.name', 'like', $search)
+            ->OrderBy('orders.date_buy', 'DESC')
+            ->paginate(5);
+        return view('admin.order_manager.approve_orders', compact('orders', 'LoginName', 'LoginEmail'));
+    }
 }

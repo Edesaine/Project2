@@ -129,6 +129,7 @@
                             </div>
                             <div class="account-dropdown js-dropdown">
                                 <div class="info clearfix">
+
                                     <div>
                                         <h5>
                                             <a style="color: black" href="#">{{$LoginName}}</a>
@@ -136,6 +137,7 @@
                                         <span class="email">{{$LoginEmail}}</span>
                                     </div>
                                 </div>
+
                                 <div class="account-dropdown__footer">
                                     <a href="{{url('/adminlogout')}}">
                                         <i class="zmdi zmdi-power"></i>Logout</a>

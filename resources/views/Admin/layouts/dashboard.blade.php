@@ -1,3 +1,4 @@
+
 <?php
 /*
 $json = '{
@@ -16,7 +17,7 @@ echo 'Orders Count: ' . $data->ordersCount . "\n";
 echo 'Customers Count: ' . $data->customersCount . "\n";
 echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
 */?>
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -69,7 +70,7 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
     <!-- PAGE CONTAINER-->
     <div class="page-container">
         <!-- HEADER DESKTOP-->
-@include('admin.layouts.header')
+        @include('admin.layouts.header')
 
         <!-- HEADER DESKTOP-->
 
@@ -200,7 +201,7 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                     <div class="au-card recent-report">
                         <h3 class="title-2">Top 5 Bestselling Books</h3>
                         <br>
-                    @foreach($topBooks as $book)
+                        @foreach($topBooks as $book)
                             <div class="d-flex mb-3 ">
                                 <div class="border rounded p-3 object-fit-fill
                              overflow-hidden w-10 me-1">
@@ -236,16 +237,16 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                                     </tr>
                                     </thead>
                                     @foreach($soldProducts as $productOrd)
-                                    <tbody>
-                                    <tr>
-                                        <td>{{ $productOrd->order_date }}</td>
-                                        <td>{{ $productOrd->order_id }}</td>
-                                        <td>{{ $productOrd->product_name }}</td>
-                                        <td class="text-right">${{ number_format($productOrd->price, 2) }}</td>
-                                        <td class="text-right">{{ $productOrd->quantity }} </td>
-                                        <td class="text-right">${{ number_format($productOrd->total_price, 2) }}</td>
-                                    </tr>
-                                    </tbody>
+                                        <tbody>
+                                        <tr>
+                                            <td>{{ $productOrd->order_date }}</td>
+                                            <td>{{ $productOrd->order_id }}</td>
+                                            <td>{{ $productOrd->product_name }}</td>
+                                            <td class="text-right">${{ number_format($productOrd->price, 2) }}</td>
+                                            <td class="text-right">{{ $productOrd->quantity }} </td>
+                                            <td class="text-right">${{ number_format($productOrd->total_price, 2) }}</td>
+                                        </tr>
+                                        </tbody>
                                     @endforeach
                                 </table>
                             </div>

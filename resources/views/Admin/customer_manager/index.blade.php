@@ -79,8 +79,8 @@
 
 <div class="page-wrapper">
     <?php
-    $url = 'customer';
-    ?>
+        $url = 'customer';
+        ?>
     <!-- MENU SIDEBAR-->
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->

@@ -34,7 +34,6 @@ class CustomerController extends Controller
             $array = Arr::add($array, 'gender', $request->gender);
             $array = Arr::add($array, 'address', $request->address);
             $array = Arr::add($array, 'account_status', 1);
-
             $array = Arr::add($array, 'image', 'catmeme.jpg');
             //Lấy dữ liệu từ form và lưu lên db
             Customer::create($array);
@@ -98,6 +97,8 @@ class CustomerController extends Controller
             'email' => 'required|max:255|unique:customer,email,' . $id,
             // lay id customer de bo qua unique cho email cua customer dang edit
             'phone' => 'required|max:20',
+            'gender' => 'required',
+            'address' => 'required'
         ]);
 
         if ($validated) {
@@ -138,7 +139,6 @@ class CustomerController extends Controller
             return back()->with('failed', 'Invalid adjustment!');
         }
     }
-
     public function changePassword()
     {
         $id = Auth::guard('customer')->id();
@@ -192,42 +192,6 @@ class CustomerController extends Controller
         return view('admin.customer_manager.index', compact('customer','LoginName','LoginEmail'));
     }
 
-    public function create()
-    {
-        $LoginName= Session::get('loginname');
-        $LoginEmail= Session::get('loginemail');
-        return view('admin.customer_manager.create', compact('LoginName','LoginEmail'));
-    }
-
-    public function store(CustomerStoreRequest $request)
-    {
-        $validated = $request->validated();
-
-        if ($validated) {
-            $imagePath = "";
-            if ($request->file('image')) {
-                $imagePath = $request->file('image')->getClientOriginalName();
-                if (!Storage::exists('public/admin/customers/' . $imagePath)) {
-                    Storage::putFileAs('public/admin/customers/', $request->file('image'), $imagePath);
-                }
-            }
-
-            $data = [];
-            $data = Arr::add($data, 'name', $request->name);
-            $data = Arr::add($data, 'email', $request->email);
-            $data = Arr::add($data, 'password', Hash::make($request->password));
-            $data = Arr::add($data, 'phone_number', $request->phone);
-            $data = Arr::add($data, 'status', 1);
-            $data = Arr::add($data, 'image', $imagePath);
-            Customer::create($data);
-
-            //log
-            return to_route('admin.admin_manager.index')->with('success', 'Customer created successfully!');
-        } else {
-            return back()->with('failed', 'Something went wrong!');
-        }
-    }
-
     public function edit(Customer $customer)
     {
         $LoginName= Session::get('loginname');
@@ -277,35 +241,13 @@ class CustomerController extends Controller
         }
     }
 
-    public function delete(int $id)
-    {
-        $customer= Customer::FindOrFail($id);
-        $customer->delete();
-        return redirect()->back()->with('status','Customer Deleted');
-    }
-
-    public function ChangeStatus(int $id)
-    {
-        $customer = Customer::findOrFail($id);
-        if($customer->account_status==0){
-            $customer->update([
-                'account_status'=>1
-            ]);
-        } else{
-            $customer->update([
-                'account_status'=>0
-            ]);
-        }
-        return redirect()->back();
-    }
-
     public function showOrderHistory()
     {
         //id cua customer dang dang nhap
         $id = Auth::guard('customer')->user()->id;
         //lay ban ghi
         $customer = Customer::find($id);
-        $orders = Order::where('customer_id', $id)->orderBy('status')->paginate(2);
+        $orders = Order::where('customer_id', $id)->orderBy('status')->paginate(10);
 
         return view('Customer.carts.orderHistory', [
             'customer' => $customer,
@@ -341,6 +283,20 @@ class CustomerController extends Controller
             'order_total' => $orderTotal,
             'customer' => $customer,
         ]);
+    }
+    public function ChangeStatus(int $id)
+    {
+        $customer = Customer::findOrFail($id);
+        if($customer->account_status==0){
+            $customer->update([
+                'account_status'=>1
+            ]);
+        } else{
+            $customer->update([
+                'account_status'=>0
+            ]);
+        }
+        return redirect()->back();
     }
 
 }

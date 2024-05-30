@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\Publisher;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
 class PublisherController extends Controller
 {
     public function index(Request $request)
@@ -23,13 +23,12 @@ class PublisherController extends Controller
             ->paginate(5);
         return view('admin.publisher_manager.index',compact('publishers','LoginEmail','LoginName'));
     }
-
     public function create()
     {
         $LoginName= Session::get('loginname');
         $LoginEmail= Session::get('loginemail');
-        return view('admin.publisher_manager.create',compact('LoginName','LoginEmail'));     }
-
+        return view('admin.publisher_manager.create',compact('LoginEmail','LoginName'));
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -40,15 +39,13 @@ class PublisherController extends Controller
         ]);
         return redirect('publisher/create')->with('status','Publisher Added');
     }
-
     public function edit(int $id)
     {
         $LoginName= Session::get('loginname');
         $LoginEmail= Session::get('loginemail');
         $publishers = Publisher::findorFail($id);
-        return view('admin.category_manager.edit',compact('publishers','LoginName','LoginEmail'));
+        return view('admin.publisher_manager.edit',compact('publishers','LoginEmail','LoginName'));
     }
-
     public function update(Request $request,int $id)
     {
         $request->validate([
@@ -60,12 +57,10 @@ class PublisherController extends Controller
         ]);
         return redirect()->back()->with('status','Publisher Updated');
     }
-
     public function delete(int $id)
     {
         $publishers = Publisher::FindOrFail($id);
         $publishers->delete();
         return redirect()->back()->with('status','Publisher Deleted');
     }
-
 }
