@@ -11,6 +11,13 @@
 </head>
 
 <body class="bg-light">
+@if (session('success'))
+    @include('partials.flashMsgSuccess')
+@endif
+{{--alert edit fail--}}
+@if (session('failed'))
+    @include('partials.flashMsgFail')
+@endif
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6" style="flex: 0 0 60%; max-width: 60%">

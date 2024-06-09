@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap Order Details Table with Search Filter</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    <style type="text/css">
         body {
             color: #566787;
             background: #f5f5f5;
@@ -39,6 +38,17 @@
         }
         .table-wrapper .btn.btn-primary:hover {
             background: #03a3e7;
+        }
+        .table-wrapper .btn.btn-outline-danger {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+
+        }
+        .table-wrapper .btn.btn-outline-danger:hover {
+            color: #dc3545;
+            background: #fff;
+            border-color: #DE452D;
         }
         .table-title .btn {
             font-size: 13px;
@@ -217,6 +227,14 @@
     </script>
 </head>
 <body>
+@if (session('success'))
+    @include('partials.flashMsgSuccess')
+@endif
+{{--alert edit fail--}}
+@if (session('failed'))
+    @include('partials.flashMsgFail')
+@endif
+
 @include('Customer/Layout/user_menu')
 
 <div class="container">
@@ -273,7 +291,6 @@
                 <th>Total books</th>
                 <th>Amount</th>
                 <th>Shipping method</th>
-                <th>Total price</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -304,12 +321,16 @@
                 </td>
                 <td>{{$order_item}}</td>
                 <td>{{$order_amount}}</td>
-                <td>Pay on delivery</td>
-                <td>{{$order_total}}</td>
+                <td>{{ $order->payment->name }}</td>
 
                 <td>
-                    <a type="button" style="font-size: 14px" href="{{route('Customer.carts.cancelOrder', $order)}}"
-                       class="btn btn-primary">Cancel order</a>
+                    @if(/*$order->status != 1 &&*/ $order->status != 4 )
+                        <form action="{{ route('Customer.carts.cancelOrder', $order->id) }}" style="display:inline;">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" style="font-size: 14px" class="btn btn-outline-danger">Cancel order</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
             </tbody>
@@ -381,7 +402,8 @@
         </div>
     </div>
 </div>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"><style>
 
+</style>
 </body>
 </html>

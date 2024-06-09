@@ -65,33 +65,33 @@ $url='book'
                 @csrf
                 <input type="hidden" name="id" value="{{$book->id}}">
                 <div id="select-container">
-                @for($i=1;$i<=$book->NumberOfAuthors;$i++)
-                    <div class="form-group">
-                        <label>Author {{$i}} :</label>
-                        <select class="dynamic-select" name="author_id{{$i}}" onchange="validateSelects()">
-                            <option disabled selected> - Choose - </option>
-                            @foreach($authors as $author)
-                                <option value="<?= $author['id'] ?>">
-                                        <?= $author['name'] ?>
-                                </option>
-                            @endforeach
+                    @for($i=1;$i<=$book->NumberOfAuthors;$i++)
+                        <div class="form-group">
+                            <label>Author {{$i}} :</label>
+                            <select class="dynamic-select" name="author_id{{$i}}" onchange="validateSelects()">
+                                <option disabled selected> - Choose - </option>
+                                @foreach($authors as $author)
+                                    <option value="<?= $author['id'] ?>">
+                                            <?= $author['name'] ?>
+                                    </option>
+                                @endforeach
 
-                        </select>
-                    </div>
-                @endfor
-                @for($i=1;$i<=$book->NumberOfCategories;$i++)
-                    <div class="form-group">
-                        <label>Category {{$i}} :</label>
-                        <select class="dynamic-select2" name="category_id{{$i}}" onchange="validateSelects2()">
-                            <option disabled selected> - Choose - </option>
-                            @foreach($categories as $category)
-                                <option value="<?= $category['id'] ?>">
-                                        <?= $category['name'] ?>
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                @endfor
+                            </select>
+                        </div>
+                    @endfor
+                    @for($i=1;$i<=$book->NumberOfCategories;$i++)
+                        <div class="form-group">
+                            <label>Category {{$i}} :</label>
+                            <select class="dynamic-select2" name="category_id{{$i}}" onchange="validateSelects2()">
+                                <option disabled selected> - Choose - </option>
+                                @foreach($categories as $category)
+                                    <option value="<?= $category['id'] ?>">
+                                            <?= $category['name'] ?>
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endfor
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-outline-primary" style="height:40px">Save</button>
@@ -109,32 +109,27 @@ $url='book'
     function validateSelects2() {
         var selects = document.querySelectorAll('.dynamic-select2');
         var selectedValues = [];
-
         // Reset tất cả các tùy chọn
         selects.forEach(function(select) {
             resetOptions(select);
         });
-
         // Thu thập các giá trị đã chọn
         selects.forEach(function(select) {
             if (select.value) {
                 selectedValues.push(select.value);
             }
         });
-
         // Vô hiệu hóa các tùy chọn đã được chọn trong các thẻ select khác
         selects.forEach(function(select) {
             disableSelectedOptions(select, selectedValues);
         });
     }
-
     function resetOptions(select) {
         var options = select.options;
         for (var i = 0; i < options.length; i++) {
             options[i].disabled = false;
         }
     }
-
     function disableSelectedOptions(select, selectedValues) {
         var options = select.options;
         for (var i = 0; i < options.length; i++) {
@@ -148,32 +143,27 @@ $url='book'
     function validateSelects() {
         var selects = document.querySelectorAll('.dynamic-select');
         var selectedValues = [];
-
         // Reset tất cả các tùy chọn
         selects.forEach(function(select) {
             resetOptions(select);
         });
-
         // Thu thập các giá trị đã chọn
         selects.forEach(function(select) {
             if (select.value) {
                 selectedValues.push(select.value);
             }
         });
-
         // Vô hiệu hóa các tùy chọn đã được chọn trong các thẻ select khác
         selects.forEach(function(select) {
             disableSelectedOptions(select, selectedValues);
         });
     }
-
     function resetOptions(select) {
         var options = select.options;
         for (var i = 0; i < options.length; i++) {
             options[i].disabled = false;
         }
     }
-
     function disableSelectedOptions(select, selectedValues) {
         var options = select.options;
         for (var i = 0; i < options.length; i++) {
@@ -210,4 +200,3 @@ $url='book'
 </body>
 
 </html>
-

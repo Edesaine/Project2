@@ -1,23 +1,4 @@
-
-<?php
-/*
-$json = '{
-    "soldProductsCount": 2,
-    "ordersCount": 1,
-    "customersCount": 3,
-    "revenue": 74.2699966430664
-}';
-
-// Chuyển đổi JSON thành đối tượng PHP
-$data = json_decode($json);
-
-// In ra dữ liệu để kiểm tra
-echo 'Sold Products Count: ' . $data->soldProductsCount . "\n";
-echo 'Orders Count: ' . $data->ordersCount . "\n";
-echo 'Customers Count: ' . $data->customersCount . "\n";
-echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
-*/?>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -70,7 +51,7 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
     <!-- PAGE CONTAINER-->
     <div class="page-container">
         <!-- HEADER DESKTOP-->
-        @include('admin.layouts.header')
+@include('admin.layouts.header')
 
         <!-- HEADER DESKTOP-->
 
@@ -99,9 +80,7 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                                             <span>members online</span>
                                         </div>
                                     </div>
-                                    <div class="overview-chart">
-                                        <canvas id="widgetChart1"></canvas>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -117,9 +96,7 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                                             <span>Books Sold</span>
                                         </div>
                                     </div>
-                                    <div class="overview-chart">
-                                        <canvas id="widgetChart2"></canvas>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -135,14 +112,12 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                                             <span>Orders this week</span>
                                         </div>
                                     </div>
-                                    <div class="overview-chart">
-                                        <canvas id="widgetChart3"></canvas>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6 col-lg-3">
-                            <div class="overview-item overview-item--c4">
+                            <div class="overview-item overview-item--c4" >
                                 <div class="overview__inner">
                                     <div class="overview-box clearfix">
                                         <div class="icon">
@@ -153,46 +128,7 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                                             <span>Total revenue</span>
                                         </div>
                                     </div>
-                                    <div class="overview-chart">
-                                        <canvas id="widgetChart4"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="au-card recent-report">
-                                <div class="au-card-inner">
-                                    <h3 class="title-2">recent reports</h3>
-                                    <div id="chartContainer3" style="width: 100%; height: 300px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="au-card chart-percent-card">
-                                <div class="au-card-inner">
-                                    <h3 class="title-2 tm-b-5">char by %</h3>
-                                    <div class="row no-gutters">
-                                        <div class="col-xl-6">
-                                            <div class="chart-note-wrap">
-                                                <div class="chart-note mr-0 d-block">
-                                                    <span class="dot dot--blue"></span>
-                                                    <span>products</span>
-                                                </div>
-                                                <div class="chart-note mr-0 d-block">
-                                                    <span class="dot dot--red"></span>
-                                                    <span>services</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6">
-                                            <div class="percent-chart">
-                                                <canvas id="percent-chart"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +137,7 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                     <div class="au-card recent-report">
                         <h3 class="title-2">Top 5 Bestselling Books</h3>
                         <br>
-                        @foreach($topBooks as $book)
+                    @foreach($topBooks as $book)
                             <div class="d-flex mb-3 ">
                                 <div class="border rounded p-3 object-fit-fill
                              overflow-hidden w-10 me-1">
@@ -229,7 +165,6 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                                     <thead>
                                     <tr>
                                         <th>Order_date</th>
-                                        <th>Order ID</th>
                                         <th>Product name</th>
                                         <th class="text-right">Price</th>
                                         <th class="text-right">Quantity</th>
@@ -237,19 +172,65 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
                                     </tr>
                                     </thead>
                                     @foreach($soldProducts as $productOrd)
-                                        <tbody>
-                                        <tr>
-                                            <td>{{ $productOrd->order_date }}</td>
-                                            <td>{{ $productOrd->order_id }}</td>
-                                            <td>{{ $productOrd->product_name }}</td>
-                                            <td class="text-right">${{ number_format($productOrd->price, 2) }}</td>
-                                            <td class="text-right">{{ $productOrd->quantity }} </td>
-                                            <td class="text-right">${{ number_format($productOrd->total_price, 2) }}</td>
-                                        </tr>
-                                        </tbody>
+                                    <tbody>
+                                    <tr>
+                                        <td>{{ $productOrd->order_date }}</td>
+                                        <td>{{ $productOrd->product_name }}</td>
+                                        <td class="text-right">${{ number_format($productOrd->price, 2) }}</td>
+                                        <td class="text-right">{{ $productOrd->quantity }} </td>
+                                        <td class="text-right">${{ number_format($productOrd->total_price, 2) }}</td>
+                                    </tr>
+                                    </tbody>
                                     @endforeach
                                 </table>
                             </div>
+                        </div>
+
+                        {{--Bảng hiển thị top 5 khách hàng trong tháng--}}
+                        <div class="au-card recent-report">
+                            <h3 class="title-2">Top 5  Low Stock Books</h3>
+                            <br>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Book Name</th>
+                                    <th>Image</th>
+                                    <th>Number of books left in the store:</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($lowStockBooks as $book)
+                                    <tr>
+                                        <td>{{ $book->name }}</td>
+                                        <td><img src="{{ $book->image }}" alt="{{ $book->name }}" width="80" height="110"></td>
+                                        <td>{{ $book->quantity }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="au-card recent-report">
+                            <h3 class="title-2">Top 5 Customers of the Month</h3>
+                            <br>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Customer Name</th>
+                                    <th>Email</th>
+                                    <th>Total book buy</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($topCustomers as $customer)
+                                    <tr>
+                                        <td>{{ $customer->name }}</td>
+                                        <td>{{ $customer->email }}</td>
+                                        <td>{{ $customer->total_sold }} books</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
 
                     </div>
@@ -554,33 +535,14 @@ echo 'Revenue: $' . number_format($data->revenue, 2) . "\n";
 
 <!-- Main JS-->
 <script src="js/main.js"></script>
-<script>
-    window.onload = function () {
 
-        var chart3 = new CanvasJS.Chart("chartContainer3", {
-            animationEnabled: true,
-
-            axisX: {
-                valueFormatString: "DD MMM",
-                interval: 1,
-                intervalType: "day"
-            },
-
-            axisY: {
-                includeZero: false
-            },
-
-            data: [{
-                type: "line",
-                dataPoints: <?php echo json_encode($firstChartData, JSON_NUMERIC_CHECK); ?>
-            }]
-        });
-        chart3.render();
-    }
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 </body>
-
+<style>
+    /*.overview-item overview-item--c1 {
+       max-height: 100px;
+    }*/
+</style>
 </html>
 <!-- end document-->

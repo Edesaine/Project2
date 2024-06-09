@@ -39,7 +39,7 @@
 <div class="page-wrapper">
 
     <!-- MENU SIDEBAR-->
-<?php
+    <?php
     $url='publisher';
     ?>
 

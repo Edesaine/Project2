@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ForgotPassword;
 use App\Models\Order;
 use App\Requests\CustomerStoreRequest;
 use App\Requests\CustomerUpdateRequest;
@@ -14,7 +15,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
@@ -34,6 +36,7 @@ class CustomerController extends Controller
             $array = Arr::add($array, 'gender', $request->gender);
             $array = Arr::add($array, 'address', $request->address);
             $array = Arr::add($array, 'account_status', 1);
+
             $array = Arr::add($array, 'image', 'catmeme.jpg');
             //Lấy dữ liệu từ form và lưu lên db
             Customer::create($array);
@@ -47,11 +50,30 @@ class CustomerController extends Controller
 
     public function login()
     {
+        session([
+            'myUrl' => url()->previous()
+        ]);
         return view('Customer.account.login');
     }
 
     public function loginProcess(Request $request)
     {
+        $accuracy = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:6'],
+        ]);
+
+        //check account status
+        $cusEmail = $accuracy['email'];
+        $cusAccount = Customer::where('email', '=', $cusEmail)->first();
+        if ($cusAccount == null) {
+            return Redirect::back()->with('failed', 'This email does not exist.');
+        }
+        $accountStatus = $cusAccount -> account_status;
+        if ($accountStatus == 0) {
+            return to_route('Customer.account.login')->with('failed', 'This account has been locked !')->withInput($request->input());
+        }
+
         $account = $request->only(['email', 'password']);
         $check = Auth::guard('customer')->attempt($account);
 
@@ -62,15 +84,18 @@ class CustomerController extends Controller
             Auth::guard('customer')->login($customer);
             //Ném thông tin customer đăng nhập lên session
             session(['customer' => $customer]);
-            return Redirect::route('profile');
+            return Redirect::route('profile')->with('success', 'Logged in successfully');
         } else {
             //cho quay về trang login
-            return Redirect::back();
+            return Redirect::back()->with('failed', 'You entered the wrong email or password.')->withInput($request->input());
         }
     }
 
     public function logout()
     {
+        if (!Auth::guard('customer')->check()) {
+            return Redirect::route('Customer.Layout.index')->with('success', 'You are logged out.  ');
+        }
         Auth::guard('customer')->logout();
         session()->forget('customer');
         return view('Customer.account.logoutConfirm');
@@ -78,14 +103,23 @@ class CustomerController extends Controller
 
     public function editProfile()
     {
-        //id cua customers dang dang nhap
-        $id = Auth::guard('customer')->user()->id;
-        //lay ban ghi
-        $customer = Customer::find($id);
-        return view('Customer.profiles.profile', [
-            'customer' => $customer
-        ]);
+        // Check if the user is authenticated
+        if (Auth::guard('customer')->check()) {
+            // Get the id of the authenticated customer
+            $id = Auth::guard('customer')->user()->id;
+
+            // Fetch the customer record
+            $customer = Customer::find($id);
+
+            return view('Customer.profiles.profile', [
+                'customer' => $customer
+            ]);
+        } else {
+            // Redirect to login page or handle unauthenticated user case
+            return redirect()->route('Customer.account.login')->with('error', 'You need to log in to access this page.');
+        }
     }
+
 
     public function updateProfile(Request $request)
     {
@@ -101,6 +135,7 @@ class CustomerController extends Controller
             'address' => 'required'
         ]);
 
+
         if ($validated) {
             $imagePath = "";
             //Kiểm tra nếu đã chọn ảnh thì Lấy tên ảnh đang được chọn
@@ -111,13 +146,18 @@ class CustomerController extends Controller
                 $imagePath = $customer->image;
             }
 
-            if (!Storage::exists('public/storage/customers/image/')) {
-                Storage::createDirectory('public/storage/customers/image/');
+            if (!Storage::exists('public/customers/image')) {
+                Storage::createDirectory('public/customers/image');
             }
             //Kiểm tra nếu file chưa tồn tại thì lưu vào trong folder code
-            if (!Storage::exists('public/storage/customers/image/' . $imagePath)) {
-                Storage::putFileAs('public/storage/customers/image/', $request->file('image'), $imagePath);
+            if (!Storage::exists('public/customers/image/' . $imagePath)) {
+                Storage::putFileAs('public/customers/image/', $request->file('image'), $imagePath);
             }
+
+            // Lưu đường dẫn vào cơ sở dữ liệu
+            $customer->image = $customer . $imagePath;
+            $customer->save();
+
 
             //Lấy dữ liệu trong form và update lên db
             $data = [];
@@ -139,6 +179,99 @@ class CustomerController extends Controller
             return back()->with('failed', 'Invalid adjustment!');
         }
     }
+
+
+    public function forgotPassword()
+    {
+        return view('Customer.account.forgotPassword');
+    }
+
+    public function forgotPasswordSendEmail(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => ['required', 'email'],
+        ]);
+
+        if ($validated) {
+            $resetEmail = $request->email;
+            $emailList = Customer::pluck('email')->toArray();
+            if (!in_array($resetEmail, $emailList)) {
+                return back()->with('failed', 'Email doesn\'t exist!');
+            }
+
+            $customer = Customer::where('email', '=', $resetEmail)->first();
+            $resetCode = rand(100000, 999999);
+            Mail::to($customer)->send((new ForgotPassword($resetCode)));
+            session()->put('resetEmail', $resetEmail);
+            session()->put('resetCode', $resetCode);
+            return Redirect::route('Customer.forgotPassword.enterCode')->with('message','Please check your email for reset new password');
+        }
+    }
+
+    public function forgotPasswordEnterCode()
+    {
+        if (!session()->has('resetCode')) {
+            return Redirect::back()->with('failed', 'You have not entered your email yet...');
+        }
+        return view('Customer.account.forgotPasswordEnterCode');
+    }
+
+    public function forgotPasswordCheckCode(Request $request)
+    {
+        $validated = $request->validate([
+            'reset_code' => 'integer'
+        ]);
+
+        if ($validated) {
+            $resetCode = session()->get('resetCode');
+            $inputCode = $request->reset_code;
+
+            if ($inputCode != $resetCode) {
+                return back()->with('failed', 'Wrong code !');
+            }
+            session()->forget('resetCode');
+            session()->put('reset_ready', true);
+            return Redirect::route('Customer.forgotPassword.resetPassword');
+        }
+    }
+
+    public function resetPassword()
+    {
+        if (!session()->has('reset_ready')) {
+            return Redirect::back()->with('failed', 'You have not entered the code to reset your password...');
+        }
+        return view('Customer.account.resetPassword');
+    }
+
+    public function resetPasswordProcess(Request $request)
+    {
+        $newPassword = $request->new_password;
+        $confirmNewPassword = $request->confirm_new_password;
+        $validated = $request->validate([
+            'new_password' => 'min:6',
+            'confirm_new_password' => 'min:6',
+        ]);
+
+        if ($validated) {
+            if ($confirmNewPassword != $newPassword) {
+                    return back()->with('failed', 'Re-entered password does not match!');
+            }
+
+            $hashedNewPassword = Hash::make($newPassword);
+
+            $resetEmail = session()->get('resetEmail');
+            $customer = Customer::where('email', '=', $resetEmail)->firstOrFail();
+            session()->forget('resetEmail');
+
+            $customer->update([
+                'password' => $hashedNewPassword
+            ]);
+
+            session()->forget('reset_ready');
+            return Redirect::route('Customer.account.login')->with('success', 'Password reset successful');
+        }
+    }
+
     public function changePassword()
     {
         $id = Auth::guard('customer')->id();
@@ -176,7 +309,7 @@ class CustomerController extends Controller
         return back()->with('success', 'Change password successfully!');
     }
 
-
+    //Admin
     public function index(Request $request)
     {
         $LoginName= Session::get('loginname');
@@ -190,6 +323,35 @@ class CustomerController extends Controller
             ->where('name','like',$search)
             ->get();
         return view('admin.customer_manager.index', compact('customer','LoginName','LoginEmail'));
+    }
+
+    public function store(CustomerStoreRequest $request)
+    {
+        $validated = $request->validated();
+
+        if ($validated) {
+            $imagePath = "";
+            if ($request->file('image')) {
+                $imagePath = $request->file('image')->getClientOriginalName();
+                if (!Storage::exists('public/storage/customers/image/' . $imagePath)) {
+                    Storage::putFileAs('public/storage/customers/image/', $request->file('image'), $imagePath);
+                }
+            }
+
+            $data = [];
+            $data = Arr::add($data, 'name', $request->name);
+            $data = Arr::add($data, 'email', $request->email);
+            $data = Arr::add($data, 'password', Hash::make($request->password));
+            $data = Arr::add($data, 'phone_number', $request->phone);
+            $data = Arr::add($data, 'status', 1);
+            $data = Arr::add($data, 'image', $imagePath);
+            Customer::create($data);
+
+            //log
+            return to_route('admin.admin_manager.index')->with('success', 'Customer created successfully!');
+        } else {
+            return back()->with('failed', 'Something went wrong!');
+        }
     }
 
     public function edit(Customer $customer)
@@ -215,8 +377,8 @@ class CustomerController extends Controller
                 $imagePath = $customer->image;
             }
             //Kiểm tra nếu file chưa tồn tại thì lưu vào trong folder code
-            if (!Storage::exists('public/admin/customers/' . $imagePath)) {
-                Storage::putFileAs('public/admin/customers/', $request->file('image'), $imagePath);
+            if (!Storage::exists('public/storage/customers/image/' . $imagePath)) {
+                Storage::putFileAs('public/storage/customers/image/', $request->file('image'), $imagePath);
             }
             $data = [];
             $data = Arr::add($data, 'name', $request->name);
@@ -247,7 +409,8 @@ class CustomerController extends Controller
         $id = Auth::guard('customer')->user()->id;
         //lay ban ghi
         $customer = Customer::find($id);
-        $orders = Order::where('customer_id', $id)->orderBy('status')->paginate(10);
+
+        $orders = Order::where('customer_id', $id)->orderBy('status')->with('payment')->paginate(4);
 
         return view('Customer.carts.orderHistory', [
             'customer' => $customer,
@@ -267,13 +430,16 @@ class CustomerController extends Controller
             ->join('books', 'order_details.book_id', '=', 'books.id')
             ->get();
 
+        $orders = Order::where('customer_id', $id)->orderBy('status')->with('payment')->paginate(4);
+
+
         $orderAmount = 0;
         $orderItems = 0;
         foreach ($orderDetails as $detail) {
             $orderItems += $detail->sold_quantity;
             $orderAmount += $detail->sold_price * $detail->sold_quantity;
         }
-        $orderTotal = $orderAmount + 10;
+        $orderTotal = $orderAmount ;
 
         return view('Customer.carts.orderDetails', [
             'order' => $order,
@@ -284,16 +450,17 @@ class CustomerController extends Controller
             'customer' => $customer,
         ]);
     }
+
     public function ChangeStatus(int $id)
     {
         $customer = Customer::findOrFail($id);
-        if($customer->account_status==0){
+        if($customer->account_status == 0){
             $customer->update([
-                'account_status'=>1
+                'account_status' => 1
             ]);
         } else{
             $customer->update([
-                'account_status'=>0
+                'account_status' => 0
             ]);
         }
         return redirect()->back();

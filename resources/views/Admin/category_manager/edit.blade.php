@@ -33,10 +33,12 @@
 
 </head>
 <body class="animsition">
+<?php
+$url='category'
+?>
 <div class="page-wrapper">
 
     <!-- MENU SIDEBAR-->
-
 
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
@@ -54,7 +56,7 @@
                     @endif
 
                         <h3  style="text-align:center ">EDIT CATEGORY</h3>
-                        <a href="/category/index" class="btn btn-primary">Back</a>
+                        <a href="{{ url('category/index') }}" class="btn btn-primary">Back</a>
 
                     <form action="{{ url('category/'.$categories->id.'/edit') }}" method="POST">
                         @csrf

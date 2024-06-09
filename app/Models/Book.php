@@ -24,14 +24,14 @@ class Book extends Model
     ];
     public $timestamps = false;
 
-    public function author()
+    public function authors()
     {
-        return $this->belongsTo(Author::class);
+        return $this->belongsToMany(Author::class, 'authorbook', 'book_id', 'author_id');
     }
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class, 'categorybook', 'book_id', 'category_id');
     }
 }
 

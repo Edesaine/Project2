@@ -12,12 +12,13 @@ use App\Requests\OrderStoreRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
 use function Sodium\add;
+
 
 class OrderController extends Controller
 {
@@ -34,10 +35,9 @@ class OrderController extends Controller
         $totalAmount = array_sum($amount);
         //lay status (status mac dinh la 0 tuong ung trang thai xac nhan don hang)
         $status = 0;
+        //1: pay on delivery, 2: pay on vnpay
         $paymentID = 1;
-
         //1: Fast delivery, 2: Normal Delivery
-
         $methodId = 1;
         //customer id
         $customerId = Auth::guard('customer')->id();
@@ -83,14 +83,23 @@ class OrderController extends Controller
 //        }
     }
 
-    public function cancelOrder(Order $orders)
+    public function cancelOrder(Order $order)
     {
-        $array = [];
-        $array = Arr::add($array, 'status', 4);
-        $orders->update($array);
-        return to_route('Customer.carts.orderHistory')->with('success', 'Cancel order successfully!');
-    }
+        if (/*$order->status != 1 && */
+            $order->status != 4) {
+            $array = [];
+            $array = Arr::add($array, 'status', 1);
 
+            $order->update($array);
+
+            // Trả về với thông báo thành công
+            return  to_route('Customer.carts.orderHistory', ['order' => $order->id])->with('success', 'Cancel order successfully!');
+        }
+
+        // Nếu trạng thái đơn hàng là 4, trả về với thông báo lỗi
+        return to_route('Customer.carts.orderDetails', ['order' => $order->id])
+            ->with('error', 'Order cannot be cancelled as it is already in the cancelled state.');
+    }
 
     //ADMIN
     public function index(Request $request)
@@ -116,7 +125,6 @@ class OrderController extends Controller
         return view('admin.order_manager.index', compact('orders', 'LoginName', 'LoginEmail'));
     }
 
-
     public function details(int $id, Request $request)
     {
         $LoginName = Session::get('loginname');
@@ -125,6 +133,7 @@ class OrderController extends Controller
         if ($request->search) {
             $search = '%' . $request->search . '%';
         }
+
         $orders = DB::table('order_details')
             ->join('books', 'order_details.book_id', '=', 'books.id')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
@@ -140,15 +149,14 @@ class OrderController extends Controller
     {
         if ($request->id) {
             $id = $request->order_id;
-        }
-        $order = Order::findOrFail($id);
+        }        $order = Order::findOrFail($id);
 
         $order->update([
             'admin_id' => Session::get('loginId'),
             'status' => $request->status
         ]);
 
-        return redirect()->back()->with('status', 'Orders Edited !');
+        return redirect()->back()->with('status','Orders Edited !');
     }
     public function ApproveOrder(int $id)
     {
@@ -159,6 +167,7 @@ class OrderController extends Controller
         ]);
         return redirect()->back();
     }
+
     public function approve(Request $request)
     {
         $LoginName = Session::get('loginname');

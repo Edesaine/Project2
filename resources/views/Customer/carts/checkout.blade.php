@@ -16,6 +16,8 @@
     </div>
     <link href="resources/sass/app.scss">
     <link href="resources/js/app.js">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -63,7 +65,7 @@
                         <label for="receiver_name"><i class="fa fa-user"></i>Receiver name</label>
                         <input type="text" id="receiver_name" name="receiver_name" value="{{$customer->name}}">
                         <label for="receiver_phone"><i class="fa fa-envelope"></i>Receiver phone</label>
-                        <input type="number" id="receiver_phone" name="receiver_phone" value="{{$customer->phone}}">
+                        <input type="text" id="receiver_phone" name="receiver_phone" value="{{$customer->phone}}">
                         <br>
                         <label for="receiver_address"><i class="fa fa-address-card-o"></i>Receiver address</label>
                         <input type="text" id="receiver_address" name="receiver_address"
@@ -81,6 +83,18 @@
                             <i class="fa fa-cc-discover" style="color:orange;"></i>
                         </div>
                     </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="payment_method" class="form-label">Select Payment Method</label>
+                        <select id="payment_method" name="payment_method" class="form-select" required>
+                            @foreach($payment_methods as $method)
+                                <option value="{{ $method->id }}">{{ $method->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
                 </div>
                 <div class="d-flex justify-content-end mb-1">
                     <div>
@@ -120,6 +134,31 @@
 
     * {
         box-sizing: border-box;
+    }
+
+    .form-label {
+        font-weight: bold;
+        margin-bottom: 8px;
+        margin-left: 18px;
+    }
+    .form-select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        font-size: 16px;
+        margin-left: 15px;
+        appearance: none; /* Loại bỏ kiểu mặc định của trình duyệt */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-size: 12px;
+    }
+
+    .form-select option {
+        color: #333;
+        background-color: #fff;
+        padding: 10px;
+        font-size: 16px;
     }
 
     .row {

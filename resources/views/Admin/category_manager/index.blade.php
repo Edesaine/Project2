@@ -72,7 +72,8 @@
                                 <td>{{$category->name}}</td>
                                 <td>
                                     <a href="{{url('category/'.$category->id.'/edit')}}" class="btn btn-primary">Edit</a>
-                                    <a href="{{url('category/'.$category->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                    <a href="{{url('category/'.$category->id.'/delete')}}" class="btn btn-danger"
+                                       onclick="return confirm('Are you sure ?')">Delete</a>
                                 </td>
 
                             </tr>

@@ -100,7 +100,7 @@ $url='book'
                     <label>Publisher :</label>
                     <select name="publisher_id">
                         <option selected value="{{$book->publisher_id}}">
-                            {{$pub->name}}
+                                {{$pub->name}}
                         </option>
                         @foreach($publishers as $publisher)
                             <option value="<?= $publisher['id'] ?>">

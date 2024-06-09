@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use App\Models\Order;
 use App\Models\Task;
+use App\Models\Book;
 use App\Models\OrderDetail;
 use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
@@ -69,12 +70,31 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
+        // Lấy top 5 khách hàng mua nhiều nhất trong 1 tháng
+        $currentMonth = Carbon::now()->month;
+        $topCustomers = Order::join('customer', 'orders.customer_id', '=', 'customer.id')
+            ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+            ->select(
+                'customer.name',
+                'customer.email',
+                DB::raw('SUM(order_details.sold_quantity) as total_sold')
+            )
+            ->whereMonth('orders.date_buy', $currentMonth)
+            ->groupBy('customer.id', 'customer.name', 'customer.email')
+            ->orderBy('total_sold', 'DESC')
+            ->limit(5)
+            ->get();
+
+        $lowStockBooks = Book::orderBy('quantity', 'asc')
+            ->take(5)
+            ->get();
+
         $tasks = Task::all();
 
         return view('admin.layouts.dashboard', [
             'firstChartData' => $firstChartData,
             /*'secondChartData' => $secondChartData,*/], compact('LoginName', 'LoginEmail',
-            'stats','soldProducts','topBooks','tasks'));
+            'stats','soldProducts','topBooks','tasks','topCustomers','lowStockBooks'));
     }
 
     public function addTask(Request $request)
@@ -91,4 +111,5 @@ class DashboardController extends Controller
 
         return redirect()->back()->with('success', 'Task added successfully!');
     }
+
 }

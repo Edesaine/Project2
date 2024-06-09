@@ -10,12 +10,19 @@
 </head>
 <body>
 <div class="mainDiv">
+    @if (session('success'))
+        @include('partials.flashMsgSuccess')
+    @endif
+    {{--alert edit fail--}}
+    @if (session('failed'))
+        @include('partials.flashMsgFail')
+    @endif
     <div class="cardStyle">
 
                 <a href="{{route('profile')}}" >
-                <img src="{{asset('images/logo.png')}}" style="width: 500px; height: 130px" />
+                  <img src="{{asset('images/logo.png')}}" style="width: 500px; height: 130px" />
                 </a>
-        <form action="{{route('Customer.updatePassword')}}" method="post" enctype="multipart/form-data">
+        <form  method="post" action="{{route('Customer.updatePassword')}}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
                 <h2 class="formTitle">
@@ -24,25 +31,39 @@
 
                 <div class="inputDiv">
                     <label class="inputLabel" for="old_password">Old Password</label>
-                    <input type="password" id="old_password" name="old_password" required>
+                    <input type="password" autocomplete="off" id="old_password" name="old_password" required>
                 </div>
+                @if ($errors->has('old_password'))
+                    @foreach ($errors->get('old_password') as $error)
+                        <span class="text-danger fs-7">{{ $error }}</span>
+                    @endforeach
+                @endif
 
                 <div class="inputDiv">
                     <label class="inputLabel" for="new_password">New Password</label>
-                    <input type="password" id="new_password" name="new_password" required>
+                    <input type="password" autocomplete="off" id="new_password" name="new_password" required>
                 </div>
+                @if ($errors->has('new_password'))
+                    @foreach ($errors->get('new_password') as $error)
+                        <span class="text-danger fs-7">{{ $error }}</span>
+                    @endforeach
+                @endif
 
                 <div class="inputDiv">
                     <label class="inputLabel" for="confirm_new_password">Confirm New Password</label>
-                    <input type="password" id="confirm_new_password" name="confirm_new_password">
+                    <input type="password" autocomplete="off" id="confirm_new_password" name="confirm_new_password">
                 </div>
+                @if ($errors->has('confirm_new_password'))
+                    @foreach ($errors->get('confirm_new_password') as $error)
+                        <span class="text-danger fs-7">{{ $error }}</span>
+                    @endforeach
+                @endif
 
                 <div class="buttonWrapper">
                     <button type="submit" class="submitButton pure-button pure-button-primary">
                         Change account password
                     </button>
                 </div>
-
         </form>
     </div>
 </div>

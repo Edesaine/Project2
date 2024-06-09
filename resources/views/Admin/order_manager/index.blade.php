@@ -80,21 +80,21 @@
                                 <td>{{$order->name}}</td>
                                 <td>{{$order->amount}}</td>
                                 <td>
-                                @if($order->status==0)
-                                    <span style="color: #e67e22;font-weight: bold">Pending</span>
-                                @endif
-                                @if($order->status==1)
-                                    <span style="color: #f1c40f;font-weight: bold">Approved</span>
-                                @endif
-                                @if($order->status==2)
-                                    <span style="color: #3498db;font-weight: bold">Delivering</span>
-                                @endif
-                                @if($order->status==3)
-                                    <span style="color: #2ecc71;font-weight: bold">Completed</span>
-                                @endif
-                                @if($order->status==4)
-                                    <span style="color: #e74c3c;font-weight: bold">Cancelled</span>
-                                @endif
+                                    @if($order->status==0)
+                                        <span style="color: #e67e22;font-weight: bold">Pending</span>
+                                    @endif
+                                    @if($order->status==1)
+                                        <span style="color: #f1c40f;font-weight: bold">Approved</span>
+                                    @endif
+                                    @if($order->status==2)
+                                        <span style="color: #3498db;font-weight: bold">Delivering</span>
+                                    @endif
+                                    @if($order->status==3)
+                                        <span style="color: #2ecc71;font-weight: bold">Completed</span>
+                                    @endif
+                                    @if($order->status==4)
+                                        <span style="color: #e74c3c;font-weight: bold">Cancelled</span>
+                                    @endif
                                 </td>
                                 <td>{{$order->paymentname}}</td>
                                 <td>{{$order->admin}}</td>
@@ -145,4 +145,3 @@
 
 </body>
 </html>
-

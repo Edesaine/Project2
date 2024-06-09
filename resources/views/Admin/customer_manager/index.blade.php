@@ -44,6 +44,12 @@
                         <label for="name">Customer Name:</label>
                         <input type="text" class="form-control" name="name" required>
                     </div>
+
+                    <div class="form-group">
+                        <label for="name">Image:</label>
+                        <input type="text" class="form-control" name="image" required>
+                    </div>
+
                     <div class="form-group">
                         <label for="gender">Gender:</label>
                         <input type="radio" name="gender" value="1" style="margin-left: 40px"> Male
@@ -79,8 +85,8 @@
 
 <div class="page-wrapper">
     <?php
-        $url = 'customer';
-        ?>
+    $url = 'customer';
+    ?>
     <!-- MENU SIDEBAR-->
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
@@ -97,6 +103,7 @@
         <tr style="height: 10px">
             <th>ID</th>
             <th>Name</th>
+            <th>Image</th>
             <th>Email</th>
             <th>Password</th>
             <th>Phone</th>
@@ -110,6 +117,13 @@
 
                 <td>{{$cus->id}}</td>
                 <td>{{$cus->name}}</td>
+                <td>
+                @if($cus->image)
+                    <img src="{{ asset('storage/customers/image/' . $cus->image) }}" alt="Customer Image" style="width: 100px; height: auto;">
+                @else
+                    <img src="{{ asset('images/catmeme.jpg') }}" alt="Default Image" style="width: 100px; height: auto;">
+                @endif
+                </td>
                 <td>{{$cus->email}}</td>
                 <td>
                     <div style="width:100px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap; ">{{$cus->password}}</div>
@@ -136,7 +150,8 @@
 
                 <td>
                     <a href="{{url('customer/'.$cus->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
-                    <a href="{{url('customer/'.$cus->id.'/changestatus')}}" class="btn btn-primary" onclick="return confirm('Are you sure ?')">Change Status</a>
+                    <a href="{{url('customer/'.$cus->id.'/changestatus')}}" class="btn btn-primary"
+                       style="margin-top: 10px" onclick="return confirm('Are you sure ?')">Change Status</a>
                 </td>
             </tr>
         @endforeach

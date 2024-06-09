@@ -595,13 +595,15 @@
 <body
     class="page-template page-template-elementor_header_footer page page-id-7 theme-hello-elementor woocommerce-cart woocommerce-page woocommerce-no-js jkit-color-scheme elementor-default elementor-template-full-width elementor-kit-3 elementor-page elementor-page-7">
 <div class="mt-5" id="alertDiv">
-    @if (session('success'))
-        @include('partials.flashMsgSuccess')
-    @endif
-    @if (session('failed'))
-        @include('partials.flashMsgFail')
-    @endif
 </div>
+@if (session('success'))
+    @include('partials.flashMsgSuccess')
+@endif
+{{--alert edit fail--}}
+
+@if (session('failed'))
+    @include('partials.flashMsgFail')
+@endif
 <div id="page" class="jkit-template  site">
 
     <header id="masthead" itemscope="itemscope" itemtype="https://schema.org/WPHeader">
@@ -2344,7 +2346,7 @@
                                                                                 data-widget_type="image.default">
                                                                                 <div class="elementor-widget-container">
                                                                                     <img width="800" height="164"
-                                                                                         src="{{asset('images/logo.png')}}}"
+                                                                                         src="{{asset('images/logo.png')}}"
                                                                                          class="attachment-full size-full wp-image-481"
                                                                                          alt="" decoding="async"/></div>
                                                                             </div>
@@ -2396,41 +2398,40 @@
                                                                                 data-widget_type="icon-list.default">
                                                                                 <div class="elementor-widget-container">
                                                                                     <link rel="stylesheet"
-                                                                                          href="../wp-content/plugins/elementor/assets/css/widget-icon-list.min.css">
+                                                                                          href="#">
                                                                                     <ul class="elementor-icon-list-items">
-                                                                                        <li class="elementor-icon-list-item">
-                                                                                            <a href="#">
+                                                                                        @if(!$customer)
+                                                                                            <li class="elementor-icon-list-item">
 
-                                                                                                <span
-                                                                                                    class="elementor-icon-list-text">About</span>
+                                                                                                <p class="animated-text"> Hello </p>
+                                                                                            </li>
+                                                                                            <li class="elementor-icon-list-item">
+                                                                                                <a href="{{route('profile')}}">
+                                                                                                    <span class="elementor-icon-list-text">Login</span>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        @endif
+
+                                                                                        @if($customer)
+                                                                                            <li class="elementor-icon-list-item">
+                                                                                                <p class="animated-text"> Hello, {{$customer->name}}</p>
+                                                                                            </li>
+                                                                                            <li class="elementor-icon-list-item">
+                                                                                                <a href="{{route('Customer.account.logout')}}">
+                                                                                                    <span class="elementor-icon-list-text">Sign out</span>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        @endif
+
+                                                                                        <li class="elementor-icon-list-item">
+                                                                                            <a href="{{route('Customer.account.register')}}">
+                                                                                                <span class="elementor-icon-list-text">Sign Up</span>
                                                                                             </a>
                                                                                         </li>
-                                                                                        <li class="elementor-icon-list-item">
-                                                                                            <a href="#">
 
-                                                                                                <span
-                                                                                                    class="elementor-icon-list-text">Project</span>
-                                                                                            </a>
-                                                                                        </li>
                                                                                         <li class="elementor-icon-list-item">
-                                                                                            <a href="#">
-
-                                                                                                <span
-                                                                                                    class="elementor-icon-list-text">News & Updated</span>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li class="elementor-icon-list-item">
-                                                                                            <a href="#">
-
-                                                                                                <span
-                                                                                                    class="elementor-icon-list-text">Pricing</span>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li class="elementor-icon-list-item">
-                                                                                            <a href="#">
-
-                                                                                                <span
-                                                                                                    class="elementor-icon-list-text">Contact</span>
+                                                                                            <a href="{{route('profile')}}">
+                                                                                                <span class="elementor-icon-list-text">My Profile</span>
                                                                                             </a>
                                                                                         </li>
                                                                                     </ul>

@@ -36,11 +36,11 @@ class Order extends Model
 
     public function payment()
     {
-        return $this->belongsTo(Method::class);
+        return $this->belongsTo(Method::class, 'payment_id');
     }
 
     public function shipping()
     {
-        return $this->belongsTo(Shipping::class);
+        return $this->belongsTo(Shipping::class, 'method_id');
     }
 }

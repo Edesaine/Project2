@@ -32,8 +32,10 @@
     <link href="{{asset('css/theme.css')}}" rel="stylesheet" media="all">
 
 </head>
+
 <body class="animsition">
 <div class="page-wrapper">
+
     <?php
     $url='author'
     ?>
@@ -77,7 +79,6 @@
                     <div style="display:flex;justify-content: center">
                         {{$authors->links()}}
                     </div>
-
                 </div>
             </div>
         </div>

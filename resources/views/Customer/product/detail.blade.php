@@ -272,39 +272,44 @@
                                                                             <div class="elementor-element elementor-element-650af28 elementor-widget elementor-widget-heading" data-id="650af28" data-element_type="widget" data-widget_type="heading.default">
                                                                                 <div class="elementor-widget-container">
                                                                                     <style>/*! elementor - v3.17.0 - 08-11-2023 */
-                                                                                        .elementor-heading-title{padding:0;margin:0;line-height:1}.elementor-widget-heading .elementor-heading-title[class*=elementor-size-]>a{color:inherit;font-size:inherit;line-height:inherit}.elementor-widget-heading .elementor-heading-title.elementor-size-small{font-size:15px}.elementor-widget-heading .elementor-heading-title.elementor-size-medium{font-size:19px}.elementor-widget-heading .elementor-heading-title.elementor-size-large{font-size:29px}.elementor-widget-heading .elementor-heading-title.elementor-size-xl{font-size:39px}.elementor-widget-heading .elementor-heading-title.elementor-size-xxl{font-size:59px}</style><h2 class="elementor-heading-title elementor-size-default">Useful Link</h2>		</div>
+                                                                                        .elementor-heading-title{padding:0;margin:0;line-height:1}.elementor-widget-heading .elementor-heading-title[class*=elementor-size-]>a{color:inherit;font-size:inherit;line-height:inherit}.elementor-widget-heading .elementor-heading-title.elementor-size-small{font-size:15px}.elementor-widget-heading .elementor-heading-title.elementor-size-medium{font-size:19px}.elementor-widget-heading .elementor-heading-title.elementor-size-large{font-size:29px}.elementor-widget-heading .elementor-heading-title.elementor-size-xl{font-size:39px}.elementor-widget-heading .elementor-heading-title.elementor-size-xxl{font-size:59px}</style>
+                                                                                </div>
                                                                             </div>
                                                                             <div class="elementor-element elementor-element-64f6c3f elementor-align-left elementor-tablet-align-left elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="64f6c3f" data-element_type="widget" data-widget_type="icon-list.default">
                                                                                 <div class="elementor-widget-container">
                                                                                     <link rel="stylesheet" href="../../wp-content/plugins/elementor/assets/css/widget-icon-list.min.css">		<ul class="elementor-icon-list-items">
-                                                                                        <li class="elementor-icon-list-item">
-                                                                                            <a href="#">
+                                                                                        @if(!$customer)
+                                                                                            <li class="elementor-icon-list-item">
 
-                                                                                                <span class="elementor-icon-list-text">About</span>
+                                                                                                <p class="animated-text"> Hello </p>
+                                                                                            </li>
+                                                                                            <li class="elementor-icon-list-item">
+                                                                                                <a href="{{route('profile')}}">
+                                                                                                    <span class="elementor-icon-list-text">Login</span>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        @endif
+
+                                                                                        @if($customer)
+                                                                                            <li class="elementor-icon-list-item">
+                                                                                                <p class="animated-text"> Hello, {{$customer->name}}</p>
+                                                                                            </li>
+                                                                                            <li class="elementor-icon-list-item">
+                                                                                                <a href="{{route('Customer.account.logout')}}">
+                                                                                                    <span class="elementor-icon-list-text">Sign out</span>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        @endif
+
+                                                                                        <li class="elementor-icon-list-item">
+                                                                                            <a href="{{route('Customer.account.register')}}">
+                                                                                                <span class="elementor-icon-list-text">Sign Up</span>
                                                                                             </a>
                                                                                         </li>
-                                                                                        <li class="elementor-icon-list-item">
-                                                                                            <a href="#">
 
-                                                                                                <span class="elementor-icon-list-text">Project</span>
-                                                                                            </a>
-                                                                                        </li>
                                                                                         <li class="elementor-icon-list-item">
-                                                                                            <a href="#">
-
-                                                                                                <span class="elementor-icon-list-text">News & Updated</span>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li class="elementor-icon-list-item">
-                                                                                            <a href="#">
-
-                                                                                                <span class="elementor-icon-list-text">Pricing</span>
-                                                                                            </a>
-                                                                                        </li>
-                                                                                        <li class="elementor-icon-list-item">
-                                                                                            <a href="#">
-
-                                                                                                <span class="elementor-icon-list-text">Contact</span>
+                                                                                            <a href="{{route('profile')}}">
+                                                                                                <span class="elementor-icon-list-text">My Profile</span>
                                                                                             </a>
                                                                                         </li>
                                                                                     </ul>
@@ -419,7 +424,13 @@
     <div id="primary" class="content-area">
         <main id="main" class="site-main" role="main"><nav class="woocommerce-breadcrumb">
                 <a href="{{route('home')}}>Home</a>&nbsp;&#47;&nbsp;
-                <a href="#">Book/{{--{{$categories->name}}--}}</a>&nbsp;&#47;&nbsp;{{$book->name}}</nav>
+                <span href="#">Book/
+                @foreach($book->categories as $cate)
+                    <span rel="tag">{{ $cate->name }}
+                    </span>{{ !$loop->last ? ',' : '' }}
+                @endforeach
+                    </span>&nbsp;&#47;&nbsp;
+                    {{$book->name}}</nav>
 
             <div class="woocommerce-notices-wrapper">
 
@@ -448,7 +459,7 @@
                     <form class="cart" action="#" enctype='multipart/form-data'>
 
                         <div class="quantity">
-                            <Span class="posted_in">Buy quantity: </Span>
+                            <Span class="posted_in">Quantity: </Span>
                             <label class="screen-reader-text" for="quantity_65f405c6b8f66">Quantity</label>
                             <input
                                 type="number"
@@ -461,7 +472,10 @@
 
                     <div class="product_meta">
 
-                        <span class="posted_in">Categories: <a href="#" rel="tag">{{$book->NumberOfCategories}}</a>
+                        <span class="posted_in">Categories:
+                            @foreach($book->categories as $cate)
+                                <span rel="tag">{{ $cate->name }}</span>{{ !$loop->last ? ',' : '' }}
+                            @endforeach
                             </span><br><br>
                         <span class="posted_in">Status: <a href="#" rel="tag">
                                 @if($book->status == 0)
@@ -478,8 +492,13 @@
                             </span><br><br>
                         <span class="posted_in">Number of pages: <a href="#" rel="tag">{{$book->NumberOfPages}}</a>
                             </span><br><br>
-                        <span class="posted_in">Authors: <a href="#" rel="tag">{{$book->NumberOfAuthors}}</a>
-                          </span>
+
+                        <span class="posted_in">Authors:
+                             @foreach($book->authors as $author)
+                                <span rel="tag">{{ $author->name }}</span>{{ !$loop->last ? ',' : '' }}
+                            @endforeach
+                        </span>
+
 
                     </div>
                 </div>
@@ -487,8 +506,11 @@
                 @auth('customer')
                     <form action="" >
                         @csrf
-                        <button type="submit" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-id="{{ $book->id }}">
-                            <a href="{{route('Customer.products.addToCartAjax', $book->id)}}"  data-quantity="1" class="button wp-element-button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="44" data-product_sku="" aria-label="Add &ldquo;Aenean Typography&rdquo; to your cart" rel="nofollow">
+                        <button type="submit" class="button product_type_simple add_to_cart_button ajax_add_to_cart"
+                                data-id="{{ $book->id }}">
+                            <a href="{{route('Customer.products.addToCartAjax', $book->id)}}"
+                               class="button wp-element-button product_type_simple add_to_cart_button ajax_add_to_cart"
+                               aria-label="Add &ldquo;Aenean Typography&rdquo; to your cart">
                                 <i class="fas fa-shopping-cart"></i> Add to cart
                             </a>
                         </button>
@@ -547,12 +569,14 @@
                         <li class="product type-product post-44 status-publish first instock product_cat-dictionary
                         product_cat-essays has-post-thumbnail shipping-taxable purchasable product-type-simple">
                             <a href="#" class="woocommerce-LoopProduct-link woocommerce-loop-product__link">
-                                <img width="200" height="150" src="{{ asset($relB->image)}}" style="width: 160px; height: 210px"
-                                      alt=""
+                                <img width="200" height="150" src="{{ asset($relB->image)}}" style="width: 160px; height: 210px;
+                                margin-left: 40px; margin-top: 30px" alt=""
                                      decoding="async" loading="lazy"
                                      srcset="{{ asset($relB->image) }}" />
 
-                                <h2 class="woocommerce-loop-product__title">{{$relB->name}}</h2>
+                                <a href="{{ route('Customer.product.detail', $relB->id) }}">
+                                    <h2 class="woocommerce-loop-product__title">{{$relB->name}}</h2>
+                                </a>
 
                                 <span class="price">
                                     <span class="woocommerce-Price-amount amount">
@@ -565,13 +589,16 @@
                             </a>
 
                             @auth('customer')
-                                <form action="" >
-                                    @csrf
-                                        <a href="{{route('Customer.products.addToCartAjax', $book->id)}}"  data-quantity="1" class="button wp-element-button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="44" data-product_sku="" aria-label="Add &ldquo;Aenean Typography&rdquo; to your cart" rel="nofollow">
+                                    <form action="" method="post">
+                                        @csrf
+                                        <a href="{{ route('Customer.products.addToCartAjax', $relB->id) }}"
+                                           class="button wp-element-button product_type_simple add_to_cart_button ajax_add_to_cart"
+                                           aria-label="Add &ldquo;{{ $relB->name }}&rdquo; to your cart" style="margin-bottom: 20px">
                                             <i class="fas fa-shopping-cart"></i> Add to cart
                                         </a>
-                                </form>
+                                    </form>
                             @endauth
+
                         </li>
                     @endforeach
 
@@ -652,7 +679,6 @@
                                         <div class="elementor-widget-wrap elementor-element-populated">
                                             <div class="elementor-element elementor-element-e279bd4 elementor-widget elementor-widget-heading" data-id="e279bd4" data-element_type="widget" data-widget_type="heading.default">
                                                 <div class="elementor-widget-container">
-                                                    <h2 class="elementor-heading-title elementor-size-default">Usefull Links</h2>		</div>
                                             </div>
                                             <div class="elementor-element elementor-element-1f0f399 elementor-align-left elementor-tablet-align-left elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="1f0f399" data-element_type="widget" data-widget_type="icon-list.default">
                                                 <div class="elementor-widget-container">
@@ -694,90 +720,12 @@
                                     </div>
                                     <div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-222d05b" data-id="222d05b" data-element_type="column">
                                         <div class="elementor-widget-wrap elementor-element-populated">
-                                            <div class="elementor-element elementor-element-c6eb61f elementor-widget elementor-widget-heading" data-id="c6eb61f" data-element_type="widget" data-widget_type="heading.default">
-                                                <div class="elementor-widget-container">
-                                                    <h2 class="elementor-heading-title elementor-size-default">Information</h2>		</div>
-                                            </div>
-                                            <div class="elementor-element elementor-element-c9e3805 elementor-align-left elementor-tablet-align-left elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="c9e3805" data-element_type="widget" data-widget_type="icon-list.default">
-                                                <div class="elementor-widget-container">
-                                                    <ul class="elementor-icon-list-items">
-                                                        <li class="elementor-icon-list-item">
-                                                            <a href="#">
 
-                                                                <span class="elementor-icon-list-text">Suppliers</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="elementor-icon-list-item">
-                                                            <a href="#">
-
-                                                                <span class="elementor-icon-list-text">New Products</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="elementor-icon-list-item">
-                                                            <a href="#">
-
-                                                                <span class="elementor-icon-list-text">Delivery & returns</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="elementor-icon-list-item">
-                                                            <a href="#">
-
-                                                                <span class="elementor-icon-list-text">Loyalty Program</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="elementor-icon-list-item">
-                                                            <a href="#">
-
-                                                                <span class="elementor-icon-list-text">Gift Cards</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-fe6285e" data-id="fe6285e" data-element_type="column">
                                         <div class="elementor-widget-wrap elementor-element-populated">
-                                            <div class="elementor-element elementor-element-6709eaa elementor-widget elementor-widget-heading" data-id="6709eaa" data-element_type="widget" data-widget_type="heading.default">
-                                                <div class="elementor-widget-container">
-                                                    <h2 class="elementor-heading-title elementor-size-default">Company</h2>		</div>
-                                            </div>
-                                            <div class="elementor-element elementor-element-b9aab24 elementor-align-left elementor-tablet-align-left elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="b9aab24" data-element_type="widget" data-widget_type="icon-list.default">
-                                                <div class="elementor-widget-container">
-                                                    <ul class="elementor-icon-list-items">
-                                                        <li class="elementor-icon-list-item">
-                                                            <a href="#">
 
-                                                                <span class="elementor-icon-list-text">Sitemap</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="elementor-icon-list-item">
-                                                            <a href="#">
-
-                                                                <span class="elementor-icon-list-text">Work Hours</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="elementor-icon-list-item">
-                                                            <a href="#">
-
-                                                                <span class="elementor-icon-list-text">Office</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="elementor-icon-list-item">
-                                                            <a href="#">
-
-                                                                <span class="elementor-icon-list-text">Payment</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="elementor-icon-list-item">
-                                                            <a href="#">
-
-                                                                <span class="elementor-icon-list-text">Help Center</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="elementor-column elementor-col-20 elementor-inner-column elementor-element elementor-element-7d39e34" data-id="7d39e34" data-element_type="column">
@@ -910,13 +858,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    (function () {
-        var c = document.body.className;
-        c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
-        document.body.className = c;
-    })();
-</script>
+
 <link rel='stylesheet' id='jeg-dynamic-style-css' href='../../wp-content/plugins/jeg-elementor-kit/lib/jeg-framework/assets/css/jeg-dynamic-styles6f3e.css?ver=1.3.0' media='all' />
 <link rel='stylesheet' id='elementor-post-852-css' href='../../wp-content/uploads/sites/277/elementor/css/post-85242c9.css?ver=1693883536' media='all' />
 <link rel='stylesheet' id='font-awesome-5-all-css' href='../../wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min8864.css?ver=3.17.3' media='all' />

@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Add a publisher</title>
+    <title>Add a book</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -59,7 +59,7 @@ $url='publisher';
                     <div class="alert alert-success">{{ session('status')}}</div>
                 @endif
                 <a href="{{ url('publisher/index') }}" class="btn btn-primary float-end">Back</a>
-                <h2 style="text-align: center"> Add Publisher</h2>
+                <h2 style="text-align: center"> Add a Publisher</h2>
             </div>
             <form  class="col-8 offset-2" enctype='multipart/form-data' action="{{ url('publisher/create') }}" method="POST">
                 @csrf

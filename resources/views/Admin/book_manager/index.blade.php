@@ -37,9 +37,9 @@
 
     <!-- MENU SIDEBAR-->
 
-<?php
-$url='book'
-?>
+    <?php
+    $url='book'
+    ?>
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
 
@@ -101,7 +101,7 @@ $url='book'
                     </table>
                     <br>
                     <div style="display:flex;justify-content: center">
-                      {{$books->links()}}
+                        {{$books->links()}}
                     </div>
                 </div>
             </div>

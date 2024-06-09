@@ -37,7 +37,6 @@
 
     <!-- MENU SIDEBAR-->
 
-
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
 
@@ -49,28 +48,28 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-@if(session('status'))
-    <div class="alert alert-success">{{session('status')}}</div>
-@endif
-    <h3 class="" style="text-align:center ">ADD CATEGORY</h3>
-    <a href="/category/index" class="btn btn-primary">Back</a>
+                    @if(session('status'))
+                    <div class="alert alert-success">{{session('status')}}</div>
+                    @endif
+                    <h3 class="" style="text-align:center ">ADD CATEGORY</h3>
+                    <a href="/category/index" class="btn btn-primary">Back</a>
 
-<form action="{{ url('category/create') }}" method="POST">
-    @csrf
-    <label>Name</label>
-    <input type="text" name="name" class="form-control">
-    @error('name')
-    <span class="text-danger">{{$message}}</span>
-    @enderror
-    <br>
-    <div style="justify-content: center" class="row">
-        <button style="width: 100px"  class="btn btn-dark" type="submit">Add</button>
+                        <form action="{{ url('category/create') }}" method="POST">
+                            @csrf
+                            <label>Name</label>
+                            <input type="text" name="name" class="form-control">
+                            @error('name')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                            <br>
+                            <div style="justify-content: center" class="row">
+                                <button style="width: 100px"  class="btn btn-dark" type="submit">Add</button>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
     </div>
-</form>
-</div>
-</div>
-</div>
-</div>
 </div>
 
 <!-- Jquery JS-->

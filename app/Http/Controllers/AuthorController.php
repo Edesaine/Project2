@@ -18,17 +18,19 @@ class AuthorController extends Controller
             $search='%'.$request->search.'%';
         }
         $authors = DB::table('authors')
-        ->select('authors.*')
-        ->where('name','like',$search)
+            ->select('authors.*')
+            ->where('name','like',$search)
             ->paginate(4);
         return view('admin.author_manager.index',compact('authors','LoginName','LoginEmail'));
     }
+
     public function create()
     {
         $LoginName= Session::get('loginname');
         $LoginEmail= Session::get('loginemail');
         return view('admin.author_manager.create',compact('LoginName','LoginEmail'));
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -41,10 +43,12 @@ class AuthorController extends Controller
         ]);
         return redirect('author/create')->with('status','Author Added');
     }
+
     public function edit(int $id)
     {
         $LoginName= Session::get('loginname');
         $LoginEmail= Session::get('loginemail');
+
         $author = Author::findorFail($id);
         return view('admin.author_manager.edit',compact('author','LoginName','LoginEmail'));
     }

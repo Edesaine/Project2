@@ -121,7 +121,7 @@
                                     </div>
                                 </form>
                             @endif
-                                @if($status->status==2)
+                            @if($status->status==2)
                                 <form enctype='multipart/form-data' action="{{ url('order/'.$id.'/details') }}" method="POST">
                                     @method('PUT')
                                     @csrf
@@ -149,7 +149,7 @@
                                 </form>
                             @endif
                                 @if($status->status==3)
-                                   <img style="width: 200px" src="{{asset('images/complete_stamp.png')}}">
+                                    <img style="width: 200px" src="{{asset('images/complete_stamp.png')}}">
                                 @endif
                                 @if($status->status==4)
                                     <img style="width: 180px" src="{{asset('images/cancelled_stamp.png')}}">
@@ -213,4 +213,3 @@
 
 </body>
 </html>
-

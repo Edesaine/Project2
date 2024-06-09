@@ -13,11 +13,18 @@
 
 </head>
 <body>
-@include('Customer/Layout/user_menu')
+@if (session('success'))
+    @include('partials.flashMsgSuccess')
+@endif
+{{--alert edit fail--}}
 
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-center">
+@if (session('failed'))
+     @include('partials.flashMsgFail')
+@endif
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
                 <h2 class="heading-section">Your order history</h2>
             </div>
@@ -49,7 +56,7 @@
                                 @endphp
                                 {{$orderDate}}
                             </td>
-                            <td>Pay on delivery</td>
+                            <td>{{ $ord->payment->name }}</td>
                             <td>${{$ord->amount}}</td>
                             <td>
                                 @switch($ord->status)
@@ -74,6 +81,10 @@
                             <td>
                                 <a href="{{route('Customer.carts.orderDetails', $ord)}}" class="btn btn-primary">
                                     View order details
+                                </a>
+                                <br>
+                                <a href="{{route('Customer.discharge')}}" class="btn btn-secondary" style="margin-top: 10px">
+                                    Pay for your order
                                 </a>
                             </td>
                         </tr>

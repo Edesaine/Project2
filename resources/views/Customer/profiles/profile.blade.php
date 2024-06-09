@@ -12,6 +12,13 @@
 </head>
 
 <body>
+@if (session('success'))
+    @include('partials.flashMsgSuccess')
+@endif
+{{--alert edit fail--}}
+@if (session('failed'))
+    @include('partials.flashMsgFail')
+@endif
 <div class="container light-style flex-grow-1 container-p-y">
     <h4 class="font-weight-bold py-3 mb-4">
          My Account
@@ -39,24 +46,24 @@
                     <div class="tab-pane fade active show" id="account-general">
                         <div class="card-body media align-items-center">
                          <div class="card-body">
-    <form method="post" action="{{route('profile.update')}}" enctype="multipart/form-data">
+    <form method="post" action="{{route('profile.update')}}" method="POST" enctype="multipart/form-data">
           @csrf
           @method('PUT')
-                            <img
-                                src="{{ $customer->image != "" ? asset('storage/customers/image/' .
-                            $customer->image) : asset('images/catmeme.jpg') }}" alt
-                                 class="d-block ui-w-80">
+        <img
+            src="{{ $customer->image != "" ? asset('storage/customers/image/' . $customer->image) : asset('images/catmeme.jpg') }}"
+            alt="Image"
+            class="d-block ui-w-80">
 
-                            <div class="media-body ml-4">
-                                <label class="btn btn-outline-primary" for="image">
-                                    Upload new avatar
-                                    <input type="file" id="image" name="image" class="account-settings-fileinput" value="" />
-                                </label> &nbsp;&nbsp;
-                                <img id="preview-image" src="{{ asset('storage/customers/image/') }}" alt="Selected Image"
-                                     class="d-block ui-w-80 mt-3" >
-                            </div>
+        <div class="media-body ml-4">
+            <label class="btn btn-outline-primary" for="image">
+                Upload new avatar
+                <input type="file" id="image" name="image" class="account-settings-fileinput" value="" />
+            </label> &nbsp;&nbsp;
+            <img id="preview-image" src="{{ asset('storage/customers/image/') }}" alt="Selected Image"
+                 class="d-block ui-w-80 mt-3" >
+        </div>
 
-                        </div>
+                         </div>
                         <hr class="border-light m-0">
                         <div class="card-body">
                             <div class="form-group">
@@ -95,7 +102,7 @@
             <div class="text-right mt-3">
                 <button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
                 <button type="button" class="btn btn-danger" >
-                    <a  href="{{route('home')}}">Cancel</a>
+                    <a  href="{{route('home')}}">Home</a>
                 </button>
             </div>
     </form>

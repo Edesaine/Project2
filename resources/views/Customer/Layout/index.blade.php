@@ -260,7 +260,8 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 											<a href="{{route('profile')}}">
 											<span class="elementor-icon-list-text">My Profile</span>
 											</a>
-									</li>
+                                </li>
+
 								<li class="elementor-icon-list-item">
 											<a href="#">
 

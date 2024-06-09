@@ -14,6 +14,13 @@
 <style>
 </style>
 <body>
+@if (session('success'))
+    @include('partials.flashMsgSuccess')
+@endif
+{{--alert edit fail--}}
+@if (session('failed'))
+    @include('partials.flashMsgFail')
+@endif
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
@@ -55,7 +62,6 @@
                             <div class="form-group">
                                 <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
                             </div>
-
                             <div class="form-group d-md-flex">
                                 <div class="w-50 text-left">
                                     <label class="checkbox-wrap checkbox-primary mb-0">Remember Me
@@ -64,7 +70,7 @@
                                     </label>
                                 </div>
                                 <div class="w-50 text-md-right">
-                                    <a href="#">Forgot Password</a>
+                                    <a href="{{route('Customer.forgotPassword')}}">Forgot Password</a>
                                 </div>
                             </div>
 

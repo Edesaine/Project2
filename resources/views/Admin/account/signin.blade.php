@@ -39,7 +39,13 @@
 
 
 </head>
-
+@if (session('success'))
+    @include('partials.flashMsgSuccess')
+@endif
+{{--alert edit fail--}}
+@if (session('failed'))
+    @include('partials.flashMsgFail')
+@endif
 <body class="animsition">
 <div class="page-content--bge5">
     <div class="container">
