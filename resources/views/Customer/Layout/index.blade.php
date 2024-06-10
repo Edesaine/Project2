@@ -371,12 +371,11 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 			<div class="jkit-modal-search-panel-wrapper">
 				<div class="jkit-modal-search-panel">
 					<div class="jkit-search-panel">
-					<form role="search" method="post" class="jkit-search-group" action="{{route('Customer.books.search')}}">
-                        @csrf
-                        @method('POST')
-						<input type="search" class="jkit-search-field" placeholder="Search..." value="" name="s" />
-						<button type="submit" class="jkit-search-button"><i aria-hidden="true" class="jki jki-search-line"></i></button>
-					</form>
+					 <form role="search" method="get" class="jkit-search-group" action="{{url('/search')}}">
+                                                        @csrf
+                                                        <input type="search" class="jkit-search-field" placeholder="Search..." value="" name="search" />
+                                                        <button type="submit" class="jkit-search-button"><i aria-hidden="true" class="jki jki-search-line"></i></button>
+                                                    </form>
 				</div>
 				</div>
 			</div></div>		</div>
