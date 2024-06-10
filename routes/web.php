@@ -141,7 +141,7 @@ Route::get('/logout', [CustomerController::class, 'logout'])->name('Customer.acc
 Route::get('/forgot_password', [CustomerController::class, 'forgotPassword'])->name('Customer.forgotPassword');
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
-
+Route::get('/search',[App\Http\Controllers\HomeController::class, 'search'])->name('search');
 Route::get('book/{id}', [BookController::class, 'bookDetail'])->name('Customer.product.detail');
 
 Route::get('/charts', [ChartController::class, 'index'])->name('Admin.layouts.charts');
