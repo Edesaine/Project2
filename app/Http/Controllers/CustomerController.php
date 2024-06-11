@@ -321,37 +321,46 @@ class CustomerController extends Controller
         $customer = DB::table('customer')
             ->select('customer.*')
             ->where('name','like',$search)
-            ->get();
+            ->paginate(6);
         return view('admin.customer_manager.index', compact('customer','LoginName','LoginEmail'));
     }
 
-    public function store(CustomerStoreRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
+        $request->validate([
+            'name' => 'required|string',
+            'gender' => 'required',
+            'phone' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string',
+            'address' => 'required|string'
+        ]);
 
-        if ($validated) {
-            $imagePath = "";
-            if ($request->file('image')) {
-                $imagePath = $request->file('image')->getClientOriginalName();
-                if (!Storage::exists('public/storage/customers/image/' . $imagePath)) {
-                    Storage::putFileAs('public/storage/customers/image/', $request->file('image'), $imagePath);
-                }
-            }
 
-            $data = [];
-            $data = Arr::add($data, 'name', $request->name);
-            $data = Arr::add($data, 'email', $request->email);
-            $data = Arr::add($data, 'password', Hash::make($request->password));
-            $data = Arr::add($data, 'phone_number', $request->phone);
-            $data = Arr::add($data, 'status', 1);
-            $data = Arr::add($data, 'image', $imagePath);
-            Customer::create($data);
+        if($request->has('image')){
 
-            //log
-            return to_route('admin.admin_manager.index')->with('success', 'Customer created successfully!');
-        } else {
-            return back()->with('failed', 'Something went wrong!');
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+
+            $filename = time().'.'.$extension;
+
+            $path = 'uploads/books/';
+            $file->move($path, $filename);
         }
+
+            Customer::create([
+                'name'=>$request->name,
+                'gender'=>$request->gender,
+                'phone'=>$request->phone,
+                'email'=>$request->email,
+                'password'=>Hash::make($request->password),
+                'account_status'=>1,
+                'address'=>$request->address,
+                'image'=>$path.$filename
+            ]);
+        return redirect()->back();
+
+
     }
 
     public function edit(Customer $customer)

@@ -93,7 +93,7 @@
                                 <td>
                                     <a href="{{url('book/'.$book->id.'/edit')}}" class="btn btn-primary">Edit</a><br>
                                     <a style="margin-top: 5px" href="{{url('book/'.$book->id.'/changestatus')}}" class="btn btn-secondary">Change Status</a>
-                                    <a style="margin-top: 5px" href="{{url('book/'.$book->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                    <a style="margin-top: 5px" href="{{url('book/'.$book->id.'/detail')}}" class="btn btn-info">Detail</a>
                                 </td>
 
                             </tr>

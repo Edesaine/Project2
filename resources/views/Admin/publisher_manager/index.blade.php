@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title Pagg-->
-    <title>Dashboard</title>
+    <title>Publishers</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,6 +56,8 @@
                 <div class="container-fluid">
                     <h1 style="text-align: center">Publisher</h1>
                     <a href="{{url('publisher/create')}}" class="btn btn-outline-dark">Add Publisher</a>
+                    <br>
+                    <br>
                     <table class="table table-light">
                         <tr>
                             <th>ID</th>

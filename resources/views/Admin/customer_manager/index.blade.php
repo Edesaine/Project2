@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Customers</title>
     <link href="{{asset('css/font-face.css')}}" rel="stylesheet" media="all">
     <link href="{{asset('vendor/font-awesome-4.7/css/font-awesome.min.css')}}" rel="stylesheet" media="all">
     <link href="{{asset('vendor/font-awesome-5/css/fontawesome-all.min.css')}}" rel="stylesheet" media="all">
@@ -28,7 +28,6 @@
 
 </head>
 <body class="animsition">
-
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -46,8 +45,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="name">Image:</label>
-                        <input type="text" class="form-control" name="image" required>
+                        <label for="file">Choose Image:</label>
+                        <input type="file" class="form-control-file" name="image">
                     </div>
 
                     <div class="form-group">
@@ -61,7 +60,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" name="email" required name="email" required>
+                        <input type="email" class="form-control" name="email" required >
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
@@ -72,7 +71,7 @@
                         <input type=text" class="form-control" name="address"  required>
                     </div>
                     <div class="form-group" style="text-align: center">
-                        <button type="submit" class="btn btn-secondary" name="upload" style="height:40px">ADD</button>
+                        <button type="submit" class="btn btn-secondary"  style="height:40px">ADD</button>
                     </div>
                 </form>
             </div>
@@ -98,7 +97,11 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-
+                    <button type="button" class="btn btn-secondary "  data-toggle="modal" data-target="#myModal">
+                        ADD A CUSTOMER
+                    </button>
+                    <BR>
+                    <BR>
     <table cellpadding="2px" style="" class="table table-bordered table-striped">
         <tr style="height: 10px">
             <th>ID</th>
@@ -119,7 +122,7 @@
                 <td>{{$cus->name}}</td>
                 <td>
                 @if($cus->image)
-                    <img src="{{ asset('storage/customers/image/' . $cus->image) }}" alt="Customer Image" style="width: 100px; height: auto;">
+                    <img src="{{asset($cus->image)}}" alt="Customer Image" style="width: 100px; height: auto;">
                 @else
                     <img src="{{ asset('images/catmeme.jpg') }}" alt="Default Image" style="width: 100px; height: auto;">
                 @endif
@@ -149,13 +152,15 @@
                 </td>
 
                 <td>
-                    <a href="{{url('customer/'.$cus->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
                     <a href="{{url('customer/'.$cus->id.'/changestatus')}}" class="btn btn-primary"
                        style="margin-top: 10px" onclick="return confirm('Are you sure ?')">Change Status</a>
                 </td>
             </tr>
         @endforeach
     </table>
+                    <div style="display:flex;justify-content: center">
+                        {{$customer->links()}}
+                    </div>
                 </div>
             </div>
         </div>

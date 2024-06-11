@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Edit a author</title>
+    <title>Detail a book</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
 
 <body class="animsition">
 <?php
-$url='author';
+$url='book'
 ?>
     <!-- MENU SIDEBAR-->
 @include('admin.layouts.sidebar')
@@ -58,30 +58,72 @@ $url='author';
                 @if (session('status'))
                     <div class="alert alert-success">{{ session('status')}}</div>
                 @endif
-                <a href="{{ url('author/index') }}" class="btn btn-primary float-end">Back</a>
-                <h2 style="text-align: center"> Edit Author</h2>
+                <a href="{{ url('book/index') }}" class="btn btn-primary float-end">Back</a>
+                <h2 style="text-align: center"> Detail Book</h2>
+                    <br>
+                    <hr>
+            <div class="row">
+
+            <div style="background: whitesmoke" class="col-4 offset-1">
+                <img src="{{ asset($book->image) }}" style="width: 330px;height:500px" alt="{{$book->name}}">
             </div>
-            <form  class="col-8 offset-2" enctype='multipart/form-data' action="{{ url('author/'.$author->id.'/edit') }}" method="POST">
-                @method('PUT')
-                @csrf
-                <input type="hidden" name="id" value="{{$author->id}}">
-                <div class="form-group">
-                    <label for="name" >Author Name : </label>
-                    <input id="name" type="text" name="name" class="form-control" value="{{$author->name}}" required>
+
+                <div style="background: whitesmoke" class="col-6">
+                    <span style="font-size: 25px"> Name :</span><span style="margin-left:10px;font-size: 25px;text-align: right">{{$book->name}}</span>
+                    <br>
+
+                    Price : <span style="margin-left:10px;text-align: right">{{$book->price}} $</span>
+                    <br>
+
+                    Quantity :@if($book->quantity==0)
+                        <span style="margin-left:10px;text-align: right">Sold out</span>
+                    @else
+                        <span style="margin-left:10px;text-align: right">{{$book->quantity}}</span>
+                    @endif
+                    <br>
+                    Status:  @if($book->status==0)
+                        <span style="margin-left:10px;text-align: right">Available now</span>
+                    @else
+                        <span style="margin-left:10px;text-align: right">Unavailable</span>
+                    @endif
+                    <br>
+                    Publisher:  <span style="margin-left:10px;text-align: right">{{$pub->name}}</span>
+                    <br>
+                    Author:   @foreach($authors as $author)
+                        @if ($loop->first)
+                            <span style="margin-left:10px;text-align: right">{{ $author->name }}@if (!$loop->last),@endif</span>
+                        @else
+                            <span style="text-align: right">{{ $author->name }}@if (!$loop->last),@endif.</span>
+                        @endif
+                    @endforeach
+                    <br>
+                    Category :  @foreach($categories as $category)
+                        @if ($loop->first)
+                            <span style="margin-left:10px;text-align: right">{{ $category->name }}@if (!$loop->last),@endif</span>
+                        @else
+                            <span style="text-align: right">{{ $category->name }}@if (!$loop->last),@endif.</span>
+                        @endif
+                    @endforeach
+                    <br>
+                    Description : <span style="margin-left:10px;text-align: right">{{$book->description}}</span>
+
+
+
+
                 </div>
 
-                <div class="form-group">
-                    <label for="country" >Country Name : </label>
-                    <input id="country" type="text" name="country" class="form-control" value="{{$author->country}}" required>
-                </div>
 
+            </div>
+                    <br>
+                    <br>
+                <a style="margin-left: 35%"  class="btn btn-primary" href="{{url('book/'.$book->id.'/additional-information')}}">
+                    EDIT AUTHOR AND CATEGORY
+                </a>
                 <br>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-outline-primary col-2 offset-5" style="height:40px">Save</button>
-                </div>
                 <br>
-            </form>
-        </div>
+                <br>
+                <br>
+
     </div>
 </div>
 <!-- END MAIN CONTENT-->

@@ -55,6 +55,8 @@
                 <div class="container-fluid">
                     <h1 style="text-align: center">Author</h1>
                     <a href="{{url('author/create')}}" class="btn btn-outline-dark">Add Author</a>
+                    <br>
+                    <br>
                     <table class="table">
                         <tr>
                             <th>ID</th>

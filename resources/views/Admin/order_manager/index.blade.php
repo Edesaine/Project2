@@ -56,9 +56,6 @@
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <h1 style="text-align: center">Order</h1>
-                    <a href="{{url('order/create')}}" class="btn btn-outline-dark">Add Order</a>
-                    <br>
-                    <br>
                     <table  class="table table-light ">
                         <tr>
                             <th>ID</th>
