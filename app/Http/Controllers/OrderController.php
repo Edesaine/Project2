@@ -24,8 +24,13 @@ class OrderController extends Controller
 {
     public function checkoutProcess(OrderStoreRequest $request)
     {
-        $amount = []; // Khởi tạo biến $amount
+        $amount = [];
+        $cart = Session::get('cart');
 
+        //Kiem tra gio hang co bi null hay ko
+        if (is_null($cart) || empty($cart)) {
+            return Redirect::route('Customer.carts.cart')->with('error', 'Your cart is empty!');
+        }
         foreach (Session::get('cart') as $book_id => $book) {
             // Tính và gán giá trị vào biến $amount
             $amount[$book_id] = $book['price'] * $book['quantity'];
@@ -36,9 +41,10 @@ class OrderController extends Controller
         //lay status (status mac dinh la 0 tuong ung trang thai xac nhan don hang)
         $status = 0;
         //1: pay on delivery, 2: pay on vnpay
-        $paymentID = 1;
+        $paymentID = $request->input('payment_method');
         //1: Fast delivery, 2: Normal Delivery
         $methodId = 1;
+/*        $methodId = $request->input('shipping_method');*/
         //customer id
         $customerId = Auth::guard('customer')->id();
 
@@ -88,7 +94,7 @@ class OrderController extends Controller
         if (/*$order->status != 1 && */
             $order->status != 4) {
             $array = [];
-            $array = Arr::add($array, 'status', 1);
+            $array = Arr::add($array, 'status', 4);
 
             $order->update($array);
 
@@ -151,10 +157,26 @@ class OrderController extends Controller
             $id = $request->order_id;
         }        $order = Order::findOrFail($id);
 
+        $order = Order::findOrFail($id);
+
+        if ($order->status == 2 || $order->status == 3) {
+            // Lấy chi tiết đơn hàng
+            $orderDetails = $order->orderDetails;
+
+            // Cập nhật số lượng sách trong bảng books
+            foreach ($orderDetails as $orderDetail) {
+                $book = Book::findOrFail($orderDetail->book_id);
+                $book->quantity -= $orderDetail->sold_quantity;
+                $book->save();
+            }
+        }
+
         $order->update([
             'admin_id' => Session::get('loginId'),
             'status' => $request->status
         ]);
+
+
 
         return redirect()->back()->with('status','Orders Edited !');
     }

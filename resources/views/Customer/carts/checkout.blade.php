@@ -21,6 +21,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+@if (session('success'))
+    @include('partials.flashMsgSuccessCenter')
+@endif
+{{--alert edit fail--}}
+@if (session('failed'))
+    @include('partials.flashMsgFailCenter')
+@endif
 <div class="row">
     <div class="col-75">
         <div class="container">

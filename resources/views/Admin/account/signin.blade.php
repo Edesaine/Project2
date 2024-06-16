@@ -40,11 +40,11 @@
 
 </head>
 @if (session('success'))
-    @include('partials.flashMsgSuccess')
+    @include('partials.flashMsgSuccessCenter')
 @endif
 {{--alert edit fail--}}
 @if (session('failed'))
-    @include('partials.flashMsgFail')
+    @include('partials.flashMsgFailCenter')
 @endif
 <body class="animsition">
 <div class="page-content--bge5">

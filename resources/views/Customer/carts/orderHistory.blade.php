@@ -14,14 +14,14 @@
 </head>
 <body>
 @if (session('success'))
-    @include('partials.flashMsgSuccess')
+    @include('partials.flashMsgSuccessCenter')
 @endif
 {{--alert edit fail--}}
-
 @if (session('failed'))
-     @include('partials.flashMsgFail')
+    @include('partials.flashMsgFailCenter')
 @endif
 
+@include('Customer/Layout/user_menu')
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
@@ -61,19 +61,19 @@
                             <td>
                                 @switch($ord->status)
                                     @case(0)
-                                        <span class="text-secondary">Pending</span>
+                                        <span style="color: #e67e22;font-weight: bold">Pending</span>
                                         @break
                                     @case(1)
-                                        <span class="text-danger">Cancelled</span>
+                                        <span style="color: #f1c40f;font-weight: bold">Approved</span>
                                         @break
                                     @case(2)
-                                        <span class="text-success">Completed</span>
+                                        <span style="color: #3498db;font-weight: bold">Delivering</span>
                                         @break
                                     @case(3)
-                                        <span class="text-success">Confirmed</span>
+                                        <span style="color: #2ecc71;font-weight: bold">Completed</span>
                                         @break
                                     @case(4)
-                                        <span class="text-primary">Delivery</span>
+                                        <span style="color: #e74c3c;font-weight: bold">Cancelled</span>
                                         @break
                                 @endswitch
                             </td>
@@ -83,9 +83,11 @@
                                     View order details
                                 </a>
                                 <br>
-                                <a href="{{route('Customer.discharge')}}" class="btn btn-secondary" style="margin-top: 10px">
-                                    Pay for your order
-                                </a>
+                                @if($ord->payment_id == 2)
+                                    <a href="{{route('Customer.discharge')}}" class="btn btn-secondary" style="margin-top: 10px">
+                                        Pay for your order
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

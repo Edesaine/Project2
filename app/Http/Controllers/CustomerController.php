@@ -321,43 +321,46 @@ class CustomerController extends Controller
         $customer = DB::table('customer')
             ->select('customer.*')
             ->where('name','like',$search)
-            ->get();
+            ->paginate(6);
         return view('admin.customer_manager.index', compact('customer','LoginName','LoginEmail'));
     }
 
     public function store(CustomerStoreRequest $request)
     {
-        $validated = $request->validated();
+        $validatedData = $request->validated();
 
-        if ($validated) {
-            $imagePath = "";
-            if ($request->file('image')) {
-                $imagePath = $request->file('image')->getClientOriginalName();
-                if (!Storage::exists('public/storage/customers/image/' . $imagePath)) {
-                    Storage::putFileAs('public/storage/customers/image/', $request->file('image'), $imagePath);
-                }
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $imagePath = time().'.'.$file->getClientOriginalExtension();
+            Storage::putFileAs('public/storage/customers/image/', $file, $imagePath);
+
+            $data = [
+                'name' => $validatedData['name'],
+                'gender' => $validatedData['gender'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'phone' => $validatedData['phone'],
+                'account_status' => 1,
+                'address' => $validatedData['address'],
+                'image' => $imagePath
+            ];
+
+            $customer = Customer::create($data);
+
+            if ($customer) {
+                return redirect()->back()->with('success', 'Customer created successfully!');
+            } else {
+                return redirect()->back()->with('error', 'Failed to create customer.');
             }
-
-            $data = [];
-            $data = Arr::add($data, 'name', $request->name);
-            $data = Arr::add($data, 'email', $request->email);
-            $data = Arr::add($data, 'password', Hash::make($request->password));
-            $data = Arr::add($data, 'phone_number', $request->phone);
-            $data = Arr::add($data, 'status', 1);
-            $data = Arr::add($data, 'image', $imagePath);
-            Customer::create($data);
-
-            //log
-            return to_route('admin.admin_manager.index')->with('success', 'Customer created successfully!');
-        } else {
-            return back()->with('failed', 'Something went wrong!');
         }
     }
 
     public function edit(Customer $customer)
     {
+
         $LoginName= Session::get('loginname');
         $LoginEmail= Session::get('loginemail');
+//        dd($customer);
         return view('admin.customer_manager.edit', [
             'customer' => $customer
         ], compact('LoginEmail','LoginName'));
@@ -368,40 +371,38 @@ class CustomerController extends Controller
         $validated = $request->validated();
 
         if ($validated) {
-            $imagePath = "";
-            //Kiểm tra nếu đã chọn ảnh thì Lấy tên ảnh đang được chọn
-            //không chọn ảnh thì sẽ lấy tên ảnh cũ trên db
-            if ($request->file('image')) {
-                $imagePath = $request->file('image')->getClientOriginalName();
-            } else {
-                $imagePath = $customer->image;
+            $imagePath = $customer->image;
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $imagePath = time().'.'.$file->getClientOriginalExtension();
+                $file->storeAs('public/storage/customers/image/', $imagePath);
             }
-            //Kiểm tra nếu file chưa tồn tại thì lưu vào trong folder code
-            if (!Storage::exists('public/storage/customers/image/' . $imagePath)) {
-                Storage::putFileAs('public/storage/customers/image/', $request->file('image'), $imagePath);
+
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email,
+                'gender' => $request->gender,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'account_status' => 1,
+                'image' => $imagePath,
+            ];
+
+            // Kiểm tra nếu password được thay đổi
+            if ($request->filled('password')) {
+                $data['password'] = Hash::make($request->password);
             }
-            $data = [];
-            $data = Arr::add($data, 'name', $request->name);
-            $data = Arr::add($data, 'email', $request->email);
-//            //kiem tra neu password khong thay doi thi ko update password
-//            if ($request->password != $customer->password) {
-//                $data = Arr::add($data, 'password', Hash::make($request->password));
-//            }
-            $data = Arr::add($data, 'phone', $request->phone);
-            $data = Arr::add($data, 'status', $request->status);
-            $data = Arr::add($data, 'image', $imagePath);
+
             $customer->update($data);
 
-//           update xong -> logout customer
-            Auth::guard('customer')->logout();
-            session()->forget('customer');
-
-            //log
-            return to_route('admin.customer_manager.index')->with('success', 'Customer updated successfully!');
+            // Trả về với thông báo thành công
+            return redirect()->route('admin.customer_manager.index')->with('success', 'Customer updated successfully!');
         } else {
             return back()->with('failed', 'Something went wrong!');
         }
     }
+
 
     public function showOrderHistory()
     {

@@ -228,11 +228,11 @@
 </head>
 <body>
 @if (session('success'))
-    @include('partials.flashMsgSuccess')
+    @include('partials.flashMsgSuccessCenter')
 @endif
 {{--alert edit fail--}}
 @if (session('failed'))
-    @include('partials.flashMsgFail')
+    @include('partials.flashMsgFailCenter')
 @endif
 
 @include('Customer/Layout/user_menu')
@@ -303,19 +303,19 @@
                 <td>
                     @switch($order->status)
                         @case(0)
-                            <span style="font-size: 18px" class="status text-secondary">Pending</span>
+                            <span style="color: #e67e22;font-weight: bold">Pending</span>
                             @break
                         @case(1)
                             <span style="font-size: 18px" class="status text-danger">Cancelled</span>
                             @break
                         @case(2)
-                            <span style="font-size: 18px" class="status text-success">Completed</span>
+                            <span style="color: #3498db;font-weight: bold">Delivering</span>
                             @break
                         @case(3)
-                            <span style="font-size: 18px" class="status text-success">Confirmed</span>
+                            <span style="color: #2ecc71;font-weight: bold">Completed</span>
                             @break
                         @case(4)
-                            <span style="font-size: 18px" class="status text-primary">Delivery</span>
+                            <span style="color: #e74c3c;font-weight: bold">Cancelled</span>
                             @break
                     @endswitch
                 </td>
@@ -324,7 +324,7 @@
                 <td>{{ $order->payment->name }}</td>
 
                 <td>
-                    @if(/*$order->status != 1 &&*/ $order->status != 4 )
+                    @if (!in_array($order->status, [1, 2, 3, 4]))
                         <form action="{{ route('Customer.carts.cancelOrder', $order->id) }}" style="display:inline;">
                             @csrf
                             @method('POST')

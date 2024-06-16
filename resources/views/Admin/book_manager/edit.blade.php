@@ -64,6 +64,7 @@ $url='book'
             <form  class="col-8 offset-2" enctype='multipart/form-data' action="{{ url('book/'.$book->id.'/edit') }}" method="POST">
                 @method('PUT')
                 @csrf
+
                 <input type="hidden" name="id" value="{{$book->id}}">
                 <div class="form-group">
                     <label for="name" >Book Name : </label>

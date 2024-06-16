@@ -68,5 +68,4 @@ class CategoryController extends Controller
         $categories->delete();
         return redirect()->back()->with('status','Category Deleted');
     }
-
 }

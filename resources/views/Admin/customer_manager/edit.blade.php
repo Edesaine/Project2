@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Book</title>
+    <title>Edit Customer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,13 +33,13 @@
 
 </head>
 <body class="animsition">
+<?php
+$url='customer'
+?>
 <div class="page-wrapper">
 
     <!-- MENU SIDEBAR-->
 
-    <?php
-    $url='book'
-    ?>
     @include('admin.layouts.sidebar')
     <!-- END MENU SIDEBAR-->
 
@@ -51,58 +51,68 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-                    <h1 style="text-align: center">Book</h1>
-                    <a href="{{url('book/create')}}" class="btn btn-outline-dark">Add Book</a>
-                    <br>
-                    <br>
-                    <table class="table">
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Description</th>
-                            <th>Print Length</th>
-                            <th>Status</th>
-                            <th>Publisher</th>
-                            <td>Action</td>
-                        </tr>
-                        @foreach($books as $book)
-                            <tr>
+                    @if(session('status'))
+                        <div class="alert alert-success">{{session('status')}}</div>
+                    @endif
 
-                                <td>{{$book->id}}</td>
-                                <td>{{$book->name}}</td>
-                                <td>
-                                    <div style="width: 100px"><img  src="{{asset($book->image)}}" style="width: 100px;height:150px" alt=""></div>
-                                </td>
-                                <td>{{$book->price}}$</td>
-                                <td>{{$book->quantity}}</td>
-                                <td >
-                                    <div style="width:100px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap">{{$book->description}}</div></td>
-                                <td>{{$book->NumberOfPages}}</td>
-                                <td>
-                                    @if($book->status == 0)
-                                        <span class="text-primary">On Stock</span>
-                                    @endif
-                                        @if($book->status == 1)
-                                            <span class="text-danger">Unavailable</span>
-                                        @endif
-                                </td>
-                                <td>{{$book->publisher}}</td>
-                                <td>
-                                    <a href="{{url('book/'.$book->id.'/edit')}}" class="btn btn-primary">Edit</a><br>
-                                    <a style="margin-top: 5px" href="{{url('book/'.$book->id.'/changestatus')}}" class="btn btn-secondary">Change Status</a>
-                                    <a style="margin-top: 5px" href="{{url('book/'.$book->id.'/detail')}}" class="btn btn-info">Detail</a>
-                                </td>
+                        <h3  style="text-align:center ">EDIT CUSTOMER INFORMATION</h3>
+                        <a href="{{ url('customer/index') }}" class="btn btn-primary">Back</a>
 
-                            </tr>
-                        @endforeach
-                    </table>
-                    <br>
-                    <div style="display:flex;justify-content: center">
-                        {{$books->links()}}
-                    </div>
+                        <form action="{{ url('customer/'.$customer->id.'/edit') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="id" value="{{$customer->id}}">
+                            <label for="name">Name :</label>
+                            <input id="name" type="text" name="name" class="form-control" value="{{ old('name', $customer->name) }}">
+                            @error('name')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                            <br>
+
+                            <label for="email">Email :</label>
+                            <input id="email" type="email" name="email" class="form-control" value="{{ old('email', $customer->email) }}">
+                            @error('email')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                            <br>
+
+                            <label for="gender">Gender :</label>
+                            <select id="gender" name="gender" class="form-control">
+                                <option value="1" {{ $customer->gender == 1 ? 'selected' : '' }}>Male</option>
+                                <option value="0" {{ $customer->gender == 0 ? 'selected' : '' }}>Female</option>
+                            </select>
+                            @error('gender')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                            <br>
+
+                            <label for="address">Address :</label>
+                            <input id="address" type="text" name="address" class="form-control" value="{{ old('address', $customer->address) }}">
+                            @error('address')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                            <br>
+
+                            <label for="phone">Phone :</label>
+                            <input id="phone" type="text" name="phone" class="form-control" value="{{ old('phone', $customer->phone) }}">
+                            @error('phone')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                            <br>
+
+                            <label for="image">Image :</label>
+                            <input id="image" type="file" name="image" class="form-control">
+                            @error('image')
+                            <span class="text-danger">{{$message}}</span>
+                            @enderror
+                            <br>
+
+                            <div style="justify-content: center" class="row">
+                                <button style="width: 100px" class="btn btn-dark" type="submit">Update</button>
+                            </div>
+                        </form>
+
+
                 </div>
             </div>
         </div>
@@ -129,6 +139,7 @@
 <script src="{{asset('vendor/chartjs/Chart.bundle.min.js')}}"></script>
 <script src="{{asset('vendor/select2/select2.min.js')}}">
 </script>
+
 <!-- Main JS-->
 <script src="{{asset('js/main.js')}}"></script>
 

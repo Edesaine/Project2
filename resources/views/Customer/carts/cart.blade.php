@@ -597,12 +597,11 @@
 <div class="mt-5" id="alertDiv">
 </div>
 @if (session('success'))
-    @include('partials.flashMsgSuccess')
+    @include('partials.flashMsgSuccessCenter')
 @endif
 {{--alert edit fail--}}
-
 @if (session('failed'))
-    @include('partials.flashMsgFail')
+    @include('partials.flashMsgFailCenter')
 @endif
 <div id="page" class="jkit-template  site">
 

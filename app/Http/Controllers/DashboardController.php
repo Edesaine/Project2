@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Order;
 use App\Models\Task;
 use App\Models\Book;
+use App\Models\Admin;
 use App\Models\OrderDetail;
 use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,7 @@ class DashboardController extends Controller
     {
         $LoginName = Session::get('loginname');
         $LoginEmail = Session::get('loginemail');
+        $admins=Admin::get();
 
         // Lấy dữ liệu thống kê
         $soldProductsCount = OrderDetail::sum('sold_quantity');
@@ -85,8 +87,9 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
-        $lowStockBooks = Book::orderBy('quantity', 'asc')
-            ->take(5)
+        $lowStockBooks = Book::where('quantity', '<', 10)
+            ->orderBy('quantity', 'asc')
+            ->take(10)
             ->get();
 
         $tasks = Task::all();
@@ -94,7 +97,7 @@ class DashboardController extends Controller
         return view('admin.layouts.dashboard', [
             'firstChartData' => $firstChartData,
             /*'secondChartData' => $secondChartData,*/], compact('LoginName', 'LoginEmail',
-            'stats','soldProducts','topBooks','tasks','topCustomers','lowStockBooks'));
+            'stats','soldProducts','topBooks','tasks','topCustomers','lowStockBooks','admins'));
     }
 
     public function addTask(Request $request)
@@ -105,7 +108,7 @@ class DashboardController extends Controller
         $task->time = $request->input('time');
         $task->date = $request->input('date');
         $task->status = $request->input('status');
-        $task->user_id = $request->input('user_id'); // Giả sử bạn có user_id
+        $task->admin_id = $request->input('admin_id');// lay id admin de tao task
 
         $task->save();
 

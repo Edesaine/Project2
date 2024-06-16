@@ -11,57 +11,66 @@ class DischargeController extends Controller
 {
     public function discharge()
     {
+        // Khởi tạo giỏ hàng và tổng tiền
         $carts = [];
         $totalPrice = Session::get('amount');
-        if (Session::get('cart') != null) {
+
+        // Kiểm tra nếu giỏ hàng không rỗng
+        if (Session::has('cart')) {
             $carts = Session::get('cart');
 
-            foreach ($carts as $categories => $category) {
-                $countCurrentBook = Book::where('NumberOfCategories', '=', $categories)
-                    ->where('status', '=', 0)
+            // Lặp qua từng sách trong giỏ hàng
+            foreach ($carts as $bookId => $book) {
+                // Kiểm tra số lượng sách hiện tại
+                $countCurrentBook = Book::where('id', $bookId)
+                    ->where('status', 0)
                     ->count();
-                $cartQuantity = $category['quantity'];
+                $cartQuantity = $book['quantity'];
 
+                // Nếu sách đã hết hàng
                 if ($countCurrentBook == 0) {
-                    unset($carts[$categories]);
-                    Session::put('cart', $carts);
-                    return Redirect::route('Customer.carts.cart');
-                } //neu so luong phong hien tai it hon trong cart
-                else if ($countCurrentBook < $cartQuantity) {
-                    $carts[$categories]['quantity'] = $countCurrentBook;
+                    unset($carts[$bookId]);
                     Session::put('cart', $carts);
                     return Redirect::route('Customer.carts.cart')->with('failed', 'An error occurred: the book is out of stock!');
+                }
+                // Nếu số lượng sách hiện tại ít hơn số lượng trong giỏ hàng
+                else if ($countCurrentBook < $cartQuantity) {
+                    $carts[$bookId]['quantity'] = $countCurrentBook;
+                    Session::put('cart', $carts);
+                    return Redirect::route('Customer.carts.cart')->with('failed', 'An error occurred: the book quantity has been updated due to stock limitations!');
                 }
             }
         } else {
             $carts = null;
         }
-        if ($carts == null) {
-            return Redirect::route('Customer.carts.cart');
+
+        if (empty($carts)) {
+            return Redirect::route('Customer.carts.cart')->with('failed', 'Your cart is empty.');
         }
 
         return view('Customer.discharge.discharge', compact('carts', 'totalPrice'));
     }
 
+
     public function dischargeProcess(Request $request)
     {
-        if (!Session::exists('cart')) {
-            return Redirect::route('Customer.carts.cart')->with('failed', 'Cart is empty !');
+        if (!Session::has('cart')) {
+            return Redirect::route('Customer.carts.cart')->with('failed', 'Cart is empty!');
         }
+
         $carts = Session::get('cart');
-        foreach ($carts as $categories => $category) {
-            $countCurrentBook = Book::where('NumberOfCategories', '=', $categories)
-                ->where('status', '=', 0)
+        foreach ($carts as $bookId => $book) {
+            $countCurrentBook = Book::where('id', $bookId)
+                ->where('status', 0)
                 ->count();
-            $cartQuantity = $category['quantity'];
+            $cartQuantity = $book['quantity'];
 
             if ($countCurrentBook == 0) {
-                unset($carts[$categories]);
+                unset($carts[$bookId]);
                 Session::put('cart', $carts);
                 return Redirect::route('Customer.carts.cart');
-            } //neu so luong sach hien tai it hon trong cart
-            else if ($countCurrentBook < $cartQuantity) {
-                $carts[$categories]['quantity'] = $countCurrentBook;
+            } elseif ($countCurrentBook < $cartQuantity) {
+                $carts[$bookId]['quantity'] = $countCurrentBook;
                 Session::put('cart', $carts);
                 return Redirect::route('Customer.carts.cart')->with('failed', 'An error occurred: the book is out of stock!');
             }
@@ -72,11 +81,10 @@ class DischargeController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'note' => $request->note,
-            'amount' => $request->amount
+            'amount' => $request->total_price,
         ]);
 
-        //thanh toan sau
-        if ($request->pay_later != null) {
+        if ($request->has('pay_later')) {
             Session::put('pay_later', true);
             return Redirect::route('Customer.carts.orderHistory');
         }

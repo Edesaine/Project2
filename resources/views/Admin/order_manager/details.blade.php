@@ -36,6 +36,13 @@
     <link href="{{asset('css/theme.css')}}" rel="stylesheet" media="all">
 
 </head>
+@if (session('success'))
+    @include('partials.flashMsgSuccess')
+@endif
+{{--alert edit fail--}}
+@if (session('failed'))
+    @include('partials.flashMsgFail')
+@endif
 <body class="animsition">
 <div class="page-wrapper">
 
@@ -58,7 +65,7 @@
                     <div class="row">
                         <h1 style="text-align: center" class="col-4 offset-4">Order Details</h1>
                         <div class="col-3 offset-1" style="width: 100%;height: 120px">
-                            @if($status->status==0)
+                            @if($status->status == 0)
                                 <form enctype='multipart/form-data' action="{{ url('order/'.$id.'/details') }}" method="POST">
                                     @method('PUT')
                                     @csrf
@@ -101,18 +108,15 @@
                                     <div class="form-group">
                                         <label id="status" for="status">Status :
                                             <select name="status">
-                                                <option selected value="1">
-                                                    Approved
-                                                </option>
                                                 <option value="2">
                                                     Delivering
                                                 </option>
                                                 <option value="3">
                                                     Completed
                                                 </option>
-                                                <option value="4">
+                                               {{-- <option value="4">
                                                     Cancelled
-                                                </option>
+                                                </option>--}}
                                             </select>
                                         </label>
                                     </div>
@@ -136,9 +140,6 @@
                                                 </option>
                                                 <option value="3">
                                                     Completed
-                                                </option>
-                                                <option value="4">
-                                                    Cancelled
                                                 </option>
                                             </select>
                                         </label>

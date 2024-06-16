@@ -36,6 +36,13 @@
     <link href="{{asset('css/theme.css')}}" rel="stylesheet" media="all">
 
 </head>
+@if (session('success'))
+    @include('partials.flashMsgSuccess')
+@endif
+{{--alert edit fail--}}
+@if (session('failed'))
+    @include('partials.flashMsgFail')
+@endif
 <body class="animsition">
 <div class="page-wrapper">
 
@@ -55,10 +62,7 @@
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
-                    <h1 style="text-align: center">Order</h1>
-                    <a href="{{url('order/create')}}" class="btn btn-outline-dark">Add Order</a>
-                    <br>
-                    <br>
+
                     <table  class="table table-light ">
                         <tr>
                             <th>ID</th>
@@ -80,20 +84,20 @@
                                 <td>{{$order->name}}</td>
                                 <td>{{$order->amount}}</td>
                                 <td>
-                                    @if($order->status==0)
+                                    @if($order->status == 0)
                                         <span style="color: #e67e22;font-weight: bold">Pending</span>
                                     @endif
-                                    @if($order->status==1)
+                                    @if($order->status == 1)
                                         <span style="color: #f1c40f;font-weight: bold">Approved</span>
                                     @endif
-                                    @if($order->status==2)
-                                        <span style="color: #3498db;font-weight: bold">Delivering</span>
+                                    @if($order->status == 2)
+                                            <span style="color: #3498db;font-weight: bold">Delivering</span>
                                     @endif
-                                    @if($order->status==3)
-                                        <span style="color: #2ecc71;font-weight: bold">Completed</span>
+                                    @if($order->status == 3)
+                                            <span style="color: #2ecc71;font-weight: bold">Completed</span>
                                     @endif
-                                    @if($order->status==4)
-                                        <span style="color: #e74c3c;font-weight: bold">Cancelled</span>
+                                    @if($order->status == 4)
+                                            <span style="color: #e74c3c;font-weight: bold">Cancelled</span>
                                     @endif
                                 </td>
                                 <td>{{$order->paymentname}}</td>
@@ -102,7 +106,8 @@
                                 <td>{{$order->receiver_phone}}</td>
                                 <td>{{$order->receiver_address}}</td>
                                 <td>
-                                    <a style="width: 80px;text-align: center;margin-top: 5px" href="{{url('order/'.$order->id.'/delete')}}" class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>
+                                    {{--<a style="width: 80px;text-align: center;margin-top: 5px" href="{{url('order/'.$order->id.'/delete')}}"
+                                       class="btn btn-danger" onclick="return confirm('Are you sure ?')">Delete</a>--}}
                                     <a style="width: 80px;text-align: center;margin-top: 5px" href="{{url('order/'.$order->id.'/details')}}" class="btn btn-secondary">Details</a>
                                 </td>
 

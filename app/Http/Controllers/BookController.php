@@ -24,9 +24,20 @@ class BookController extends Controller
     public function bookDetail(int $id, Request $request)
     {
         $customer = Auth::guard('customer')->user();
-        $book = Book::with('authors', 'categories')->findOrFail($id);
-        $fileName = '';
+        $book = Book::findOrFail($id);
+
+
         $pub = Publisher::findOrFail($book->publisher_id);
+        $authors = AuthorBook::join('authors','authorbook.author_id','=','authors.id')
+            ->where('AuthorBook.book_id','=',$id)
+            ->select('authors.name as name')
+            ->get();
+        $categories = CategoryBook::join('categories','CategoryBook.category_id','=','categories.id')
+            ->where('CategoryBook.book_id','=',$id)
+            ->select('categories.name as name')
+            ->get();
+
+        $fileName = '';
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('public/uploads/books/');
@@ -42,8 +53,7 @@ class BookController extends Controller
 
         $relaBook = Book::orderBy('quantity', 'asc')->take(6)->get();
         return view('Customer.product.detail', ['relaBook' => $relaBook],
-            compact('customer','book','pub','fileName'));
-    }
+            compact('customer','book','pub','fileName','categories','authors'));    }
 
     public function cart()
     {
@@ -128,14 +138,28 @@ class BookController extends Controller
 
     public function updateCartQuantity(int $id, Request $request)
     {
-        //        lay cart hien tai
-        $cart = Session::get('cart');
-//        cap nhat so luong
-        $cart[$id]['quantity'] = $request->buy_quantity;
-        //        cap nhat cart moi
-        Session::put(['cart' => $cart]);
-        return Redirect::back();
+        // Lấy thông tin sách từ cơ sở dữ liệu
+        $book = Book::findOrFail($id);
+
+        // Kiểm tra số lượng mua sách không vượt quá số lượng có sẵn trong cơ sở dữ liệu
+        if ($request->buy_quantity <= $book->quantity && $request->buy_quantity > 0) {
+            // Lấy giỏ hàng hiện tại từ Session
+            $cart = Session::get('cart');
+
+            // Cập nhật số lượng sách trong giỏ hàng
+            $cart[$id]['quantity'] = $request->buy_quantity;
+
+            // Cập nhật giỏ hàng mới vào Session
+            Session::put(['cart' => $cart]);
+
+            // Redirect trở lại trang giỏ hàng
+            return Redirect::back()->with('success', 'Cart updated successfully');
+        } else {
+            // Nếu số lượng mua sách vượt quá số lượng có sẵn hoặc là số lượng không hợp lệ, thực hiện xử lý tương ứng
+            return Redirect::back()->with('error', 'Invalid quantity or quantity exceeds available stock');
+        }
     }
+
 
     public function deleteFromCart(Request $request)
     {
@@ -153,7 +177,6 @@ class BookController extends Controller
     {
 //       xoa cart
         Session::forget('cart');
-
         return Redirect::back();
     }
 
@@ -200,15 +223,18 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:books,name',
             'price' => 'required|string',
             'quantity' => 'required|integer',
             'description' => 'required|string',
             'publisher_id' => 'required|integer',
             'NumberOfPages' => 'required|integer',
             'NumberOfAuthors' => 'required|integer',
-            'NumberOfCategories' => 'required|integer'
+            'NumberOfCategories' => 'required|integer',
+        ], [
+            'name.unique' => 'The book title already exists on the store, please choose another name !'
         ]);
+
         if($request->has('image')){
 
             $file = $request->file('image');
@@ -228,9 +254,10 @@ class BookController extends Controller
             'publisher_id' => $request->publisher_id,
             'NumberOfAuthors' => $request->NumberOfAuthors,
             'NumberOfCategories' => $request->NumberOfCategories,
-            'NumberOfPages' => $request->NumberOfPages
+            'NumberOfPages' => $request->NumberOfPages,
+
         ]);
-        $book=Book::where('name',$request->name)
+        $book = Book::where('name',$request->name)
             ->first();
         return redirect()->route('book.addinformation', ['id' => $book->id]);
 
@@ -249,6 +276,10 @@ class BookController extends Controller
         $bookId = $request->id;
         $authorIds = [];
         $categoryIds = [];
+        AuthorBook::where('book_id','=',$bookId)
+            ->delete();
+        CategoryBook::where('book_id','=',$bookId)
+            ->delete();
 
         foreach ($request->all() as $key => $value) {
             if (strpos($key, 'author_id') === 0 && !is_null($value)) {
@@ -274,7 +305,19 @@ class BookController extends Controller
                 'category_id' => $categoryId
             ]);
         }
-        return redirect('book/index');
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
+        $book = Book::findOrFail($bookId);
+        $pub=Publisher::findOrFail($book->publisher_id);
+        $authors = AuthorBook::join('authors','authorbook.author_id','=','authors.id')
+            ->where('AuthorBook.book_id','=',$bookId)
+            ->select('authors.name as name')
+            ->get();
+        $categories = CategoryBook::join('categories','CategoryBook.category_id','=','categories.id')
+            ->where('CategoryBook.book_id','=',$bookId)
+            ->select('categories.name as name')
+            ->get();
+        return view('admin.book_manager.detail', compact('book','pub','categories','authors','LoginName','LoginEmail'));
     }
 
     public function edit(int $id)
@@ -288,6 +331,8 @@ class BookController extends Controller
     }
 
     public function update(Request $request, int $id){
+        $LoginName= Session::get('loginname');
+        $LoginEmail= Session::get('loginemail');
         $request->validate([
             'name' => 'required|string',
             'price' => 'required|string',
@@ -317,40 +362,82 @@ class BookController extends Controller
             $image = $book->image;
         }
 
-        $book->update([
-            'name' => $request->name,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-            'image' => $image,
-            'description' => $request->description,
-            'publisher_id' => $request->publisher_id,
-            'NumberOfAuthors' => $request->NumberOfAuthors,
-            'NumberOfCategories' => $request->NumberOfCategories,
-            'NumberOfPages' => $request->NumberOfPages
-        ]);
-        return redirect()->back()->with('status','Books Edited !');
+        if($book->NumberOfAuthors > $request->NumberOfAuthors || $book->NumberOfCategories > $request->NumberOfCategories)
+        {
+            $book->update([
+                'name' => $request->name,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'image' => $image,
+                'description' => $request->description,
+                'publisher_id' => $request->publisher_id,
+                'NumberOfAuthors' => $request->NumberOfAuthors,
+                'NumberOfCategories' => $request->NumberOfCategories,
+                'NumberOfPages' => $request->NumberOfPages
+            ]);
+            $book = Book::findOrFail($id);
+            $authors = Author::get();
+            $categories= Category::get();
+            return view('Admin.book_manager.addinfomation',compact('categories','authors','book','LoginName','LoginEmail'));
+        }else {
+            $book->update([
+                'name' => $request->name,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'image' => $image,
+                'description' => $request->description,
+                'publisher_id' => $request->publisher_id,
+                'NumberOfAuthors' => $request->NumberOfAuthors,
+                'NumberOfCategories' => $request->NumberOfCategories,
+                'NumberOfPages' => $request->NumberOfPages
+            ]);
+            $book = Book::findOrFail($id);
+            $pub = Publisher::findOrFail($book->publisher_id);
+            $authors = AuthorBook::join('authors', 'authorbook.author_id', '=', 'authors.id')
+                ->where('AuthorBook.book_id', '=', $id)
+                ->select('authors.name as name')
+                ->get();
+            $categories = CategoryBook::join('categories', 'CategoryBook.category_id', '=', 'categories.id')
+                ->where('CategoryBook.book_id', '=', $id)
+                ->select('categories.name as name')
+                ->get();
+            return view('admin.book_manager.detail', compact('book', 'pub', 'categories', 'authors',
+                'LoginName', 'LoginEmail'));
+        }
     }
+
     public function delete(int $id)
     {
         $book = Book::findOrFail($id);
-        if(File::exists($book->image)){
+
+        // Xóa hình ảnh nếu tồn tại
+        if (File::exists($book->image)) {
             File::delete($book->image);
         }
+
+        // Xóa các bản ghi liên quan trong bảng authorbook
+        AuthorBook::where('book_id', $id)->delete();
+
+        // Xóa các bản ghi liên quan trong bảng categorybook
+        CategoryBook::where('book_id', $id)->delete();
+
+        // Xóa sách
         $book->delete();
 
-        return redirect()->back()->with('status','Book Deleted !');
+        return redirect()->back()->with('success', 'Book Deleted !');
     }
+
 
     public function ChangeStatus(int $id)
     {
         $book = Book::findOrFail($id);
         if($book->status==0){
             $book->update([
-                'status'=>1
+                'status' => 1
             ]);
         } else{
             $book->update([
-                'status'=>0
+                'status' => 0
             ]);
         }
         return redirect()->back()->with('status','Books Edited !');
@@ -361,14 +448,17 @@ class BookController extends Controller
         $LoginEmail= Session::get('loginemail');
 
         $book = Book::findOrFail($id);
-        $info=DB::table('books')
-            ->join('publishers','books.publisher_id','=','publishers.id')
-            ->join('authorbooks','books.publisher_id','=','publishers.id')
-            ->where('books.id','=',$id)
-            ->select('books.*','publishers.name as publisher')
+        $pub=Publisher::findOrFail($book->publisher_id);
+        $authors = AuthorBook::join('authors','authorbook.author_id','=','authors.id')
+            ->where('AuthorBook.book_id','=',$id)
+            ->select('authors.name as name')
+            ->get();
+        $categories = CategoryBook::join('categories','CategoryBook.category_id','=','categories.id')
+            ->where('CategoryBook.book_id','=',$id)
+            ->select('categories.name as name')
             ->get();
 
-        $publishers= Publisher::get();
-        return view('admin.book_manager.detail', compact('book','info','publishers','LoginName','LoginEmail'));
+        return view('admin.book_manager.detail', compact('book','pub','categories','authors',
+            'LoginName','LoginEmail'));
     }
 }

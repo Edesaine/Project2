@@ -13,11 +13,11 @@
 
 <body>
 @if (session('success'))
-    @include('partials.flashMsgSuccess')
+    @include('partials.flashMsgSuccessCenter')
 @endif
 {{--alert edit fail--}}
 @if (session('failed'))
-    @include('partials.flashMsgFail')
+    @include('partials.flashMsgFailCenter')
 @endif
 <div class="container light-style flex-grow-1 container-p-y">
     <h4 class="font-weight-bold py-3 mb-4">
@@ -101,9 +101,7 @@
     </div>
             <div class="text-right mt-3">
                 <button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
-                <button type="button" class="btn btn-danger" >
-                    <a  href="{{route('home')}}">Home</a>
-                </button>
+                    <a class="btn btn-danger" href="{{route('home')}}">Home</a>
             </div>
     </form>
 </div>

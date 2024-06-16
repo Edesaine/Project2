@@ -15,11 +15,11 @@
 </style>
 <body>
 @if (session('success'))
-    @include('partials.flashMsgSuccess')
+    @include('partials.flashMsgSuccessCenter')
 @endif
 {{--alert edit fail--}}
 @if (session('failed'))
-    @include('partials.flashMsgFail')
+    @include('partials.flashMsgFailCenter')
 @endif
 <section class="ftco-section">
     <div class="container">

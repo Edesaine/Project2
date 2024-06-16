@@ -34,7 +34,9 @@
 </head>
 <body class="animsition">
 <div class="page-wrapper">
-
+    <?php
+    $url='category'
+    ?>
     <!-- MENU SIDEBAR-->
 
     @include('admin.layouts.sidebar')
