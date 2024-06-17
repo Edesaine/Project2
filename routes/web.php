@@ -69,8 +69,13 @@ Route::get('order/{id}/ApproveOrder',[\App\Http\Controllers\OrderController::cla
 
 Route::get('customer/index',[\App\Http\Controllers\CustomerController::class,'index'])->middleware('AdminLogged');
 Route::post('customer/index',[\App\Http\Controllers\CustomerController::class,'store'])->middleware('AdminLogged');
+
+Route::get('customer/{id}/edit',[\App\Http\Controllers\CustomerController::class,'edit'])->middleware('AdminLogged')->name('getEditCustomer');
+Route::put('customer/{id}/edit',[\App\Http\Controllers\CustomerController::class,'update'])->middleware('AdminLogged')->name('postEditCustomer');
+
 Route::get('customer/{id}/delete',[\App\Http\Controllers\CustomerController::class,'delete'])->middleware('AdminLogged');
 Route::get('customer/{id}/changestatus',[CustomerController::class,'ChangeStatus'])->middleware('AdminLogged');
+
 
 Route::get('book/index',[BookController::class,'index'])->middleware('AdminLogged');
 Route::get('book/create',[BookController::class,'create'])->middleware('AdminLogged');
@@ -80,10 +85,7 @@ Route::post('book/additional-information',[BookController::class,'addinfomationp
 Route::get('book/{id}/edit',[BookController::class,'edit'])->middleware('AdminLogged');
 Route::put('book/{id}/edit',[BookController::class,'update'])->middleware('AdminLogged');
 Route::get('book/{id}/changestatus',[BookController::class,'ChangeStatus'])->middleware('AdminLogged');
-
-
 Route::get('book/{id}/detail',[BookController::class,'detail'])->middleware('AdminLogged');
-Route::get('book/{id}/delete',[BookController::class,'delete'])->middleware('AdminLogged');
 
 Route::get('/admin-login', [App\Http\Controllers\AdminAuthController::class,'adminlogin']);
 Route::post('/adminlogin_process', [App\Http\Controllers\AdminAuthController::class,'loginprocess'])->name('loginprocess');
@@ -119,7 +121,7 @@ Route::middleware(LoginCheckingCustomer::class)->group(function () {
 //Discharge
 Route::prefix('/discharge')->group(function () {
     Route::get('', [DischargeController::class, 'discharge'])->name('Customer.discharge');
-    Route::post('', [DischargeController::class,'dischargeProcess'])->name('Customer.dischargeProcess');
+    Route::post('process', [DischargeController::class,'dischargeProcess'])->name('Customer.dischargeProcess');
     Route::get('/redirect', [DischargeController::class, 'dischargeRedirect'])->name('Customer.dischargeRedirect');
     Route::post('/vnpay', [DischargeController::class, 'vnpay_discharge'])->name('Customer.vnpay');
     Route::get('/dischargeSuccess', [DischargeController::class, 'dischargeSuccess'])->name('Customer.dischargeSuccess');
