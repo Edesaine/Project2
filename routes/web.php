@@ -63,8 +63,12 @@ Route::put('order/{id}/edit',[\App\Http\Controllers\OrderController::class,'upda
 Route::get('order/{id}/delete',[\App\Http\Controllers\OrderController::class,'delete'])->middleware('AdminLogged');
 Route::get('order/{id}/details',[\App\Http\Controllers\OrderController::class,'details'])->middleware('AdminLogged');
 Route::put('order/{id}/details',[\App\Http\Controllers\OrderController::class,'ChangeStatus'])->middleware('AdminLogged');
+Route::get('order/{id}/ChangeStatus',[\App\Http\Controllers\OrderController::class,'ChangeStatus'])->middleware('AdminLogged');
+Route::get('order/approve_orders',[\App\Http\Controllers\OrderController::class,'approve'])->middleware('AdminLogged');
+Route::get('order/{id}/ApproveOrder',[\App\Http\Controllers\OrderController::class,'ApproveOrder'])->middleware('AdminLogged');
 
 Route::get('customer/index',[\App\Http\Controllers\CustomerController::class,'index'])->middleware('AdminLogged');
+Route::post('customer/index',[\App\Http\Controllers\CustomerController::class,'store'])->middleware('AdminLogged');
 Route::get('customer/{id}/delete',[\App\Http\Controllers\CustomerController::class,'delete'])->middleware('AdminLogged');
 Route::get('customer/{id}/changestatus',[CustomerController::class,'ChangeStatus'])->middleware('AdminLogged');
 
@@ -141,7 +145,7 @@ Route::get('/logout', [CustomerController::class, 'logout'])->name('Customer.acc
 Route::get('/forgot_password', [CustomerController::class, 'forgotPassword'])->name('Customer.forgotPassword');
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
-
+Route::get('/search',[App\Http\Controllers\HomeController::class, 'search'])->name('search');
 Route::get('book/{id}', [BookController::class, 'bookDetail'])->name('Customer.product.detail');
 
 Route::get('/charts', [ChartController::class, 'index'])->name('Admin.layouts.charts');

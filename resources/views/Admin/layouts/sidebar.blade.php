@@ -45,7 +45,7 @@
                         <i class="fas fa-cog"></i>Function</a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
                         <li>
-                            <a href="{{url('order/approve_orders')}}">Unapproved orders</a>
+                            <a href="{{url('order/approve_orders')}}">Approve Orders</a>
                         </li>
 
                     </ul>

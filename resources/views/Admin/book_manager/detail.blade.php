@@ -37,13 +37,7 @@
 
 
 </head>
-@if (session('success'))
-    @include('partials.flashMsgSuccessCenter')
-@endif
-{{--alert edit fail--}}
-@if (session('failed'))
-    @include('partials.flashMsgFailCenter')
-@endif
+
 <body class="animsition">
 <?php
 $url='book'
@@ -65,63 +59,63 @@ $url='book'
                     <div class="alert alert-success">{{ session('status')}}</div>
                 @endif
                 <a href="{{ url('book/index') }}" class="btn btn-primary float-end">Back</a>
-                <h2 style="text-align: center">Book Details</h2>
-                <br>
-                <hr>
-                <div class="row">
+                <h2 style="text-align: center"> Detail Book</h2>
+                    <br>
+                    <hr>
+            <div class="row">
 
-                    <div style="background: whitesmoke" class="col-4 offset-1">
-                        <img src="{{ asset($book->image) }}" style="width: 330px;height:500px" alt="{{$book->name}}">
-                    </div>
+            <div style="background: whitesmoke" class="col-4 offset-1">
+                <img src="{{ asset($book->image) }}" style="width: 330px;height:500px" alt="{{$book->name}}">
+            </div>
 
-                    <div style="background: whitesmoke" class="col-6">
-                        <span style="font-size: 25px"> Name :</span><span style="margin-left:10px;font-size: 25px;text-align: right">{{$book->name}}</span>
-                        <br>
+                <div style="background: whitesmoke" class="col-6">
+                    <span style="font-size: 25px"> Name :</span><span style="margin-left:10px;font-size: 25px;text-align: right">{{$book->name}}</span>
+                    <br>
 
-                        Price : <span style="margin-left:10px;text-align: right">{{$book->price}} $</span>
-                        <br>
+                    Price : <span style="margin-left:10px;text-align: right">{{$book->price}} $</span>
+                    <br>
 
-                        Quantity :@if($book->quantity==0)
-                            <span style="margin-left:10px;text-align: right">Sold out</span>
+                    Quantity :@if($book->quantity==0)
+                        <span style="margin-left:10px;text-align: right">Sold out</span>
+                    @else
+                        <span style="margin-left:10px;text-align: right">{{$book->quantity}}</span>
+                    @endif
+                    <br>
+                    Status:  @if($book->status==0)
+                        <span style="margin-left:10px;text-align: right">Available now</span>
+                    @else
+                        <span style="margin-left:10px;text-align: right">Unavailable</span>
+                    @endif
+                    <br>
+                    Publisher:  <span style="margin-left:10px;text-align: right">{{$pub->name}}</span>
+                    <br>
+                    Author:   @foreach($authors as $author)
+                        @if ($loop->first)
+                            <span style="margin-left:10px;text-align: right">{{ $author->name }}@if (!$loop->last),@endif</span>
                         @else
-                            <span style="margin-left:10px;text-align: right">{{$book->quantity}}</span>
+                            <span style="text-align: right">{{ $author->name }}@if (!$loop->last),@endif.</span>
                         @endif
-                        <br>
-                        Status:  @if($book->status==0)
-                            <span class="text-primary" style="margin-left:10px;text-align: right">Available now</span>
+                    @endforeach
+                    <br>
+                    Category :  @foreach($categories as $category)
+                        @if ($loop->first)
+                            <span style="margin-left:10px;text-align: right">{{ $category->name }}@if (!$loop->last),@endif</span>
                         @else
-                            <span class="text-danger" style="margin-left:10px;text-align: right">Unavailable</span>
+                            <span style="text-align: right">{{ $category->name }}@if (!$loop->last),@endif.</span>
                         @endif
-                        <br>
-                        Publisher:  <span style="margin-left:10px;text-align: right">{{$pub->name}}</span>
-                        <br>
-                        Author:   @foreach($authors as $author)
-                            @if ($loop->first)
-                                <span style="margin-left:10px;text-align: right">{{ $author->name }}@if (!$loop->last),@endif</span>
-                            @else
-                                <span style="text-align: right">{{ $author->name }}@if (!$loop->last),@endif.</span>
-                            @endif
-                        @endforeach
-                        <br>
-                        Genre :  @foreach($categories as $category)
-                            @if ($loop->first)
-                                <span style="margin-left:10px;text-align: right">{{ $category->name }}@if (!$loop->last),@endif</span>
-                            @else
-                                <span style="text-align: right">{{ $category->name }}@if (!$loop->last),@endif</span>
-                            @endif
-                        @endforeach
-                        <br>
-                        Description : <span style="margin-left:10px;text-align: right">{{$book->description}}</span>
+                    @endforeach
+                    <br>
+                    Description : <span style="margin-left:10px;text-align: right">{{$book->description}}</span>
 
 
-
-
-                    </div>
 
 
                 </div>
-                <br>
-                <br>
+
+
+            </div>
+                    <br>
+                    <br>
                 <a style="margin-left: 35%"  class="btn btn-primary" href="{{url('book/'.$book->id.'/additional-information')}}">
                     EDIT AUTHOR AND CATEGORY
                 </a>
@@ -130,37 +124,37 @@ $url='book'
                 <br>
                 <br>
 
-            </div>
-        </div>
-        <!-- END MAIN CONTENT-->
-        <!-- END PAGE CONTAINER-->
+    </div>
+</div>
+<!-- END MAIN CONTENT-->
+<!-- END PAGE CONTAINER-->
 
 
 
 
-        <!-- Jquery JS-->
-        <script src="{{asset('vendor/jquery-3.2.1.min.js')}}"></script>
-        <!-- Bootstrap JS-->
-        <script src="{{asset('vendor/bootstrap-4.1/popper.min.js')}}"></script>
-        <script src="{{asset('vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
-        <!-- Vendor JS       -->
-        <script src="{{asset('vendor/slick/slick.min.js')}}">
-        </script>
-        <script src="{{asset('vendor/wow/wow.min.js')}}"></script>
-        <script src="{{asset('vendor/animsition/animsition.min.js')}}"></script>
-        <script src="{{asset('vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}">
-        </script>
-        <script src="{{asset('vendor/counter-up/jquery.waypoints.min.js')}}"></script>
-        <script src="{{asset('vendor/counter-up/jquery.counterup.min.js')}}">
-        </script>
-        <script src="{{asset('vendor/circle-progress/circle-progress.min.js')}}"></script>
-        <script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
-        <script src="{{asset('vendor/chartjs/Chart.bundle.min.js')}}"></script>
-        <script src="{{asset('vendor/select2/select2.min.js')}}">
-        </script>
+<!-- Jquery JS-->
+<script src="{{asset('vendor/jquery-3.2.1.min.js')}}"></script>
+<!-- Bootstrap JS-->
+<script src="{{asset('vendor/bootstrap-4.1/popper.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
+<!-- Vendor JS       -->
+<script src="{{asset('vendor/slick/slick.min.js')}}">
+</script>
+<script src="{{asset('vendor/wow/wow.min.js')}}"></script>
+<script src="{{asset('vendor/animsition/animsition.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}">
+</script>
+<script src="{{asset('vendor/counter-up/jquery.waypoints.min.js')}}"></script>
+<script src="{{asset('vendor/counter-up/jquery.counterup.min.js')}}">
+</script>
+<script src="{{asset('vendor/circle-progress/circle-progress.min.js')}}"></script>
+<script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+<script src="{{asset('vendor/chartjs/Chart.bundle.min.js')}}"></script>
+<script src="{{asset('vendor/select2/select2.min.js')}}">
+</script>
 
-        <!-- Main JS-->
-        <script src="{{asset('js/main.js')}}"></script>
+<!-- Main JS-->
+<script src="{{asset('js/main.js')}}"></script>
 
 </body>
 

@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Customer Management</title>
+    <title>Customers</title>
     <link href="{{asset('css/font-face.css')}}" rel="stylesheet" media="all">
     <link href="{{asset('vendor/font-awesome-4.7/css/font-awesome.min.css')}}" rel="stylesheet" media="all">
     <link href="{{asset('vendor/font-awesome-5/css/fontawesome-all.min.css')}}" rel="stylesheet" media="all">
@@ -27,15 +27,7 @@
     <link href="{{asset('css/theme.css')}}" rel="stylesheet" media="all">
 
 </head>
-@if (session('success'))
-    @include('partials.flashMsgSuccess')
-@endif
-{{--alert edit fail--}}
-@if (session('failed'))
-    @include('partials.flashMsgFail')
-@endif
 <body class="animsition">
-
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -45,7 +37,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form enctype='multipart/form-data' action="{{ url('customer/index') }}" method="POST">
+                <form enctype='multipart/form-data' action="{{url('customer/index')}}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="name">Customer Name:</label>
@@ -54,7 +46,7 @@
 
                     <div class="form-group">
                         <label for="file">Choose Image:</label>
-                        <input name="image" type="file" class="form-control-file">
+                        <input type="file" class="form-control-file" name="image">
                     </div>
 
                     <div class="form-group">
@@ -62,32 +54,24 @@
                         <input type="radio" name="gender" value="1" style="margin-left: 40px"> Male
                         <input type="radio" name="gender" value="0" style="margin-left: 40px"> Female <br>
                     </div>
-
                     <div class="form-group">
                         <label for="phone">Phone:</label>
                         <input type="text" class="form-control" name="phone" required>
                     </div>
-
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" name="email" required>
+                        <input type="email" class="form-control" name="email" required >
                     </div>
-
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" name="password" required>
+                        <input type="password" class="form-control" name="password"  required>
                     </div>
-
                     <div class="form-group">
                         <label for="address">Address:</label>
-                        <input type="text" class="form-control" name="address" required>
+                        <input type=text" class="form-control" name="address"  required>
                     </div>
-
-                    <input class="hidden invisible opacity-0" type="hidden"
-                           name="account_status" value="1" readonly>
-
                     <div class="form-group" style="text-align: center">
-                        <button type="submit" class="btn btn-secondary" style="height:40px">ADD</button>
+                        <button type="submit" class="btn btn-secondary"  style="height:40px">ADD</button>
                     </div>
                 </form>
             </div>
@@ -118,7 +102,6 @@
                     </button>
                     <BR>
                     <BR>
-
     <table cellpadding="2px" style="" class="table table-bordered table-striped">
         <tr style="height: 10px">
             <th>ID</th>
@@ -139,7 +122,7 @@
                 <td>{{$cus->name}}</td>
                 <td>
                 @if($cus->image)
-                    <img src="{{ asset('storage/customers/image/' . $cus->image) }}" alt="Customer Image" style="width: 100px; height: auto;">
+                    <img src="{{asset($cus->image)}}" alt="Customer Image" style="width: 100px; height: auto;">
                 @else
                     <img src="{{ asset('images/catmeme.jpg') }}" alt="Default Image" style="width: 100px; height: auto;">
                 @endif
@@ -169,9 +152,8 @@
                 </td>
 
                 <td>
-                    <a href="{{url('customer/'.$cus->id.'/changestatus')}}" class="btn btn-secondary"
+                    <a href="{{url('customer/'.$cus->id.'/changestatus')}}" class="btn btn-primary"
                        style="margin-top: 10px" onclick="return confirm('Are you sure ?')">Change Status</a>
-                    <a href="{{url('customer/'.$cus->id.'/edit')}}"  style="margin-top: 10px" class="btn btn-primary">Edit</a>
                 </td>
             </tr>
         @endforeach

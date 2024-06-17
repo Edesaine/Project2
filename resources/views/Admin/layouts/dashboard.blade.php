@@ -37,13 +37,7 @@
     <link href="{{asset('css/theme.css')}}" rel="stylesheet" media="all">
 
 </head>
-@if (session('success'))
-    @include('partials.flashMsgSuccessCenter')
-@endif
-{{--alert edit fail--}}
-@if (session('failed'))
-    @include('partials.flashMsgFailCenter')
-@endif
+
 <body class="animsition">
 <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog"
      aria-labelledby="addTaskModalLabel" aria-hidden="true">
@@ -141,7 +135,7 @@
                                         </div>
                                         <div class="text">
                                             <h2 id="customersCount">{{ $stats->customersCount }}</h2>
-                                            <span>Members</span>
+                                            <span>Members online</span>
                                         </div>
                                     </div>
 
@@ -173,7 +167,7 @@
                                         </div>
                                         <div class="text">
                                             <h2 id="ordersCount">{{ $stats->ordersCount }}</h2>
-                                            <span>Orders total</span>
+                                            <span>Orders this week</span>
                                         </div>
                                     </div>
 
@@ -326,11 +320,14 @@
                                         @endforeach
                                     </div>
                                     <div class="au-task__footer">
-                                        <button class="au-btn au-btn-load js-load-btn">Load more</button>
+                                        <button class="au-btn au-btn-load js-load-btn">load more</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -341,26 +338,28 @@
 </div>
 
 <!-- Jquery JS-->
-    <script src="{{asset('vendor/jquery-3.2.1.min.js')}}"></script>
+<script src="{{asset('vendor/jquery-3.2.1.min.js')}}"></script>
 <!-- Bootstrap JS-->
-    <script src="{{asset('vendor/bootstrap-4.1/popper.min.js')}}"></script>
-    <script src="{{asset('vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-4.1/popper.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
 <!-- Vendor JS       -->
-    <script src="{{asset('vendor/slick/slick.min.js')}}">
-    </script>
-    <script src="{{asset('vendor/wow/wow.min.js')}}"></script>
-    <script src="{{asset('vendor/animsition/animsition.min.js')}}"></script>
-    <script src="{{asset('vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
-    <script src="{{asset('vendor/counter-up/jquery.waypoints.min.js')}}"></script>
-    <script src="{{asset('vendor/counter-up/jquery.counterup.min.js')}}"></script>
-    <script src="{{asset('vendor/circle-progress/circle-progress.min.js')}}"></script>
-    <script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
-    <script src="{{asset('vendor/chartjs/Chart.bundle.min.js')}}"></script>
-    <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
-{{--<script --}}{{--type="text/javascript"--}}{{-- src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>--}}
+<script src="{{asset('vendor/slick/slick.min.js')}}">
+</script>
+<script src="{{asset('vendor/wow/wow.min.js')}}"></script>
+<script src="{{asset('vendor/animsition/animsition.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-progressbar/bootstrap-progressbar.min.js')}}">
+</script>
+<script src="{{asset('vendor/counter-up/jquery.waypoints.min.js')}}"></script>
+<script src="{{asset('vendor/counter-up/jquery.counterup.min.js')}}">
+</script>
+<script src="{{asset('vendor/circle-progress/circle-progress.min.js')}}"></script>
+<script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
+<script src="{{asset('vendor/chartjs/Chart.bundle.min.js')}}"></script>
+<script src="{{asset('vendor/select2/select2.min.js')}}">
+</script>
 
 <!-- Main JS-->
-    <script src="{{asset('js/main.js')}}"></script>
+<script src="{{asset('js/main.js')}}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
